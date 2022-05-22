@@ -1,0 +1,84 @@
+/* BEGIN - FONT DEFINITION */
+/* ARABIC FONT */
+@font-face {
+  font-family: "Noto";
+  src: url("/assets/fonts/noto-arabic/NotoSansArabic-Light.otf");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto";
+  src: url("/assets/fonts/noto-arabic/NotoSansArabic-Medium.otf");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto";
+  src: url("/assets/fonts/noto-arabic/NotoSansArabic-Regular.otf");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto";
+  src: url("/assets/fonts/noto-arabic/NotoSansArabic-Bold.otf");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto";
+  src: url("/assets/fonts/noto-arabic/NotoSansArabic-Black.otf");
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* FRENCH FONT */
+@font-face {
+  font-family: "Circular";
+  src: url("/assets/fonts/circular/CircularStd-Light.otf");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("/assets/fonts/circular/CircularStd-Medium.otf");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("/assets/fonts/circular/CircularStd-Regular.otf");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("/assets/fonts/circular/CircularStd-Bold.otf");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular";
+  src: url("/assets/fonts/circular/CircularStd-Black.otf");
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* END - FONT DEFINITION */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Circular, Noto, sans-serif;
+  }
+}
