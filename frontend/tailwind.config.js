@@ -26,6 +26,9 @@ module.exports = {
           "2xl": "6rem",
         },
       },
+      boxShadow: {
+        header: "0 0.375rem 0.875rem rgb(0 0 0 / 10%)",
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],
