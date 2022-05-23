@@ -9,9 +9,9 @@ import {
 export default function Footer() {
   return (
     <footer className="w-fill py-4 bg-white border-t border-lightDark/30">
-      <div className="container h-20 flex justify-between items-center">
+      <div className="container flex flex-col-reverse md:flex-row justify-between items-center gap-4 md:gap-0 py-4">
         {/* rights & extra-links */}
-        <div className="flex font-normal text-base items-center gap-5 text-dark">
+        <div className="flex flex-col-reverse md:flex-row font-normal text-base items-center gap-5 text-dark">
           <p className="font-medium text-lightDark">© 2022 NAME_HERE</p>
           <ul className="flex items-center gap-4">
             <li className="">

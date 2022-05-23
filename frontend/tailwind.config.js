@@ -38,6 +38,7 @@ module.exports = {
       },
       boxShadow: {
         header: "0 0.375rem 0.875rem rgb(0 0 0 / 10%)",
+        "header-light": "0 0.125rem 0.1875rem -0.125rem rgb(0 0 0 / 20%)",
       },
     },
   },
