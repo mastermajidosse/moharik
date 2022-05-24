@@ -1,6 +1,6 @@
 export default function ProjectCard() {
   return (
-    <div className="flex flex-col shadow-lg">
+    <div className="group flex flex-col shadow-md hover:shadow-lg duration-200 cursor-pointer">
       <figure className="relative h-52 overflow-hidden">
         <img
           className="w-full h-full bg-cover"
@@ -12,7 +12,7 @@ export default function ProjectCard() {
           <div className="w-1/2 h-full bg-primary" />
         </div>
       </figure>
-      <div className="w-full h-52 bg-white px-2 py-4 flex flex-col gap-2">
+      <div className="w-full h-52 bg-white group-hover:bg-primary-50/10 duration-200 px-2 py-4 flex flex-col gap-2">
         <ul className="text-sm font-medium flex flex-wrap gap-2">
           <li className="w-fit text-primary">Medical,</li>
           <li className="w-fit text-primary">Hisrtry,</li>
