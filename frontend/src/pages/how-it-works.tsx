@@ -4,7 +4,7 @@ import {
   PersonPlusIcon,
   ChevronBarDownIcon,
   VideoPlayerIcon,
-} from "../components/materials/icons";
+} from "../components/materials/Icons";
 export default function HowItWorksPage() {
   return (
     <div className="mt-20 py-16 md:py-24">
