@@ -7,7 +7,7 @@ import {
 } from "../components/materials/icons";
 export default function HowItWorksPage() {
   return (
-    <>
+    <div className="mt-20 py-16 md:py-24">
       {/* page title */}
       <section className="container flex flex-col gap-2 text-center justify-center items-center">
         <h1 className="text-4xl text-dark font-bold mb-4">How XXXXX Works</h1>
@@ -100,6 +100,6 @@ export default function HowItWorksPage() {
           </span>
         </SquaredSolidButton>
       </section>
-    </>
+    </div>
   );
 }

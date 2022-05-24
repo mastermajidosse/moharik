@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <>
+    <div className="mt-20 py-16 md:py-24">
       <section className="container">
         <h1 className="text-4xl text-dark font-bold mb-6">
           About PROJECT_NAME
@@ -51,6 +51,6 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-    </>
+    </div>
   );
 }
