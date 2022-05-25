@@ -6,9 +6,11 @@ export default function ProjectsPage() {
     <>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col gap-12">
         <div className="">
-          <div className="mb-8">
-            <h2 className="text-2xl font-medium">Fundraising categories</h2>
-            <p className="w-3/4 text-lightDark mt-2">
+          <div className="mb-8 text-center md:text-left">
+            <h2 className="text-2xl font-bold text-dark">
+              Fundraising categories
+            </h2>
+            <p className="w-full md:w-3/4 text-lightDark mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
               dignissimos accusantium accusamus ut voluptatum iste modi
@@ -17,7 +19,7 @@ export default function ProjectsPage() {
           </div>
           <CategoriesStripe />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {Array.from(Array(12)).map((_, idx) => (
             <ProjectCard key={idx} />
           ))}

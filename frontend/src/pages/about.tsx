@@ -1,18 +1,18 @@
 export default function AboutPage() {
   return (
-    <div className="mt-20 py-16 md:py-24">
+    <div className="mt-10 py-16 md:py-24">
       <section className="container">
-        <h1 className="text-4xl text-dark font-bold mb-6">
+        <h1 className="text-2xl md:text-3xl text-dark font-bold mb-6 text-center">
           About PROJECT_NAME
         </h1>
-        <div className="flex flex-col gap-4">
-          <p className="text-lightDark font-medium text-lg leading-relaxed tracking-wide">
+        <div className="flex flex-col gap-4 text-center">
+          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
             There’s a part of every one of us that dreams of a better world.
             That spark of inspiration to help a person, fix a neighborhood, or
             even change a nation. At PROJECT_NAME, we believe your inspiration
             should be shared with everyone. Because that is how change happens.
           </p>
-          <p className="text-lightDark font-medium text-lg leading-relaxed tracking-wide">
+          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
             That’s why we make it easy to inspire the world and turn compassion
             into action. By giving people the tools they need to capture and
             share their story far and wide, we have built a community of more
@@ -32,17 +32,17 @@ export default function AboutPage() {
       </section>
       {/* more info */}
       <section className="container">
-        <h2 className="text-2xl text-dark font-bold mb-6">
+        <h2 className="text-center text-2xl text-dark font-bold mb-6">
           More About PROJECT_NAME
         </h2>
-        <div className="flex flex-col gap-4">
-          <p className="text-lightDark font-medium text-lg leading-relaxed tracking-wide">
+        <div className="flex flex-col gap-4 text-center">
+          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
             There’s a part of every one of us that dreams of a better world.
             That spark of inspiration to help a person, fix a neighborhood, or
             even change a nation. At PROJECT_NAME, we believe your inspiration
             should be shared with everyone. Because that is how change happens.
           </p>
-          <p className="text-lightDark font-medium text-lg leading-relaxed tracking-wide">
+          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
             That’s why we make it easy to inspire the world and turn compassion
             into action. By giving people the tools they need to capture and
             share their story far and wide, we have built a community of more

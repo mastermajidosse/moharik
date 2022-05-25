@@ -17,7 +17,7 @@ export default function Header() {
         "bg-white shadow-header-light shadow-dark/30": route !== "/",
       })}
     >
-      <nav className="container h-14 flex items-center justify-between">
+      <nav className="container h-8 md:h-14 flex items-center justify-between">
         <Link href="/">
           <figure className="cursor-pointer">
             <h1 className="text-xl font-bold text-primary">LOGO-ICI</h1>

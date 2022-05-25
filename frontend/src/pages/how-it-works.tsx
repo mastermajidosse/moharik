@@ -7,11 +7,11 @@ import {
 } from "../components/materials/Icons";
 export default function HowItWorksPage() {
   return (
-    <div className="mt-20 py-16 md:py-24">
+    <div className="mt-10 py-16 md:py-24">
       {/* page title */}
       <section className="container flex flex-col gap-2 text-center justify-center items-center">
         <h1 className="text-4xl text-dark font-bold mb-4">How XXXXX Works</h1>
-        <p className="w-3/4 mx-auto text-lg text-lightDark leading-relaxed">
+        <p className="w-full md:w-3/4 mx-auto text-lg text-lightDark leading-relaxed">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
           hic eligendi a tempora molestias labore officiis similique amet
           obcaecati impedit.
@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
       </section>
       {/* testimonials */}
       <section className="w-full min-h-[300px] bg-light mb-16 py-16 flex flex-col justify-center items-center gap-4">
-        <p className="w-2/5 mx-auto text-center text-lightDark leading-relaxed tracking-wide font-medium text-lg">
+        <p className="w-5/6 md:w-2/5 mx-auto text-center text-lightDark leading-relaxed tracking-wide font-medium text-lg">
           This website rocks! I raised close to $10,000 in less than 48 hours
           for my nephew’s medical needs, and your customer service was so prompt
           and helpful.”
@@ -88,7 +88,7 @@ export default function HowItWorksPage() {
         <h2 className="text-2xl text-dark font-bold mb-4">
           Lorem ipsum dolor sit
         </h2>
-        <p className="w-3/4 mx-auto text-lg text-lightDark leading-relaxed">
+        <p className="w-full md:w-3/4 mx-auto text-lg text-lightDark leading-relaxed">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
           hic eligendi a tempora molestias labore officiis similique amet
           obcaecati impedit. Lorem ipsum dolor sit amet consectetur adipisicing

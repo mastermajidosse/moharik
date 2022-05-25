@@ -16,7 +16,7 @@ export default function CategoriesStripe() {
   ];
   return (
     <>
-      <ul className="flex flex-wrap justify-between">
+      <ul className="flex flex-wrap justify-center md:justify-between gap-y-4 gap-x-1">
         {categories.map((item, idx) => (
           <li key={idx} className="">
             <a
@@ -24,8 +24,8 @@ export default function CategoriesStripe() {
               className={clsx(
                 "cursor-pointer px-3 py-2 font-medium rounded-full",
                 {
-                  "text-dark hover:text-white hover:bg-primary-500 duration-200":
-                    idx > 0,
+                  "text-dark hover:text-white bg-primary-50 hover:bg-primary-500 duration-200":
+                    idx !== active,
                   "text-white bg-primary-500": idx === active,
                 }
               )}
