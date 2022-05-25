@@ -1,13 +1,17 @@
-import clsx from "clsx";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import clsx from "clsx";
+
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon } from "../materials/Icons";
+import { BurgerMenuIcon, CloseIcon } from "../materials/Icons";
+import MobileMenu from "../menu/MobileMenu";
 
 export default function Header() {
   const { route } = useRouter();
   const scrollPosition = useScrollPosition();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header
@@ -55,9 +59,15 @@ export default function Header() {
             Get started
           </span>
         </SquaredSolidButton>
-        <a className="block md:hidden">
-          <BurgerMenuIcon className="text-dark" width="32" height="32" />
+        <a className="">
+          <BurgerMenuIcon
+            onClick={() => setIsOpen(true)}
+            className="relative text-dark block md:hidden cursor-pointer"
+            width="32"
+            height="32"
+          />
         </a>
+        <MobileMenu isOpen={isOpen} handleClose={() => setIsOpen(false)} />
       </nav>
     </header>
   );
