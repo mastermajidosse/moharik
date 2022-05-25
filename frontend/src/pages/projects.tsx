@@ -22,7 +22,7 @@ export default function ProjectsPage() {
             <ProjectCard key={idx} />
           ))}
         </div>
-        <button className="w-fit mx-auto px-6 py-2 border-primary border text-lg font-medium text-primary hover:border-primary-600 hover:text-primary-600 duration-200 rounded-md">
+        <button className="w-fit mx-auto px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
           Show more
         </button>
       </section>

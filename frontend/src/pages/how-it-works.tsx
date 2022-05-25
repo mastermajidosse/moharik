@@ -47,7 +47,7 @@ export default function HowItWorksPage() {
               <li className="list-disc">Tell your story</li>
               <li className="list-disc">Add a picture or video</li>
               <li className="list-disc">
-                <a className="text-primary font-medium">
+                <a className="text-secondary-300 font-medium cursor-pointer hover:underline">
                   Watch a video tutorial
                 </a>
               </li>
