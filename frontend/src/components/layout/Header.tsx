@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon, CloseIcon } from "../materials/Icons";
+import { BurgerMenuIcon } from "../materials/Icons";
 import MobileMenu from "../menu/MobileMenu";
 
 export default function Header() {
@@ -36,6 +36,11 @@ export default function Header() {
           <Link href="/projects">
             <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
               Projects
+            </a>
+          </Link>
+          <Link href="/blog">
+            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
+              Blog
             </a>
           </Link>
           <Link href="/how-it-works">

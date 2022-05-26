@@ -50,6 +50,14 @@ export default function MobileMenu({
               Projects
             </a>
           </Link>
+          <Link href="/blog">
+            <a
+              onClick={handleClose}
+              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
+            >
+              Blog
+            </a>
+          </Link>
           <Link href="/how-it-works">
             <a
               onClick={handleClose}
