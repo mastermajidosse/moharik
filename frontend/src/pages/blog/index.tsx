@@ -1,5 +1,5 @@
-import BlogCard from "../components/cards/BlogCard";
-import FeaturedBlogCard from "../components/cards/FeaturedBlogCard";
+import BlogCard from "../../components/cards/BlogCard";
+import FeaturedBlogCard from "../../components/cards/FeaturedBlogCard";
 
 export default function BlogPage() {
   return (

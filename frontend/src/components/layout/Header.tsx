@@ -7,6 +7,7 @@ import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
 import { BurgerMenuIcon } from "../materials/Icons";
 import MobileMenu from "../menu/MobileMenu";
+import { navs } from "../../data/navs";
 
 export default function Header() {
   const { route } = useRouter();
@@ -28,36 +29,13 @@ export default function Header() {
           </figure>
         </Link>
         <div className="h-full hidden md:flex font-normal text-base items-center gap-4 text-dark">
-          <Link href="/">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              Home
-            </a>
-          </Link>
-          <Link href="/projects">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              Projects
-            </a>
-          </Link>
-          <Link href="/blog">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              Blog
-            </a>
-          </Link>
-          <Link href="/how-it-works">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              How it works
-            </a>
-          </Link>
-          <Link href="/help-center">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              Help center
-            </a>
-          </Link>
-          <Link href="/about">
-            <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-              About
-            </a>
-          </Link>
+          {navs.map(({ link, title }, idx) => (
+            <Link href={link} key={idx}>
+              <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
+                {title.fr}
+              </a>
+            </Link>
+          ))}
         </div>
         <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
           <span className="text-center font-medium tracking-wide leading-relaxed">

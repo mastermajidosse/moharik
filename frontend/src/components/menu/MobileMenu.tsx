@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { SquaredSolidButton } from "../materials/Buttons";
 import Link from "next/link";
 import { CloseIcon } from "../materials/Icons";
+import { navs } from "../../data/navs";
 export default function MobileMenu({
   isOpen,
   handleClose,
@@ -34,54 +35,16 @@ export default function MobileMenu({
         </div>
         {/* navs */}
         <nav className="h-full flex-1 flex flex-col font-medium text-base items-center justify-center gap-6 text-dark">
-          <Link href="/">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              Home
-            </a>
-          </Link>
-          <Link href="/projects">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              Projects
-            </a>
-          </Link>
-          <Link href="/blog">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              Blog
-            </a>
-          </Link>
-          <Link href="/how-it-works">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              How it works
-            </a>
-          </Link>
-          <Link href="/help-center">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              Help center
-            </a>
-          </Link>
-          <Link href="/about">
-            <a
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
-            >
-              About
-            </a>
-          </Link>
+          {navs.map(({ link, title }, idx) => (
+            <Link href={link} key={idx}>
+              <a
+                onClick={handleClose}
+                className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
+              >
+                {title.fr}
+              </a>
+            </Link>
+          ))}
         </nav>
 
         <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
