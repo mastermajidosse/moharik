@@ -37,15 +37,17 @@ export default function Header() {
             </Link>
           ))}
         </div>
-        <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
-          <span className="text-center font-medium tracking-wide leading-relaxed">
-            Get started
-          </span>
-        </SquaredSolidButton>
-        <a className="">
+        <div className="">
+          <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
+            <span className="text-center font-medium tracking-wide leading-relaxed">
+              Get started
+            </span>
+          </SquaredSolidButton>
+        </div>
+        <a className="block md:hidden">
           <BurgerMenuIcon
             onClick={() => setIsOpen(true)}
-            className="relative text-dark block md:hidden cursor-pointer"
+            className="relative text-dark cursor-pointer"
             width="32"
             height="32"
           />
