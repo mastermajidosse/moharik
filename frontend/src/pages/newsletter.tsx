@@ -1,18 +1,18 @@
 import type { NextPage } from "next";
-import { SearchIcon } from "../components/materials/Icons";
 
 const Home: NextPage = () => {
   return (
     <>
-      <div className="mt-20 py-16 md:py-24 bg-light">
-        <section className="container min-h-screen py-8">
-          <h1 className="font-fr text-primary font-black text-3xl">
-            Hello world!
-          </h1>
-        </section>
-      </div>
       {/* newsletter */}
-      <section className="pb-8 md:p-0 bg-light">
+      <section className="mt-20 bg-light container">
+        <div
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 76%)" }}
+          className="h-64 bg-gradient-to-t flex justify-center items-center from-primary-700/60 to-primary-500"
+        >
+          <h1 className="text-3xl md:text-5xl font-black text-white">
+            Moharik Newsletter
+          </h1>
+        </div>
         <figure className="block md:hidden relative h-64 overflow-hidden">
           <img
             style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 76%)" }}
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-primary-700/60"
           />
         </figure>
-        <div className="container grid grid-cols-7">
+        <div className="grid grid-cols-7">
           <div className="md:pl-8 bg-light md:bg-white col-span-full md:col-span-5 flex flex-col justify-center gap-4">
             <div className="">
               <h2 className="text-2xl font-black text-dark">
@@ -63,7 +63,6 @@ const Home: NextPage = () => {
           </figure>
         </div>
       </section>
-      <div className="w-full h-screen bg-red-100" />
     </>
   );
 };

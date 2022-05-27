@@ -8,6 +8,15 @@ export default function Layout({ children }: { children: ReactNode }) {
   if (route === "/login" || route === "/register") {
     return <>{children}</>;
   }
+  if (route === "/newsletter") {
+    return (
+      <>
+        <Header />
+        <main className="w-full">{children}</main>
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <Header />
