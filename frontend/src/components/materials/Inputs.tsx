@@ -9,7 +9,7 @@ export default function Input({ label, ...rest }: InputProps) {
     <>
       <label
         htmlFor="first_name"
-        className="block mb-2 text-sm font-medium text-lightDark"
+        className="block mb-2 text-sm font-medium text-dark"
       >
         {label}
       </label>
