@@ -1,5 +1,5 @@
-import CategoriesStripe from "../components/cards/CategoriesStripe";
-import ProjectCard from "../components/cards/ProjectCard";
+import CategoriesStripe from "../../components/cards/CategoriesStripe";
+import ProjectCard from "../../components/cards/ProjectCard";
 
 export default function ProjectsPage() {
   return (

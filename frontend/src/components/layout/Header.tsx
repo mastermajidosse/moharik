@@ -10,7 +10,7 @@ import MobileMenu from "../menu/MobileMenu";
 import { navs } from "../../data/navs";
 
 export default function Header() {
-  const { route } = useRouter();
+  const { route, query } = useRouter();
   const scrollPosition = useScrollPosition();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,6 +20,7 @@ export default function Header() {
         "bg-light": scrollPosition < 80,
         "bg-white shadow-header shadow-dark/10": scrollPosition > 80,
         "bg-white shadow-header-light shadow-dark/30": route !== "/",
+        "md:absolute": query?.projectId,
       })}
     >
       <nav className="container h-8 md:h-14 flex items-center justify-between">
