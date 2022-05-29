@@ -12,21 +12,20 @@ export default function CategoriesStripe() {
     "Family",
     "Creative",
     "Competition",
-    "Community",
   ];
   return (
     <>
-      <ul className="flex flex-wrap justify-center md:justify-between gap-y-4 gap-x-1">
+      <ul className="w-fit mx-auto flex flex-wrap justify-center md:justify-between gap-y-4 gap-x-2">
         {categories.map((item, idx) => (
           <li key={idx} className="">
             <a
               onClick={() => setactive(idx)}
               className={clsx(
-                "cursor-pointer px-3 py-2 font-medium rounded-full",
+                "cursor-pointer px-3 py-2 font-medium rounded-full duration-500",
                 {
-                  "text-dark hover:text-white bg-primary-50 hover:bg-primary-500 duration-200":
+                  "text-lightDark hover:text-white hover:bg-primary-500 duration-500":
                     idx !== active,
-                  "text-white bg-primary-500": idx === active,
+                  "text-white bg-primary-500 duration-500": idx === active,
                 }
               )}
             >

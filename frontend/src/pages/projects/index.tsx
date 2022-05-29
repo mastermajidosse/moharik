@@ -4,13 +4,13 @@ import ProjectCard from "../../components/cards/ProjectCard";
 export default function ProjectsPage() {
   return (
     <>
-      <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col gap-12">
+      <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <div className="">
-          <div className="mb-8 text-center md:text-left">
-            <h2 className="text-2xl font-bold text-dark">
+          <div className="mb-14 text-center">
+            <h1 className="text-3xl font-black text-dark">
               Fundraising categories
-            </h2>
-            <p className="w-full md:w-3/4 text-lightDark mt-2">
+            </h1>
+            <p className="w-full md:w-3/4 md:mx-auto text-lightDark mt-8">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
               dignissimos accusantium accusamus ut voluptatum iste modi
@@ -19,7 +19,7 @@ export default function ProjectsPage() {
           </div>
           <CategoriesStripe />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
           {Array.from(Array(12)).map((_, idx) => (
             <ProjectCard key={idx} />
           ))}
