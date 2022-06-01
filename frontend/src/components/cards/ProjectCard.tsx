@@ -1,6 +1,6 @@
 import { FilledHeartIcon } from "../materials/Icons";
 
-export default function ProjectCard() {
+export default function ProjectCard({ description }: { description?: string }) {
   return (
     <div className="group flex flex-col shadow-md hover:shadow-lg duration-200 cursor-pointer">
       <figure className="relative h-52">
@@ -24,11 +24,11 @@ export default function ProjectCard() {
         <h3 className="text-dark h-[56px] text-lg md:text-xl font-black group-hover:underline line-clamp-2">
           Eliza Road to Recovery amet consectetugr
         </h3>
-        <p className="text-lightDark font-medium leading-relaxed tracking-wide text-sm line-clamp-2">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel minus
-          repudiandae nisi deleniti quam sequi voluptas libero soluta commodi
-          assumenda.
-        </p>
+        {description && (
+          <p className="text-lightDark font-medium leading-relaxed tracking-wide text-sm line-clamp-2">
+            {description}
+          </p>
+        )}
         <div className="flex flex-col gap-1 border-t pt-2">
           <p className="text-lightDark text-sm font-medium">
             Last donation 13m ago
