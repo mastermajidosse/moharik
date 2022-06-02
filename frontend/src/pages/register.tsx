@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { client, baseURL } from "../utils/api";
 import Input from "../components/materials/Inputs";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 interface RegisterForm {
   firstName: string;
@@ -47,7 +48,9 @@ export default function RegisterPage() {
       inputs;
     try {
       if (confirmPassword !== password) {
-        alert("password didn't match!");
+        toast.error("Password didn't matched!!!", {
+          position: "top-right",
+        });
         return;
       }
 
@@ -58,9 +61,14 @@ export default function RegisterPage() {
         country,
       };
       await client.post("/users/register", data);
+      toast.success("You can now Login!!!", {
+        position: "top-right",
+      });
       push("/login");
     } catch (error) {
-      alert("Something went wrong!!!");
+      toast.error("Something went wrong!!!", {
+        position: "top-right",
+      });
       console.log(error);
     }
   }

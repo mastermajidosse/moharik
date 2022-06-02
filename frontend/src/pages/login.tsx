@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { client } from "../utils/api";
+import { toast } from "react-toastify";
 
 interface LoginForm {
   email: string;
@@ -29,6 +30,9 @@ export default function LoginPage() {
       await client.post("/users/login", { ...inputs });
       push("/");
     } catch (error) {
+      toast.error("Email or Password are inccorect, please try again.", {
+        position: "top-right",
+      });
       console.log(error);
     }
   }
