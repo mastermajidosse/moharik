@@ -1,7 +1,70 @@
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { client, baseURL } from "../utils/api";
 import Input from "../components/materials/Inputs";
+import { useRouter } from "next/router";
+
+interface RegisterForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  country: string;
+}
+
+const schema = yup
+  .object({
+    firstName: yup.string().max(16).required(),
+    lastName: yup.string().max(16).required(),
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required(),
+    confirmPassword: yup.string().min(8).required(),
+    country: yup.string().required(),
+  })
+  .required();
+
+const defaultValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  country: "",
+};
 
 export default function RegisterPage() {
+  const { push } = useRouter();
+  const { handleSubmit, register } = useForm<RegisterForm>({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  async function onSubmit(inputs: RegisterForm) {
+    const { confirmPassword, country, email, firstName, lastName, password } =
+      inputs;
+    try {
+      if (confirmPassword !== password) {
+        alert("password didn't match!");
+        return;
+      }
+
+      const data = {
+        name: `${firstName} ${lastName}`,
+        email,
+        password,
+        country,
+      };
+      await client.post("/users/register", data);
+      push("/login");
+    } catch (error) {
+      alert("Something went wrong!!!");
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {/* header */}
@@ -19,7 +82,7 @@ export default function RegisterPage() {
         </div>
       </header>
       {/* main */}
-      <section className="w-full h-screen bg-light flex justify-center items-center">
+      <section className="w-full min-h-screen bg-light flex justify-center items-center py-10">
         <div className="w-full md:w-1/2 flex flex-col items-center">
           <div className="w-full h-full flex flex-col items-center mt-8">
             {/* header */}
@@ -29,10 +92,15 @@ export default function RegisterPage() {
               </h1>
             </div>
             {/* form */}
-            <div className="w-3/4 mx-auto flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-4">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-3/4 mx-auto flex flex-col gap-4"
+            >
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="">
                   <Input
+                    name="firstName"
+                    register={register}
                     label="First name"
                     type="text"
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -40,6 +108,8 @@ export default function RegisterPage() {
                 </div>
                 <div className="">
                   <Input
+                    name="lastName"
+                    register={register}
                     label="Last name"
                     type="text"
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -48,20 +118,47 @@ export default function RegisterPage() {
               </div>
               <div className="">
                 <Input
-                  label="Email"
-                  type="email"
+                  name="country"
+                  register={register}
+                  label="Country"
+                  type="text"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
               <div className="">
                 <Input
-                  label="Password"
-                  type="password"
+                  name="email"
+                  register={register}
+                  label="Email"
+                  type="email"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
-              <button className="w-fit mx-auto py-2 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300 my-4">
-                Next
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="">
+                  <Input
+                    name="password"
+                    register={register}
+                    label="Password"
+                    type="password"
+                    className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
+                  />
+                </div>
+                <div className="">
+                  <Input
+                    name="confirmPassword"
+                    register={register}
+                    label="Confirm password"
+                    type="password"
+                    className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-fit mx-auto py-2 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300 my-4"
+              >
+                Register
               </button>
               <p className="text-lightDark text-center">
                 Already have an account?
@@ -72,7 +169,7 @@ export default function RegisterPage() {
                   </Link>
                 </span>
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </section>
