@@ -23,7 +23,7 @@ export default function MobileMenu({
         <div className="w-full flex justify-between items-center">
           <Link href="/">
             <figure className="cursor-pointer">
-              <h1 className="text-xl font-bold text-primary">LOGO-ICI</h1>
+              <h1 className="text-xl font-bold text-primary">Moharik</h1>
             </figure>
           </Link>
           <CloseIcon

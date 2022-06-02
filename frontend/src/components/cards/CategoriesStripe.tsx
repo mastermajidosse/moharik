@@ -21,7 +21,7 @@ export default function CategoriesStripe() {
             <a
               onClick={() => setactive(idx)}
               className={clsx(
-                "cursor-pointer px-3 py-2 font-medium rounded-full duration-500",
+                "cursor-pointer px-4 py-2 font-medium rounded-full duration-500 text-sm",
                 {
                   "text-lightDark hover:text-white hover:bg-primary-500 duration-500":
                     idx !== active,

@@ -26,7 +26,7 @@ export default function Header() {
       <nav className="container h-8 md:h-14 flex items-center justify-between">
         <Link href="/">
           <figure className="cursor-pointer">
-            <h1 className="text-xl font-bold text-primary">LOGO-ICI</h1>
+            <h1 className="text-xl font-bold text-primary">Moharik</h1>
           </figure>
         </Link>
         <div className="h-full hidden md:flex font-normal text-base items-center gap-4 text-dark">
