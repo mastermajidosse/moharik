@@ -12,7 +12,7 @@ export default function MobileMenu({
 }) {
   return (
     <aside
-      className={clsx("block md:hidden w-11/12 h-screen bg-primary-50 ", {
+      className={clsx("block md:hidden w-11/12 h-screen bg-light ", {
         "block absolute opacity-100 top-0 right-0 translate-x-0 duration-300 shadow-xl shadow-primary-900/75":
           isOpen,
         "absolute top-0 right-0 translate-x-full duration-300": !isOpen,
