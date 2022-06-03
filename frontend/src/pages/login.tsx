@@ -1,7 +1,41 @@
 import Input from "../components/materials/Inputs";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { client } from "../utils/api";
+import { toast } from "react-toastify";
+
+interface LoginForm {
+  email: string;
+  password: string;
+}
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required(),
+  })
+  .required();
 
 export default function LoginPage() {
+  const { push } = useRouter();
+  const { handleSubmit, register } = useForm<LoginForm>({
+    resolver: yupResolver(schema),
+  });
+
+  async function onSubmit(inputs: LoginForm) {
+    try {
+      console.log(inputs);
+      await client.post("/users/login", { ...inputs });
+      push("/");
+    } catch (error) {
+      toast.error("Email or Password are inccorect, please try again.", {
+        position: "top-right",
+      });
+      console.log(error);
+    }
+  }
   return (
     <>
       {/* header */}
@@ -21,7 +55,7 @@ export default function LoginPage() {
         </div>
       </header>
       {/* main */}
-      <section className="w-full h-screen bg-light flex justify-center items-center">
+      <section className="w-full min-h-screen bg-light flex justify-center items-center py-20">
         <div className="w-full md:w-1/2 flex flex-col items-center">
           <div className="w-full h-full flex flex-col items-center">
             {/* header */}
@@ -31,16 +65,23 @@ export default function LoginPage() {
               </h1>
             </div>
             {/* form */}
-            <div className="w-3/4 mx-auto flex flex-col gap-6">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-3/4 mx-auto flex flex-col gap-6"
+            >
               <div className="">
                 <Input
-                  label="Username or email address"
-                  type="text"
+                  name="email"
+                  register={register}
+                  label="Email address"
+                  type="email"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
               <div className="">
                 <Input
+                  name="password"
+                  register={register}
                   label="Password"
                   type="password"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -49,7 +90,10 @@ export default function LoginPage() {
               <a className="text-lightDark hover:text-primary-300 text-sm font-medium w-full hover:underline cursor-pointer text-right">
                 Forgot your password?
               </a>
-              <button className="w-full hover:bg-primary-600 bg-primary-500 text-light font-medium text-lg p-2.5">
+              <button
+                type="submit"
+                className="w-full hover:bg-primary-600 bg-primary-500 text-light font-medium text-lg p-2.5"
+              >
                 Log in
               </button>
               <p className="text-lightDark text-center">
@@ -61,7 +105,7 @@ export default function LoginPage() {
                   </Link>
                 </span>
               </p>
-            </div>
+            </form>
           </div>
         </div>
       </section>
