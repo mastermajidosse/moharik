@@ -1,9 +1,28 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
+import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
+import { EmailIcon, GlobeIcon } from "../components/materials/Icons";
+import { ICurrentUser } from "../interfaces/currentUser";
+import { IProject } from "../interfaces/project";
+import { client } from "../utils/api";
+import { useState } from "react";
+import clsx from "clsx";
 
-export default function ProfilePage() {
+interface ProfilePageProps {
+  myProjects: IProject[];
+  myFavorites: IProject[];
+  myProfile: ICurrentUser;
+}
+
+export default function ProfilePage({
+  myProjects,
+  myFavorites,
+  myProfile,
+}: ProfilePageProps) {
+  const [active, setActive] = useState<"projects" | "favorites">("projects");
   return (
-    <div className="mt-20 bg-light">
+    <div className="mt-20 bg-light ">
       {/* cover */}
       <section className="w-full h-72">
         <figure className="relative __pattern w-full h-full flex justify-center items-center group cursor-pointer">
@@ -25,22 +44,55 @@ export default function ProfilePage() {
         </figure>
       </section>
       {/* main */}
-      <section className="container h-screen grid grid-cols-12 gap-4 py-4 bg-white">
+      <section className="container min-h-screen grid grid-cols-12 gap-4 py-4 bg-white">
         <aside className="hidden md:flex md:col-span-2 h-full bg-light rounded-md border-2 border-light p-2">
           <div className="w-full flex flex-col gap-2 items-center">
             <figure className="relative __pattern w-28 h-28 mx-auto rounded-full ring-2 ring-primary-100 shadow-md"></figure>
-            <p className="text-lg font-medium text-dark">Username</p>
+            <p className="text-lg font-medium text-dark">
+              {myProfile.name || "---"}
+            </p>
+            <div className="w-full">
+              <p className="font-medium text-sm flex items-center gap-1.5 text-lightDark mb-2">
+                <EmailIcon /> {myProfile.email || "---"}
+              </p>
+              <p className="font-medium text-sm flex items-center gap-1.5 text-lightDark">
+                <GlobeIcon /> {myProfile?.country || "---"}
+              </p>
+            </div>
           </div>
         </aside>
-        <article className="col-span-full md:col-span-10 h-full bg-light rounded-md border-2 border-light p-2">
-          <div className="w-full h-full flex flex-col justify-center items-center">
-            <p className="font-medium text-lightDark text-lg text-center -mb-4">
-              There is no project!
-              <br /> create one:
-            </p>
-            <SquaredSolidButton>
-              <span className="">Create project</span>
-            </SquaredSolidButton>
+        <article className="col-span-full md:col-span-10 h-full bg-light rounded-md border-2 border-light p-4">
+          <ul className="flex gap-4 mb-8">
+            <li
+              onClick={() => setActive("projects")}
+              className={clsx(
+                "rounded-md font-medium px-4 py-2 cursor-pointer",
+                {
+                  "bg-slate-200 text-dark": active === "favorites",
+                  "bg-link text-white": active === "projects",
+                }
+              )}
+            >
+              My projects
+            </li>
+            <li
+              onClick={() => setActive("favorites")}
+              className={clsx(
+                "rounded-md font-medium px-4 py-2 cursor-pointer",
+                {
+                  "bg-slate-200 text-dark": active === "projects",
+                  "bg-link text-white": active === "favorites",
+                }
+              )}
+            >
+              My favorites
+            </li>
+          </ul>
+          <div className="">
+            {active === "projects" && <MyProjects myProjects={myProjects} />}
+            {active === "favorites" && (
+              <MyFavorites myFavorites={myFavorites || []} />
+            )}
           </div>
         </article>
       </section>
@@ -48,9 +100,69 @@ export default function ProfilePage() {
   );
 }
 
+function MyFavorites({ myFavorites }: { myFavorites: IProject[] | [] }) {
+  if (!myFavorites) return <EmptyProfile />;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {myFavorites.map(
+        ({ _id, category, deadline, images, title, createdAt }, idx) => (
+          <ProjectCard
+            key={idx}
+            title={title}
+            createdAt={createdAt}
+            id={_id}
+            category={category}
+            deadline={deadline}
+            images={images}
+          />
+        )
+      )}
+    </div>
+  );
+}
+function MyProjects({ myProjects }: { myProjects: IProject[] | [] }) {
+  if (!myProjects) return <EmptyProfile />;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {myProjects.map(
+        ({ _id, category, deadline, images, title, createdAt }, idx) => (
+          <ProjectCard
+            key={idx}
+            title={title}
+            createdAt={createdAt}
+            id={_id}
+            category={category}
+            deadline={deadline}
+            images={images}
+          />
+        )
+      )}
+    </div>
+  );
+}
+
+function EmptyProfile() {
+  return (
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <p className="font-medium text-lightDark text-lg text-center -mb-4">
+        There is no project!
+        <br /> create one:
+      </p>
+      <Link href="/projects/create">
+        <SquaredSolidButton>
+          <a className="">Create project</a>
+        </SquaredSolidButton>
+      </Link>
+    </div>
+  );
+}
+
 export const getServerSideProps: GetServerSideProps = async ({
   req: { cookies },
 }) => {
+  let myProjects: IProject[] = [];
+  const myFavorites: IProject[] = [];
+  let myProfile: ICurrentUser | any = {};
   try {
     if (!cookies.currentUser) {
       return {
@@ -60,10 +172,36 @@ export const getServerSideProps: GetServerSideProps = async ({
         },
       };
     }
+
+    // get profile data
+    const [{ data: myProjectsData }, { data: myProfileData }] =
+      await Promise.all([
+        client.get<IProject[]>(
+          `/posts/user/${
+            (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
+          }`
+        ),
+        // client.get(),
+        client.get<ICurrentUser>("/users/profile", {
+          headers: {
+            Authorization: `Bearer ${
+              (JSON.parse(cookies.currentUser) as ICurrentUser)?.token || ""
+            }`,
+          },
+        }),
+      ]);
+
+    myProjects = myProjectsData;
+    myProfile = myProfileData;
+    console.log("myProjectsData: ", myProjectsData);
+    console.log("myProfileData: ", myProfileData);
   } catch (error) {
     console.log(error);
   }
   return {
-    props: {},
+    props: {
+      myProjects,
+      myProfile,
+    },
   };
 };

@@ -1,7 +1,14 @@
+import { GetServerSideProps } from "next";
 import CategoriesStripe from "../../components/cards/CategoriesStripe";
 import ProjectCard from "../../components/cards/ProjectCard";
+import { IProject } from "../../interfaces/project";
+import { client } from "../../utils/api";
 
-export default function ProjectsPage() {
+interface ProjectsPageProps {
+  projects: IProject[] | [];
+}
+
+export default function ProjectsPage({ projects }: ProjectsPageProps) {
   return (
     <>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
@@ -20,9 +27,31 @@ export default function ProjectsPage() {
           <CategoriesStripe />
         </div>
         <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-          {Array.from(Array(12)).map((_, idx) => (
-            <ProjectCard key={idx} />
-          ))}
+          {projects.map(
+            (
+              {
+                _id,
+                category,
+                deadline,
+                desc,
+                images,
+                price,
+                title,
+                createdAt,
+              },
+              idx
+            ) => (
+              <ProjectCard
+                key={idx}
+                title={title}
+                createdAt={createdAt}
+                id={_id}
+                category={category}
+                deadline={deadline}
+                images={images}
+              />
+            )
+          )}
         </div>
         <button className="w-fit mx-auto px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
           Show more
@@ -31,3 +60,19 @@ export default function ProjectsPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  let projects: IProject[] = [];
+  try {
+    const { data } = await client.get("/posts");
+    projects = data;
+    console.log("projects: ", projects);
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {
+      projects,
+    },
+  };
+};
