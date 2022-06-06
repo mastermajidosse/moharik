@@ -112,7 +112,7 @@ export default function LoginPage() {
       </section>
       {/* footer */}
       <div className="w-3/4 mx-auto border-t border-lightDark/20 text-center text-sm flex items-center justify-between py-4">
-        <p className="font-medium text-lightDark">© 2022 NAME_HERE</p>
+        <p className="font-medium text-lightDark">© 2022 Moharik</p>
         <ul className="flex items-center gap-4">
           <li className="">
             <Link href="">
