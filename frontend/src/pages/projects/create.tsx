@@ -4,11 +4,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import FilesUploader from "../../components/materials/FilesUploader";
+import { GetServerSideProps } from "next";
+import { client } from "../../utils/api";
+import { getToken } from "../../utils/getToken";
+import CategoriesInput from "../../components/materials/CategoriesInput";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export interface ProjectFrom {
   title: string;
   desc: string;
-  category: string;
+  category: string[] | string;
   price: string;
   deadline: Date;
   images: File[];
@@ -17,33 +23,58 @@ export interface ProjectFrom {
 const schema = yup
   .object({
     title: yup.string().min(10).required(),
-    desc: yup.string().min(40).required(),
+    desc: yup.string().required(),
     category: yup.string().required(),
     price: yup.number().positive().min(1).required(),
     deadline: yup.date().required(),
-    // images: yup.object().required(),
   })
   .required();
 
 export default function CreateProjectPage() {
+  const { push } = useRouter();
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<ProjectFrom>({
     resolver: yupResolver(schema),
   });
 
   async function onSubmit(inputs: ProjectFrom) {
     try {
-      console.log(inputs);
+      const { data } = await client.post(
+        "/posts",
+        {
+          ...inputs,
+          images: [
+            "http://res.cloudinary.com/senyou/image/upload/v1653736690/htm20wjsglpnepacf2qj.jpg",
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getToken() || ""}`,
+          },
+        }
+      );
+      console.log("data posted: ", data);
       toast.success("Project has been created successfully.");
+      push("/projects");
     } catch (error) {
       toast.error("Something went wrong!!!");
       console.log(error);
     }
   }
+
+  const watchCategory = watch("category");
+
+  useEffect(
+    () => console.log("watchCategory: ", watchCategory),
+    [watchCategory]
+  );
+
   return (
     <>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
@@ -60,15 +91,11 @@ export default function CreateProjectPage() {
                   register={register}
                   type="text"
                   label="Title"
+                  required
                 />
               </div>
               <div className="">
-                <Input
-                  name="category"
-                  register={register}
-                  type="text"
-                  label="Category"
-                />
+                <CategoriesInput getValues={getValues} register={register} />
               </div>
               <div className="">
                 <Input
@@ -76,6 +103,7 @@ export default function CreateProjectPage() {
                   register={register}
                   type="date"
                   label="Deadline"
+                  required
                 />
               </div>
               <div className="">
@@ -85,6 +113,7 @@ export default function CreateProjectPage() {
                   type="number"
                   min={0}
                   label="Price"
+                  required
                 />
               </div>
               <div className="">
@@ -99,6 +128,7 @@ export default function CreateProjectPage() {
                 </label>
                 <textarea
                   rows={6}
+                  required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                   {...register("desc")}
                 />
@@ -117,3 +147,23 @@ export default function CreateProjectPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req: { cookies },
+}) => {
+  try {
+    if (!cookies.currentUser) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {},
+  };
+};

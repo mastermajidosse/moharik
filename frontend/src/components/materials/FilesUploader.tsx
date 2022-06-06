@@ -21,13 +21,6 @@ export default function FilesUploader({
     name: "images",
   });
 
-  const watcher = watch("images");
-
-  useEffect(() => {
-    console.log("watcher: ", watcher);
-    setValue("images", watcher);
-  }, [setValue, watcher]);
-
   return (
     <>
       <label
@@ -73,9 +66,9 @@ function FileInput({
     remove();
   }
 
-  useEffect(() => {
-    console.log(preview);
-  }, [preview]);
+  // useEffect(() => {
+  //   console.log(preview);
+  // }, [preview]);
 
   return (
     <>

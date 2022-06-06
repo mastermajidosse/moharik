@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next";
 import { SquaredSolidButton } from "../components/materials/Buttons";
 
 export default function ProfilePage() {
@@ -46,3 +47,23 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req: { cookies },
+}) => {
+  try {
+    if (!cookies.currentUser) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {},
+  };
+};

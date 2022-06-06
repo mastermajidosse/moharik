@@ -5,5 +5,5 @@ export const navs = [
   { link: "/how-it-works", title: { ar: "How it works", fr: "How it works" } },
   { link: "/help-center", title: { ar: "Help center", fr: "Help center" } },
   { link: "/about", title: { ar: "About", fr: "About" } },
-  { link: "/profile", title: { ar: "About", fr: "Profile" } },
+  // { link: "/profile", title: { ar: "About", fr: "Profile" } },
 ];

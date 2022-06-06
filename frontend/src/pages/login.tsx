@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { client } from "../utils/api";
 import { toast } from "react-toastify";
+import { setCookies } from "cookies-next";
 
 interface LoginForm {
   email: string;
@@ -26,8 +27,8 @@ export default function LoginPage() {
 
   async function onSubmit(inputs: LoginForm) {
     try {
-      console.log(inputs);
-      await client.post("/users/login", { ...inputs });
+      const { data } = await client.post("/users/login", { ...inputs });
+      setCookies("currentUser", JSON.stringify(data), { maxAge: 3600 * 24 });
       push("/");
     } catch (error) {
       toast.error("Email or Password are inccorect, please try again.", {

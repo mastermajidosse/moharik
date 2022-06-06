@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { getCookie } from "cookies-next";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon } from "../materials/Icons";
+import { BurgerMenuIcon, UserIcon } from "../materials/Icons";
 import MobileMenu from "../menu/MobileMenu";
 import { navs } from "../../data/navs";
+import { ICurrentUser } from "../../interfaces/currentUser";
 
 export default function Header() {
   const { route, query } = useRouter();
   const scrollPosition = useScrollPosition();
   const [isOpen, setIsOpen] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState<null | ICurrentUser>(null);
+
+  useLayoutEffect(() => {
+    const cookie = getCookie("currentUser");
+    if (!cookie) return;
+    const cr = JSON.parse(cookie?.toString() as string) as ICurrentUser;
+    setCurrentUser(cr);
+  }, []);
 
   return (
     <header
@@ -39,11 +50,21 @@ export default function Header() {
           ))}
         </div>
         <div className="">
-          <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
-            <span className="text-center font-medium tracking-wide leading-relaxed">
-              Get started
-            </span>
-          </SquaredSolidButton>
+          {currentUser ? (
+            <Link href="/profile">
+              <a>
+                <UserIcon width="28" height="28" className="text-primary-700" />
+              </a>
+            </Link>
+          ) : (
+            <Link href="/register">
+              <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
+                <a className="text-center font-medium tracking-wide leading-relaxed">
+                  Get started
+                </a>
+              </SquaredSolidButton>
+            </Link>
+          )}
         </div>
         <a className="block md:hidden">
           <BurgerMenuIcon
