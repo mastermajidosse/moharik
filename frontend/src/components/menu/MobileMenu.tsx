@@ -1,8 +1,12 @@
 import clsx from "clsx";
-import { SquaredSolidButton } from "../materials/Buttons";
 import Link from "next/link";
-import { CloseIcon } from "../materials/Icons";
+import { removeCookies } from "cookies-next";
+
+import { SquaredSolidButton } from "../materials/Buttons";
+import { CloseIcon, LogoutIcon } from "../materials/Icons";
 import { navs } from "../../data/navs";
+import { getCurrentUser } from "../../utils/getCurrentUser";
+
 export default function MobileMenu({
   isOpen,
   handleClose,
@@ -10,6 +14,11 @@ export default function MobileMenu({
   isOpen: boolean;
   handleClose: () => void;
 }) {
+  function logOut() {
+    removeCookies("currentUser");
+    handleClose();
+    window.location.assign("/");
+  }
   return (
     <aside
       className={clsx("block md:hidden w-11/12 h-screen bg-light ", {
@@ -35,6 +44,16 @@ export default function MobileMenu({
         </div>
         {/* navs */}
         <nav className="h-full flex-1 flex flex-col font-medium text-base items-center justify-center gap-6 text-dark">
+          {getCurrentUser() && (
+            <Link href="/profile">
+              <a
+                onClick={handleClose}
+                className="cursor-pointer text-primary-800 hover:bg-light duration-200 rounded-sm px-2 py-1"
+              >
+                {"Profile"}
+              </a>
+            </Link>
+          )}
           {navs.map(({ link, title }, idx) => (
             <Link href={link} key={idx}>
               <a
@@ -46,12 +65,31 @@ export default function MobileMenu({
             </Link>
           ))}
         </nav>
-
-        <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
-          <span className="text-center font-medium tracking-wide leading-relaxed">
-            Get started
-          </span>
-        </SquaredSolidButton>
+        <div className="flex justify-between items-center">
+          <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
+            <span className="text-center font-medium tracking-wide leading-relaxed">
+              Get started
+            </span>
+          </SquaredSolidButton>
+          {getCurrentUser() ? (
+            <div
+              onClick={logOut}
+              className="flex items-center gap-2 hover:text-link duration-300 cursor-pointer"
+            >
+              <p className="">Sign out</p>
+              <LogoutIcon />
+            </div>
+          ) : (
+            <Link href="/login">
+              <a className="flex items-center gap-2 hover:text-link duration-300 cursor-pointer">
+                <p className="">Sign in</p>
+                <div className="rotate-180">
+                  <LogoutIcon />
+                </div>
+              </a>
+            </Link>
+          )}
+        </div>
       </div>
       <div className=""></div>
     </aside>

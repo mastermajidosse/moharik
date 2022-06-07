@@ -49,7 +49,7 @@ export default function Header() {
             </Link>
           ))}
         </div>
-        <div className="">
+        <div className="hidden md:flex">
           {currentUser ? (
             <Link href="/profile">
               <a>

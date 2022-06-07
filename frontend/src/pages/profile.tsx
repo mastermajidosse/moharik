@@ -2,12 +2,17 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
-import { EmailIcon, GlobeIcon } from "../components/materials/Icons";
+import {
+  EmailIcon,
+  GlobeIcon,
+  LogoutIcon,
+} from "../components/materials/Icons";
 import { ICurrentUser } from "../interfaces/currentUser";
 import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
 import { useState } from "react";
 import clsx from "clsx";
+import { removeCookies } from "cookies-next";
 
 interface ProfilePageProps {
   myProjects: IProject[];
@@ -21,6 +26,12 @@ export default function ProfilePage({
   myProfile,
 }: ProfilePageProps) {
   const [active, setActive] = useState<"projects" | "favorites">("projects");
+
+  function logOut() {
+    removeCookies("currentUser");
+    window.location.assign("/");
+  }
+
   return (
     <div className="mt-20 bg-light ">
       {/* cover */}
@@ -57,6 +68,15 @@ export default function ProfilePage({
               </p>
               <p className="font-medium text-sm flex items-center gap-1.5 text-lightDark">
                 <GlobeIcon /> {myProfile?.country || "---"}
+              </p>
+            </div>
+            <div
+              onClick={logOut}
+              className="w-full flex items-center gap-2 cursor-pointer hover:text-link text-lightDark"
+            >
+              <LogoutIcon width="18" height="18" className="mb-1.5  " />
+              <p className="font-medium text-sm flex items-center gap-1.5  mb-2">
+                Sign out
               </p>
             </div>
           </div>
