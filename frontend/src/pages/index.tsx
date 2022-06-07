@@ -5,8 +5,28 @@ import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
 import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
+import { IMoto } from "../interfaces/motos";
+import { useState, useEffect } from "react";
 
-export default function HomePage({ projects }: { projects: IProject[] }) {
+export default function HomePage({
+  projects,
+  motos,
+}: {
+  projects: IProject[];
+  motos: IMoto[];
+}) {
+  const [counter, setCounter] = useState(0);
+  const [moto, setMoto] = useState<string>(motos[0].content);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMoto(motos[counter]?.content || "");
+      counter >= motos.length - 1 ? setCounter(0) : setCounter(counter + 1);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [counter, motos]);
+
   return (
     <>
       <div className="mt-16 py-16 md:py-24 bg-light">
@@ -14,9 +34,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
         <section className="bg-light mb-8">
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
-              <h1 className="text-4xl font-black text-dark">
-                A place for friends, charities, dreamers, & you
-              </h1>
+              <h1 className="text-4xl font-black text-dark h-24">{moto}</h1>
               <Link href="/projects/create">
                 <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
                   <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
@@ -232,9 +250,12 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let projects: IProject[] = [];
+  let motos: IMoto[] = [];
   try {
+    const { data: motosData } = await client.get("/motos");
     const { data } = await client.get("/posts");
     projects = data;
+    motos = motosData;
     console.log("projects: ", projects);
   } catch (error) {
     console.log(error);
@@ -242,6 +263,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       projects,
+      motos,
     },
   };
 };
