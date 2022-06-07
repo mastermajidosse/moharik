@@ -1,8 +1,12 @@
-import type { NextPage } from "next";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
+
 import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
+import { IProject } from "../interfaces/project";
+import { client } from "../utils/api";
 
-const Home: NextPage = () => {
+export default function HomePage({ projects }: { projects: IProject[] }) {
   return (
     <>
       <div className="mt-16 py-16 md:py-24 bg-light">
@@ -42,9 +46,33 @@ const Home: NextPage = () => {
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {Array.from(Array(3)).map((_, idx) => (
-                <ProjectCard key={idx} />
-              ))}
+              {projects
+                .slice(0, 3)
+                .map(
+                  (
+                    {
+                      _id,
+                      category,
+                      deadline,
+                      price,
+                      title,
+                      createdAt,
+                      images,
+                    },
+                    idx
+                  ) => (
+                    <ProjectCard
+                      key={idx}
+                      category={category}
+                      title={title}
+                      createdAt={createdAt}
+                      id={_id}
+                      price={price}
+                      deadline={deadline}
+                      images={images}
+                    />
+                  )
+                )}
             </div>
           </div>
         </section>
@@ -95,14 +123,42 @@ const Home: NextPage = () => {
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {Array.from(Array(9)).map((_, idx) => (
-                <ProjectCard key={idx} />
-              ))}
+              {projects
+                .slice(0, 6)
+                .map(
+                  (
+                    {
+                      _id,
+                      category,
+                      deadline,
+                      price,
+                      title,
+                      createdAt,
+                      images,
+                      desc,
+                    },
+                    idx
+                  ) => (
+                    <ProjectCard
+                      key={idx}
+                      category={category}
+                      desc={desc}
+                      title={title}
+                      createdAt={createdAt}
+                      id={_id}
+                      price={price}
+                      deadline={deadline}
+                      images={images}
+                    />
+                  )
+                )}
             </div>
             <div className="w-fit mx-auto">
-              <button className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
-                Show more
-              </button>
+              <Link href="/projects">
+                <a className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
+                  Show more
+                </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -166,6 +222,20 @@ const Home: NextPage = () => {
       </div>
     </>
   );
-};
+}
 
-export default Home;
+export const getServerSideProps: GetServerSideProps = async () => {
+  let projects: IProject[] = [];
+  try {
+    const { data } = await client.get("/posts");
+    projects = data;
+    console.log("projects: ", projects);
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {
+      projects,
+    },
+  };
+};
