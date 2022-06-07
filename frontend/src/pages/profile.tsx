@@ -62,32 +62,39 @@ export default function ProfilePage({
           </div>
         </aside>
         <article className="col-span-full md:col-span-10 h-full bg-light rounded-md border-2 border-light p-4">
-          <ul className="flex gap-4 mb-8">
-            <li
-              onClick={() => setActive("projects")}
-              className={clsx(
-                "rounded-md font-medium px-4 py-2 cursor-pointer",
-                {
-                  "bg-slate-200 text-dark": active === "favorites",
-                  "bg-link text-white": active === "projects",
-                }
-              )}
-            >
-              My projects
-            </li>
-            <li
-              onClick={() => setActive("favorites")}
-              className={clsx(
-                "rounded-md font-medium px-4 py-2 cursor-pointer",
-                {
-                  "bg-slate-200 text-dark": active === "projects",
-                  "bg-link text-white": active === "favorites",
-                }
-              )}
-            >
-              My favorites
-            </li>
-          </ul>
+          <div className="flex justify-between items-center mb-8">
+            <ul className="flex gap-4">
+              <li
+                onClick={() => setActive("projects")}
+                className={clsx(
+                  "rounded-md font-medium px-4 py-2 cursor-pointer",
+                  {
+                    "bg-slate-200 text-dark": active === "favorites",
+                    "bg-link text-white": active === "projects",
+                  }
+                )}
+              >
+                My projects
+              </li>
+              <li
+                onClick={() => setActive("favorites")}
+                className={clsx(
+                  "rounded-md font-medium px-4 py-2 cursor-pointer",
+                  {
+                    "bg-slate-200 text-dark": active === "projects",
+                    "bg-link text-white": active === "favorites",
+                  }
+                )}
+              >
+                My favorites
+              </li>
+            </ul>
+            <Link href="/projects/create">
+              <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-600 text-white">
+                Launch Project
+              </a>
+            </Link>
+          </div>
           <div className="">
             {active === "projects" && <MyProjects myProjects={myProjects} />}
             {active === "favorites" && (

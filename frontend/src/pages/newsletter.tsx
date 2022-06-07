@@ -32,7 +32,7 @@ const Home: NextPage = () => {
                 Subscribe to our newsletter
               </h2>
               <p className="text-lightDark font-medium text-sm">
-                Get 3 great projects in your box every week!
+                Receive new projects in your inbox every week!
               </p>
             </div>
             <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-3">

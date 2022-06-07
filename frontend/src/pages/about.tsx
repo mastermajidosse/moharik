@@ -3,21 +3,22 @@ export default function AboutPage() {
     <div className="mt-10 py-16 md:py-24">
       <section className="container">
         <h1 className="text-2xl md:text-3xl text-dark font-bold mb-6 text-center">
-          About PROJECT_NAME
+          About <span className="text-primary">Moharik</span>
         </h1>
         <div className="flex flex-col gap-4 text-center">
           <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-            There’s a part of every one of us that dreams of a better world.
-            That spark of inspiration to help a person, fix a neighborhood, or
-            even change a nation. At PROJECT_NAME, we believe your inspiration
-            should be shared with everyone. Because that is how change happens.
+            We believe that innovations and new ideas can make this world
+            better,and we also believe that we can make your unique idea or
+            project POSSIBLE by showing your project to investors or supporters
+            to take your project to the next level. Welcome to MOHARIK, the
+            right place to make your dreams real.
           </p>
           <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-            That’s why we make it easy to inspire the world and turn compassion
-            into action. By giving people the tools they need to capture and
-            share their story far and wide, we have built a community of more
-            than 50 million donors and helped organizers raise over $5
-            billion—and we are just getting started.
+            Many small business owners in this world couldn&#39;t make their
+            dreams come true,because they didn&#39;t have the financial
+            opportunity to commercialize and grow their projects, MOHARIK gives
+            you the opportunity to meet the investors and like minded creative
+            people to get what you need to make your dream come true.
           </p>
         </div>
       </section>
@@ -29,27 +30,6 @@ export default function AboutPage() {
             alt=""
           />
         </figure>
-      </section>
-      {/* more info */}
-      <section className="container">
-        <h2 className="text-center text-2xl text-dark font-bold mb-6">
-          More About PROJECT_NAME
-        </h2>
-        <div className="flex flex-col gap-4 text-center">
-          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-            There’s a part of every one of us that dreams of a better world.
-            That spark of inspiration to help a person, fix a neighborhood, or
-            even change a nation. At PROJECT_NAME, we believe your inspiration
-            should be shared with everyone. Because that is how change happens.
-          </p>
-          <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-            That’s why we make it easy to inspire the world and turn compassion
-            into action. By giving people the tools they need to capture and
-            share their story far and wide, we have built a community of more
-            than 50 million donors and helped organizers raise over $5
-            billion—and we are just getting started.
-          </p>
-        </div>
       </section>
     </div>
   );

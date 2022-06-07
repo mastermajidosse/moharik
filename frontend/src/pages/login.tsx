@@ -28,7 +28,7 @@ export default function LoginPage() {
   async function onSubmit(inputs: LoginForm) {
     try {
       const { data } = await client.post("/users/login", { ...inputs });
-      setCookies("currentUser", JSON.stringify(data), { maxAge: 3600 * 24 });
+      setCookies("currentUser", JSON.stringify(data));
       push("/");
     } catch (error) {
       toast.error("Email or Password are inccorect, please try again.", {

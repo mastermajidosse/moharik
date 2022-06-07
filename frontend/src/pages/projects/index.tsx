@@ -17,11 +17,12 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
             <h1 className="text-3xl font-black text-dark">
               Fundraising categories
             </h1>
-            <p className="w-full md:w-3/4 md:mx-auto text-lightDark mt-8">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-              dignissimos accusantium accusamus ut voluptatum iste modi
-              perferendis facere suscipit vero.
+            <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
+              Many organizations and individuals run into trouble because they
+              only have one or two sources of funding. If any of the sources go
+              away, the organization will likely find itself in trouble.
+              That&#39;s why it is important to have as many sources as
+              possible.
             </p>
           </div>
           <CategoriesStripe />
@@ -38,6 +39,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                 price,
                 title,
                 createdAt,
+                collected,
               },
               idx
             ) => (
@@ -48,7 +50,10 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                 id={_id}
                 category={category}
                 deadline={deadline}
+                price={price}
+                desc={desc}
                 images={images}
+                collected={collected || 0}
               />
             )
           )}

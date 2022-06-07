@@ -17,11 +17,13 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
               <h1 className="text-4xl font-black text-dark">
                 A place for friends, charities, dreamers, & you
               </h1>
-              <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
-                <span className="text-center font-bold tracking-wide leading-relaxed text-lg">
-                  Get started
-                </span>
-              </SquaredSolidButton>
+              <Link href="/projects/create">
+                <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
+                  <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
+                    Get started
+                  </a>
+                </SquaredSolidButton>
+              </Link>
             </div>
             <figure className="md:col-span-8 md:h-[400px]">
               <img
@@ -39,10 +41,9 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
               <h1 className="text-4xl font-black text-dark">
                 What&#39;s Popular
               </h1>
-              <p className="w-full md:w-3/4 md:mx-auto text-lightDark mt-8">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-                dignissimos accusantium accusamus ut voluptatum iste modi
-                perferendis facere suscipit vero.
+              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                Here you will find the most popular projects from our creators
+                and dreamers, take a look and explore them.
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
@@ -58,6 +59,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                       title,
                       createdAt,
                       images,
+                      collected,
                     },
                     idx
                   ) => (
@@ -70,6 +72,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                       price={price}
                       deadline={deadline}
                       images={images}
+                      collected={collected}
                     />
                   )
                 )}
@@ -81,9 +84,10 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
           <div className="container">
             <div className="mb-14 text-center">
               <h1 className="text-4xl font-black text-dark">Explore Ideas</h1>
-              <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-                dignissimos accusantium accusamus ut voluptatum.
+              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                Looking for inspiration? Here you find wild of creative ideas
+                from our creators and dreamers that promote thinking and
+                problem-solving.
               </p>
             </div>
             {/*  */}
@@ -136,6 +140,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                       createdAt,
                       images,
                       desc,
+                      collected,
                     },
                     idx
                   ) => (
@@ -149,6 +154,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                       price={price}
                       deadline={deadline}
                       images={images}
+                      collected={collected}
                     />
                   )
                 )}
@@ -183,7 +189,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                   Subscribe to our newsletter
                 </h2>
                 <p className="text-lightDark font-medium text-sm">
-                  Get 3 great projects in your box every week!
+                  Receive new projects in your inbox every week!
                 </p>
               </div>
               <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-3">

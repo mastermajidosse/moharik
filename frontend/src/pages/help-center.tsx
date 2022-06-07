@@ -3,6 +3,22 @@ import { FaqAccordion } from "../components/materials/FaqAccordion";
 import { SquaredSolidButton } from "../components/materials/Buttons";
 
 export default function HelpCenterPage() {
+  const faqList = [
+    {
+      question: "What is Moharik?",
+      answer:
+        "Moharik is a way to raise money from a large number of people or individulas to provide the capital needed to get a company or project off the ground. Individuals, charities, or companies can create a campaign for specific causes and anyone can contribute",
+    },
+    {
+      question: "What are the advantages of Moharik?",
+      answer:
+        "There are many advantages of Moharik; Community building and feedback collection, low overall risk for a potentially high reward, Helps you avoid giving up equity in your company, New opportunities and collaborations.",
+    },
+    { question: "I have a project. How can I apply?", answer: "----" },
+    { question: "How to create an account?", answer: "----" },
+    { question: "How to recover the amount collected?", answer: "----" },
+    { question: "How much can I invest?", answer: "----" },
+  ];
   return (
     <div className="py-16 md:py-20">
       {/* search section */}
@@ -31,9 +47,9 @@ export default function HelpCenterPage() {
         </h2>
         {/* accordions */}
         <ul className="grid grid-cols-1 gap-4">
-          {Array.from(Array(6)).map((_, idx) => (
+          {faqList.map((faq, idx) => (
             <li key={idx} className="">
-              <FaqAccordion />
+              <FaqAccordion {...faq} />
             </li>
           ))}
         </ul>

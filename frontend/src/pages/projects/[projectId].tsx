@@ -1,30 +1,44 @@
+import { GetServerSideProps } from "next";
+import CommentItem from "../../components/items/CommentItem";
+import DonatorItem from "../../components/items/DonatorItem";
 import { FilledHeartIcon } from "../../components/materials/Icons";
+import { IProject } from "../../interfaces/project";
 import {
   PersonWithHeartIcon,
   ReportFlagIcon,
 } from "../../components/materials/Icons";
+import { client } from "../../utils/api";
+import dayjs from "dayjs";
 
-export default function SingleProjectPage() {
+export default function SingleProjectPage({
+  project,
+}: {
+  project: IProject | Record<string, never>;
+}) {
+  console.log("project: ", project);
+
+  const daysCount = dayjs(Date.now()).diff(dayjs(project.createdAt), "days");
+
   return (
     <>
       <section className="container mt-10 py-16 md:py-24 bg-white grid grid-cols-12 gap-10">
         <div className="col-span-full md:col-span-8">
           {/* title */}
           <h1 className="hidden md:block mb-5 text-3xl font-black text-dark tracking-wide">
-            APOYO A LA FAMILIA DE MARIO
+            {project?.title}
           </h1>
           {/* cover */}
           <figure className="w-full h-[260px] md:h-[400px]">
             <img
               className="w-full h-full object-cover rounded-xl shadow-header-light"
-              src="https://www.gofundme.com/c/wp-content/uploads/2020/03/Man-Behind-The-Counter.jpg?w=1280"
+              src={project.images[0]}
               alt=""
             />
           </figure>
           <div className="block md:hidden">
             {/* title */}
             <h1 className="mt-5 text-xl font-black text-dark tracking-wide">
-              APOYO A LA FAMILIA DE MARIO
+              {project?.title}
             </h1>
             {/* progress bar */}
             <div className="my-2 w-full h-1 rounded-full overflow-hidden bg-primary-100/50">
@@ -32,9 +46,9 @@ export default function SingleProjectPage() {
             </div>
             {/* metadata */}
             <p className="text-dark font-bold text-lg">
-              5,315 dh{" "}
+              {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
-                raised of 50,000DH goal • 85 donors
+                raised of {project?.price}DH goal • 85 donors
               </span>
             </p>
             {/* share & donate buttons  */}
@@ -54,7 +68,7 @@ export default function SingleProjectPage() {
           </div>
           {/* orgnizer stripe */}
           <div className="md:w-11/12 flex items-center mt-4 gap-2">
-            <figure className="w-8 h-8 bg-primary-100/50 rounded-full flex justify-center items-center">
+            {/* <figure className="w-8 h-8 bg-primary-100/50 rounded-full flex justify-center items-center">
               <PersonWithHeartIcon
                 width="20"
                 height="20"
@@ -63,6 +77,14 @@ export default function SingleProjectPage() {
             </figure>
             <p className="text-sm">
               Amigos de Lucía y Thomas is organizing this fundraiser.
+            </p> */}
+            <p className="text-lightDark font-medium text-sm">
+              {daysCount > 0
+                ? `Created ${daysCount} days ago |`
+                : "Created today |"}
+            </p>{" "}
+            <p className="px-4 capitalize py-0.5 text-sm bg-primary-100/75 text-primary-800 font-medium cursor-pointer">
+              {project?.category}
             </p>
           </div>
           {/* separetor */}
@@ -70,17 +92,7 @@ export default function SingleProjectPage() {
           {/* description */}
           <div className="md:w-11/12 my-4">
             <p className="text-dark/75 font-medium leading-relaxed tracking-wide">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Architecto exercitationem quia ullam esse non praesentium
-              necessitatibus ipsam eos beatae dolores? Quos ipsum libero veniam
-              architecto asperiores aspernatur aperiam consequuntur ipsa
-              accusantium, recusandae qui eos corporis tempore impedit explicabo
-              nostrum. Quis! Lorem ipsum, dolor sit amet consectetur adipisicing
-              elit. Architecto exercitationem quia ullam esse non praesentium
-              necessitatibus ipsam eos beatae dolores? Quos ipsum libero veniam
-              architecto asperiores aspernatur aperiam consequuntur ipsa
-              accusantium, recusandae qui eos corporis tempore impedit explicabo
-              nostrum. Quis!
+              {project?.desc}
             </p>
           </div>
           {/* share & donate buttons */}
@@ -168,9 +180,9 @@ export default function SingleProjectPage() {
           <div className="sticky top-4 w-full bg-white p-6 rounded-lg shadow-aside">
             {/* metadata */}
             <p className="text-dark font-bold text-2xl">
-              5,315 dh{" "}
+              {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
-                raised of 50,000DH goal
+                raised of {project?.price}DH goal
               </span>
             </p>
             {/* progress bar */}
@@ -215,38 +227,19 @@ export default function SingleProjectPage() {
   );
 }
 
-function CommentItem() {
-  return (
-    <div className="flex gap-4">
-      <figure className="w-10 h-10 bg-primary-100/50 rounded-full flex justify-center items-center">
-        <PersonWithHeartIcon
-          width="20"
-          height="20"
-          className="text-primary-500"
-        />
-      </figure>
-      <div className="flex flex-col text-dark">
-        <h3 className="font-bold">Alejandra Spring</h3>
-        <p className="text-sm font-medium text-lightDark">€50 • 1 mo</p>
-        <p className="text-sm font-medium text-lightDark">Todo mi amor</p>
-      </div>
-    </div>
-  );
-}
-function DonatorItem() {
-  return (
-    <div className="flex gap-4">
-      <figure className="w-10 h-10 bg-light rounded-full flex justify-center items-center">
-        <PersonWithHeartIcon
-          width="20"
-          height="20"
-          className="text-lightDark"
-        />
-      </figure>
-      <div className="flex flex-col text-dark">
-        <h3 className="font-bold">Alicia Rodríguez Prieto</h3>
-        <p className="text-sm font-medium text-lightDark">€50 • 9 hrs</p>
-      </div>
-    </div>
-  );
-}
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { projectId } = query;
+  let project: IProject | Record<string, never> = {};
+  try {
+    const { data } = await client.get(`/posts/${projectId}`);
+    project = data;
+    console.log("projects: ", project);
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    props: {
+      project,
+    },
+  };
+};
