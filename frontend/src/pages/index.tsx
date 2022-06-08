@@ -7,6 +7,8 @@ import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
 import { IMoto } from "../interfaces/motos";
 import { useState, useEffect } from "react";
+import { blogs } from "../data/blogs";
+import BlogCard from "../components/cards/BlogCard";
 
 export default function HomePage({
   projects,
@@ -103,7 +105,9 @@ export default function HomePage({
         <section className="bg-light py-12">
           <div className="container">
             <div className="mb-14 text-center">
-              <h1 className="text-4xl font-black text-dark">Explore Ideas</h1>
+              <h1 className="text-4xl font-black text-dark capitalize">
+                Explore our blogs
+              </h1>
               <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
                 Looking for inspiration? Here you find wild of creative ideas
                 from our creators and dreamers that promote thinking and
@@ -112,24 +116,16 @@ export default function HomePage({
             </div>
             {/*  */}
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {Array.from(Array(9)).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="group w-full h-60 relative cursor-pointer overflow-hidden"
-                >
-                  <figure className="w-full h-full relative">
-                    <img
-                      className="object-cover w-full h-full group-hover:scale-110 duration-1000"
-                      src="https://images.gofundme.com/Ze4tfG6FGkyofzNALx2PDeXkOjI=/720x405/https://d2g8igdw686xgo.cloudfront.net/63751373_1646644799776323_r.png"
-                    />
-                    <div className="absolute z-0 top-0 left-0 w-full h-full bg-gradient-to-t from-primary-900 opacity-80" />
-                  </figure>
-                  <div className="absolute bottom-0 left-0 flex flex-col justify-center items-center w-full text-light p-8">
-                    <p className="text-xl font-bold ">Design & Art</p>
-                    <div className="w-3/5 h-0.5 rounded-full bg-light group-hover:translate-x-0 duration-300 -translate-x-16 opacity-0 group-hover:opacity-100" />
-                  </div>
-                </div>
+              {blogs.map((blog, idx) => (
+                <BlogCard key={idx} idx={idx} {...blog} />
               ))}
+            </div>
+            <div className="w-fit mx-auto">
+              <Link href="/blog">
+                <a className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
+                  Explore more
+                </a>
+              </Link>
             </div>
           </div>
         </section>

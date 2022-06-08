@@ -1,5 +1,6 @@
 import BlogCard from "../../components/cards/BlogCard";
 import FeaturedBlogCard from "../../components/cards/FeaturedBlogCard";
+import { blogs } from "../../data/blogs";
 
 export default function BlogPage() {
   return (
@@ -18,8 +19,8 @@ export default function BlogPage() {
       {/* blog list */}
       <section className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {Array.from(Array(12)).map((_, idx) => (
-            <BlogCard key={idx} />
+          {blogs.map((blog, idx) => (
+            <BlogCard key={idx} idx={idx} {...blog} />
           ))}
         </div>
         <div className="flex justify-center mt-12">
