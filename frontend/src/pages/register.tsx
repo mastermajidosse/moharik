@@ -38,7 +38,11 @@ const defaultValues = {
 
 export default function RegisterPage() {
   const { push } = useRouter();
-  const { handleSubmit, register } = useForm<RegisterForm>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<RegisterForm>({
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -111,6 +115,8 @@ export default function RegisterPage() {
                   <Input
                     name="firstName"
                     register={register}
+                    error={errors.firstName?.message}
+                    required
                     label="First name"
                     type="text"
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -118,10 +124,12 @@ export default function RegisterPage() {
                 </div>
                 <div className="">
                   <Input
+                    required
                     name="lastName"
                     register={register}
                     label="Last name"
                     type="text"
+                    error={errors.lastName?.message}
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                   />
                 </div>
@@ -140,7 +148,9 @@ export default function RegisterPage() {
                   name="email"
                   register={register}
                   label="Email"
+                  error={errors.email?.message}
                   type="email"
+                  required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
@@ -150,6 +160,8 @@ export default function RegisterPage() {
                     name="password"
                     register={register}
                     label="Password"
+                    required
+                    error={errors.password?.message}
                     type="password"
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                   />
@@ -160,6 +172,8 @@ export default function RegisterPage() {
                     register={register}
                     label="Confirm password"
                     type="password"
+                    required
+                    error={errors.password?.message}
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                   />
                 </div>

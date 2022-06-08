@@ -4,10 +4,17 @@ import { UseFormRegister } from "react-hook-form";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label: string;
+  error?: string;
   register: UseFormRegister<any>;
 }
 
-export default function Input({ label, name, register, ...rest }: InputProps) {
+export default function Input({
+  label,
+  name,
+  register,
+  error,
+  ...rest
+}: InputProps) {
   return (
     <>
       <label
@@ -21,6 +28,7 @@ export default function Input({ label, name, register, ...rest }: InputProps) {
         {...rest}
         {...register(name)}
       />
+      {error && <span className="text-xs text-red-500">{error}</span>}
     </>
   );
 }
