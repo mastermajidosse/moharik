@@ -154,16 +154,16 @@ export default function SingleProjectPage({
           {/* comments */}
           <div className="md:w-11/12 ">
             <div className="">
-              <h2 className="text-xl font-bold text-dark">Comments (5)</h2>
+              <h2 className="text-xl font-bold text-dark">Comments (0)</h2>
               <p className="font-meduim text-lightDark">
                 Please donate to share words of support.
               </p>
             </div>
-            <div className="flex flex-col gap-6 mt-6">
+            {/* <div className="flex flex-col gap-6 mt-6">
               {Array.from(Array(5)).map((_, idx) => (
                 <CommentItem key={idx} />
               ))}
-            </div>
+            </div> */}
           </div>
           {/* separetor */}
           <div className="md:w-11/12 w-full h-[1px] bg-lightDark/25 my-5 md:my-12" />
@@ -209,16 +209,16 @@ export default function SingleProjectPage({
             {/* donators */}
             <div className="">
               <div className="">
-                <h2 className="text-xl font-bold text-dark">Donations (13)</h2>
+                <h2 className="text-xl font-bold text-dark">Donators (0)</h2>
               </div>
-              <div className="flex flex-col gap-6 mt-6">
+              {/* <div className="flex flex-col gap-6 mt-6">
                 {Array.from(Array(3)).map((_, idx) => (
                   <DonatorItem key={idx} />
                 ))}
               </div>
               <button className="w-full mt-8 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
                 See all
-              </button>
+              </button> */}
             </div>
           </div>
         </aside>

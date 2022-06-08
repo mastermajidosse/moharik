@@ -16,7 +16,9 @@ export default function HomePage({
   motos: IMoto[];
 }) {
   const [counter, setCounter] = useState(0);
-  const [moto, setMoto] = useState<string>(motos[0] == undefined ? "" :motos[0].content);
+  const [moto, setMoto] = useState<string>(
+    motos[0] == undefined ? "" : motos[0].content
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
