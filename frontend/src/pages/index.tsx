@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
 import { motos } from "../data/motos";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function HomePage({
   projects,
@@ -30,6 +32,17 @@ export default function HomePage({
 
     return () => clearInterval(interval);
   }, [counter, motos]);
+
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: {
+      newsLetter: "",
+    },
+  });
+
+  function onSubmit() {
+    toast.success("You are now subscribed to our newsletter.");
+    reset();
+  }
 
   return (
     <>
@@ -213,15 +226,23 @@ export default function HomePage({
                   Receive new projects in your inbox every week!
                 </p>
               </div>
-              <div className="relative w-full flex flex-col md:flex-row justify-center items-center gap-3">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="relative w-full flex flex-col md:flex-row justify-center items-center gap-3"
+              >
                 <input
                   className="w-full md:w-3/4 outline-none border-2 border-primary-200 focus:border-primary-300 p-2.5 md:p-3 bg-light"
                   placeholder="Eneter your email adress"
+                  type="email"
+                  {...register("newsLetter")}
                 />
-                <button className="w-full md:w-1/4 flex justify-center items-center bg-primary-500 text-light font-medium  py-1.5 md:py-3 hover:bg-primary-600 duration-200 text-lg">
+                <button
+                  type="submit"
+                  className="w-full md:w-1/4 flex justify-center items-center bg-primary-500 text-light font-medium  py-1.5 md:py-3 hover:bg-primary-600 duration-200 text-lg"
+                >
                   Subscribe
                 </button>
-              </div>
+              </form>
               <p className="text-lightDark font-medium text-xs">
                 We will only use your email address to send you our newsletter.
                 Learn more
