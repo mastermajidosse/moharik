@@ -8,6 +8,7 @@ import { getCurrentUser } from "../../utils/getCurrentUser";
 import { toast } from "react-toastify";
 import { client } from "../../utils/api";
 import { getToken } from "../../utils/getToken";
+import { categoriesWithColors } from "../../data/categories";
 
 interface ProjectCardProps {
   id: string;
@@ -100,7 +101,14 @@ export default function ProjectCard({
         </div>
       </figure>
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
-        <p className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed bg-primary-400 text-light">
+        <p
+          style={{
+            backgroundColor: categoriesWithColors.find(
+              (item) => item.name == category
+            )?.color,
+          }}
+          className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light"
+        >
           {category}
         </p>
         <Link href={`/projects/${id}`}>
