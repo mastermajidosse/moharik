@@ -9,22 +9,21 @@ import { IMoto } from "../interfaces/motos";
 import { useState, useEffect } from "react";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
+import { motos } from "../data/motos";
 
 export default function HomePage({
   projects,
-  motos,
-}: {
+}: // motos,
+{
   projects: IProject[];
-  motos: IMoto[];
+  // motos: IMoto[];
 }) {
   const [counter, setCounter] = useState(0);
-  const [moto, setMoto] = useState<string>(
-    motos[0] == undefined ? "" : motos[0].content
-  );
+  const [moto, setMoto] = useState<string>(motos[0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMoto(motos[counter]?.content || "");
+      setMoto(motos[counter] || "");
       counter >= motos.length - 1 ? setCounter(0) : setCounter(counter + 1);
     }, 3000);
 
@@ -38,7 +37,7 @@ export default function HomePage({
         <section className="bg-light mb-8">
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
-              <h1 className="text-4xl font-black text-dark h-24">{moto}</h1>
+              <h1 className="text-4xl font-black text-dark h-24 capitalize">{moto}</h1>
               <Link href="/projects/create">
                 <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
                   <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
