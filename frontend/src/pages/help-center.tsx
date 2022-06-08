@@ -1,7 +1,11 @@
+import Head from "next/head";
+import { useForm } from "react-hook-form";
+
 import { SearchIcon } from "../components/materials/icons";
 import { FaqAccordion } from "../components/materials/FaqAccordion";
 import { SquaredSolidButton } from "../components/materials/Buttons";
-import Head from "next/head";
+import Input from "../components/materials/Inputs";
+import { toast } from "react-toastify";
 
 export default function HelpCenterPage() {
   const faqList = [
@@ -26,6 +30,25 @@ export default function HelpCenterPage() {
         "simply click on get started and fill up the data to register a new account",
     },
   ];
+
+  const { handleSubmit, register } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      description: "",
+    },
+  });
+
+  async function onSubmit() {
+    try {
+      toast.success(
+        "Thanks for contacting us, We will respond you as soon as possible."
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="py-16 md:py-20">
       <Head>
@@ -65,22 +88,64 @@ export default function HelpCenterPage() {
         </ul>
       </section>
       {/* more help section */}
-      <section className="bg-secondary-50 py-8">
+      <section className="bg-secondary-50 py-12">
         <div className="container">
           <h2 className="text-dark font-bold text-2xl md:text-3xl text-center mb-4">
             We&#39;re here for you
           </h2>
-          <p className="text-center font-medium text-dark/75 text-sm">
+          <p className="w-full md:w-3/5 mx-auto text-center font-medium text-dark/75 text-sm">
             Still need help? Just click the button below and we&#39;ll provide
             you with personalized support and connect you with one of our
             Customer Care agents if needed.
           </p>
-          <div className="flex justify-center mt-4">
-            <SquaredSolidButton className="mt-0 py-1 px-6 rounded-[0.25rem] bg-secondary-500 text-white shadow-md shadow-lightDark/20 hover:bg-secondary-600 duration-300">
-              <span className="text-center font-medium tracking-wide leading-relaxed">
-                Contact us
-              </span>
-            </SquaredSolidButton>
+          <div className="flex justify-center mt-8">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-1/3 mx-auto flex flex-col gap-6"
+            >
+              <div className="">
+                <Input
+                  name="name"
+                  register={register}
+                  label="Full Name"
+                  type="name"
+                  required
+                  className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
+                />
+              </div>
+              <div className="">
+                <Input
+                  name="email"
+                  register={register}
+                  label="Email address"
+                  type="email"
+                  required
+                  className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
+                />
+              </div>
+              <div className="">
+                <label
+                  htmlFor="first_name"
+                  className="block mb-2 text-sm font-medium text-dark"
+                >
+                  Description
+                </label>
+                <textarea
+                  rows={6}
+                  required
+                  className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
+                  {...register("description")}
+                />
+              </div>
+              <SquaredSolidButton className="mt-0 w-fit mx-auto py-1 px-6 rounded-[0.25rem] bg-secondary-500 text-white shadow-md shadow-lightDark/20 hover:bg-secondary-600 duration-300">
+                <button
+                  type="submit"
+                  className="text-center font-medium tracking-wide leading-relaxed"
+                >
+                  Contact us
+                </button>
+              </SquaredSolidButton>
+            </form>
           </div>
         </div>
       </section>
