@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FilledHeartIcon } from "../materials/Icons";
+import { FilledHeartIcon } from "../materials/icons";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { useState } from "react";
@@ -85,7 +85,7 @@ export default function ProjectCard({
             }}
             className="h-full bg-primary-400"
           />
-          <div
+          {/* <div
             onClick={handleLike}
             className={clsx(
               "absolute right-2 -top-3 h-8 w-8 bg-light flex justify-center items-center rounded-full shadow-md  hover:text-red-400 duration-300 cursor-pointer",
@@ -96,7 +96,7 @@ export default function ProjectCard({
             )}
           >
             <FilledHeartIcon width="14" height="14" />
-          </div>
+          </div> */}
         </div>
       </figure>
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
