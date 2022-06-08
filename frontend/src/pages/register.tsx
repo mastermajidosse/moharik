@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { client, baseURL } from "../utils/api";
+import { client } from "../utils/api";
 import Input from "../components/materials/Inputs";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -23,7 +23,7 @@ const schema = yup
     email: yup.string().email().required(),
     password: yup.string().min(8).required(),
     confirmPassword: yup.string().min(8).required(),
-    country: yup.string().required(),
+    // country: yup.string().required(),
   })
   .required();
 
@@ -33,7 +33,6 @@ const defaultValues = {
   email: "",
   password: "",
   confirmPassword: "",
-  country: "",
 };
 
 export default function RegisterPage() {
@@ -44,8 +43,7 @@ export default function RegisterPage() {
   });
 
   async function onSubmit(inputs: RegisterForm) {
-    const { confirmPassword, country, email, firstName, lastName, password } =
-      inputs;
+    const { confirmPassword, email, firstName, lastName, password } = inputs;
     try {
       if (confirmPassword !== password) {
         toast.error("Password didn't matched!!!", {
@@ -58,7 +56,7 @@ export default function RegisterPage() {
         name: `${firstName} ${lastName}`,
         email,
         password,
-        country,
+        country: "Morocco",
       };
       await client.post("/users/register", data);
       toast.success("You can now Login!!!", {
@@ -124,7 +122,7 @@ export default function RegisterPage() {
                   />
                 </div>
               </div>
-              <div className="">
+              {/* <div className="">
                 <Input
                   name="country"
                   register={register}
@@ -132,7 +130,7 @@ export default function RegisterPage() {
                   type="text"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
-              </div>
+              </div> */}
               <div className="">
                 <Input
                   name="email"
