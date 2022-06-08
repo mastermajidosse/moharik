@@ -15,10 +15,16 @@ export default function HelpCenterPage() {
       answer:
         "There are many advantages of Moharik; Community building and feedback collection, low overall risk for a potentially high reward, Helps you avoid giving up equity in your company, New opportunities and collaborations.",
     },
-    { question: "I have a project. How can I apply?", answer: "----" },
-    { question: "How to create an account?", answer: "----" },
-    { question: "How to recover the amount collected?", answer: "----" },
-    { question: "How much can I invest?", answer: "----" },
+    {
+      question: "I have a project. How can I apply?",
+      answer:
+        "create an account and add your project with all the details included",
+    },
+    {
+      question: "How to create an account?",
+      answer:
+        "simply click on get started and fill up the data to register a new account",
+    },
   ];
   return (
     <div className="py-16 md:py-20">

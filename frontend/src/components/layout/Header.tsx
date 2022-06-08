@@ -6,7 +6,7 @@ import { getCookie } from "cookies-next";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon, UserIcon } from "../materials/Icons";
+import { BurgerMenuIcon, UserIcon } from "../materials/icons";
 import MobileMenu from "../menu/MobileMenu";
 import { navs } from "../../data/navs";
 import { ICurrentUser } from "../../interfaces/currentUser";
