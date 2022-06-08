@@ -1,0 +1,182 @@
+//motos section
+get http://localhost:5000
+
+###
+get http://localhost:5000/api/motos
+
+###
+post http://localhost:5000/api/motos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+    "content":"An other moto for testing"
+}
+
+###
+post http://localhost:5000/api/motos/6299ca8973998c73fbb02a3e
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+    "content":"It is modified now"
+}
+
+###
+delete http://localhost:5000/api/motos/6299ca8973998c73fbb02a3e
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+
+
+
+//users section
+###
+get http://localhost:5000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+### 
+post http://localhost:5000/api/users/login
+Content-Type: application/json
+//this is the admin account
+{
+    "email":"younesmeskafe@gmail.com",
+    "password":"younespassword"
+}
+
+###
+post http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+	"name":"test",
+	"email":"testdev@gmail.com",
+	"password":"testpassword",
+	"country":"Germany"
+}
+###
+get http://localhost:5000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+###
+put http://localhost:5000/api/users/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+    "country":"Qatar"
+}
+
+###
+get http://localhost:5000/api/users/6299cd6ee109f8fb61dbaa58
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+###
+put http://localhost:5000/api/users/6299cd6ee109f8fb61dbaa58
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+    "isAdmin":true
+}
+
+###
+delete http://localhost:5000/api/users/6299cd6ee109f8fb61dbaa58
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+
+###
+post http://localhost:5000/api/users/6298f3067a96436fb50eba5b/ublock
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+
+//posts section
+###
+get http://localhost:5000/api/posts
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+###
+post http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+	"title":"test project",
+	"desc":"Description for test project",
+	"category":"competition",
+	"price":100,
+	"deadline":"2022-06-22",
+	"images":[
+    "http://res.cloudinary.com/senyou/image/upload/v1653736690/htm20wjsglpnepacf2qj.jpg",
+    "http://res.cloudinary.com/senyou/image/upload/v1653736691/wjwaox2kh3avazqzp7lv.jpg"
+]
+}
+
+###
+get http://localhost:5000/api/posts/6299e3aa58dbb363c5317105
+
+###
+get http://localhost:5000/api/posts/user/629204b0a64bf61d7f829e25
+
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+{
+    "category": "thrive"
+}
+
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNTllYTY0YmY2MWQ3ZjgyOWUzMCIsImlhdCI6MTY1NDI1Mjg1MSwiZXhwIjoxNjU2ODQ0ODUxfQ.GJlIgzPkfYUdNwlXob_2dATeVWIfcs60zFD3WbDvlv4
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/report
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNTllYTY0YmY2MWQ3ZjgyOWUzMCIsImlhdCI6MTY1NDI1Mjg1MSwiZXhwIjoxNjU2ODQ0ODUxfQ.GJlIgzPkfYUdNwlXob_2dATeVWIfcs60zFD3WbDvlv4
+Content-Type: application/json
+
+{
+    "title":"report 1",
+    "desc":"desc for rep 1"
+}
+
+###
+get http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/report/6299e6e858dbb363c531711d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+###
+delete http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/report/6299e6e858dbb363c531711d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+Content-Type: application/json
+
+
+{
+    "title":"update 1",
+    "desc":"desc for update 1"
+}
+
+###
+get http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+
+
+###
+post http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/update/6299ec22428194b1610675cf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
+Content-Type: application/json
+
+{
+    "title":"modification of the update"
+}
+
+###
+delete http://localhost:5000/api/posts/6299e3aa58dbb363c5317105/update/6299ec22428194b1610675cf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTIwNGIwYTY0YmY2MWQ3ZjgyOWUyNSIsImlhdCI6MTY1NDI0NTk1MCwiZXhwIjoxNjU2ODM3OTUwfQ.g2t1EYktPaQJbbCFGBWjfnp6hVBVByMT3zoaShAaqXs
