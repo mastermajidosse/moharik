@@ -1,8 +1,12 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Moharik | Newsletter</title>
+      </Head>
       {/* newsletter */}
       <section className="mt-20 bg-light container">
         <div

@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { client } from "../utils/api";
 import { toast } from "react-toastify";
 import { setCookies } from "cookies-next";
+import Head from "next/head";
 
 interface LoginForm {
   email: string;
@@ -39,6 +40,9 @@ export default function LoginPage() {
   }
   return (
     <>
+      <Head>
+        <title>Moharik | Login</title>
+      </Head>
       {/* header */}
       <header className="fixed top-0 left-0 z-10 w-full h-[60px] bg-white flex items-center shadow-header-light">
         <div className="flex justify-between items-center container">

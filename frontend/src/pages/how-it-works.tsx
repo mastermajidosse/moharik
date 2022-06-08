@@ -1,13 +1,17 @@
 import { SquaredSolidButton } from "../components/materials/Buttons";
+import Head from "next/head";
 import {
   PiggyBankIcon,
   PersonPlusIcon,
   ChevronBarDownIcon,
   VideoPlayerIcon,
-} from "../components/materials/Icons";
+} from "../components/materials/icons";
 export default function HowItWorksPage() {
   return (
     <div className="mt-10 py-16 md:py-24">
+      <Head>
+        <title>Moharik | How It Works</title>
+      </Head>
       {/* page title */}
       <section className="container flex flex-col gap-2 text-center justify-center items-center">
         <h1 className="text-4xl text-dark font-bold mb-4">

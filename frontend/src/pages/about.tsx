@@ -1,6 +1,10 @@
+import Head from "next/head";
 export default function AboutPage() {
   return (
     <div className="mt-10 py-16 md:py-24">
+      <Head>
+        <title>Moharik | About</title>
+      </Head>
       <section className="container">
         <h1 className="text-2xl md:text-3xl text-dark font-bold mb-6 text-center">
           About <span className="text-primary">Moharik</span>
@@ -25,10 +29,7 @@ export default function AboutPage() {
       {/* pic section */}
       <section className="container my-16">
         <figure className="relative rounded-md overflow-hidden">
-          <img
-            src="https://www.gofundme.com/c/wp-content/uploads/2021/09/drone-photo-1.jpg"
-            alt=""
-          />
+          <img src="/assets/images/about.jpg" alt="" />
         </figure>
       </section>
     </div>

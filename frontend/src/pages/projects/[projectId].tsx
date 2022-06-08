@@ -1,14 +1,15 @@
 import { GetServerSideProps } from "next";
 import CommentItem from "../../components/items/CommentItem";
 import DonatorItem from "../../components/items/DonatorItem";
-import { FilledHeartIcon } from "../../components/materials/Icons";
+import { FilledHeartIcon } from "../../components/materials/icons";
 import { IProject } from "../../interfaces/project";
 import {
   PersonWithHeartIcon,
   ReportFlagIcon,
-} from "../../components/materials/Icons";
+} from "../../components/materials/icons";
 import { client } from "../../utils/api";
 import dayjs from "dayjs";
+import Head from "next/head";
 
 export default function SingleProjectPage({
   project,
@@ -21,6 +22,9 @@ export default function SingleProjectPage({
 
   return (
     <>
+      <Head>
+        <title>Moharik | {project?.title}</title>
+      </Head>
       <section className="container mt-10 py-16 md:py-24 bg-white grid grid-cols-12 gap-10">
         <div className="col-span-full md:col-span-8">
           {/* title */}

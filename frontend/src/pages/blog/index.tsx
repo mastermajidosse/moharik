@@ -1,3 +1,4 @@
+import Head from "next/head";
 import BlogCard from "../../components/cards/BlogCard";
 import FeaturedBlogCard from "../../components/cards/FeaturedBlogCard";
 import { blogs } from "../../data/blogs";
@@ -5,6 +6,9 @@ import { blogs } from "../../data/blogs";
 export default function BlogPage() {
   return (
     <div className="mt-10 py-16 md:py-24">
+      <Head>
+        <title>Moharik | Blogs</title>
+      </Head>
       {/* featured blog */}
       <FeaturedBlogCard />
       {/* page title */}

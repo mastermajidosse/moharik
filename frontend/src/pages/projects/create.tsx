@@ -10,6 +10,7 @@ import { getToken } from "../../utils/getToken";
 import CategoriesInput from "../../components/materials/CategoriesInput";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export interface ProjectFrom {
   title: string;
@@ -77,6 +78,9 @@ export default function CreateProjectPage() {
 
   return (
     <>
+      <Head>
+        <title>Moharik | Create project</title>
+      </Head>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <h1 className="text-3xl font-bold text-center mb-8">
           Create a project

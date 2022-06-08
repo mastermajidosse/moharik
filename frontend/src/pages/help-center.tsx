@@ -1,6 +1,7 @@
-import { SearchIcon } from "../components/materials/Icons";
+import { SearchIcon } from "../components/materials/icons";
 import { FaqAccordion } from "../components/materials/FaqAccordion";
 import { SquaredSolidButton } from "../components/materials/Buttons";
+import Head from "next/head";
 
 export default function HelpCenterPage() {
   const faqList = [
@@ -21,6 +22,9 @@ export default function HelpCenterPage() {
   ];
   return (
     <div className="py-16 md:py-20">
+      <Head>
+        <title>Moharik | Help center</title>
+      </Head>
       {/* search section */}
       <section className="bg-secondary-50 h-[200px]">
         <div className="container h-full flex flex-col items-center justify-center gap-2">

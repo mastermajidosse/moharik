@@ -6,6 +6,7 @@ import { client } from "../utils/api";
 import Input from "../components/materials/Inputs";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Head from "next/head";
 
 interface RegisterForm {
   firstName: string;
@@ -73,6 +74,9 @@ export default function RegisterPage() {
 
   return (
     <>
+      <Head>
+        <title>Moharik | Register</title>
+      </Head>
       {/* header */}
       <header className="fixed top-0 left-0 z-10 w-full h-[60px] bg-white flex items-center shadow-header-light">
         <div className="flex justify-between items-center container">

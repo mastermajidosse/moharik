@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
@@ -32,12 +33,17 @@ export default function HomePage({
 
   return (
     <>
+      <Head>
+        <title>Moharik</title>
+      </Head>
       <div className="mt-16 py-16 md:py-24 bg-light">
         {/* hero */}
         <section className="bg-light mb-8">
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
-              <h1 className="text-4xl font-black text-dark h-24 capitalize">{moto}</h1>
+              <h1 className="text-4xl font-black text-dark h-24 capitalize">
+                {moto}
+              </h1>
               <Link href="/projects/create">
                 <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
                   <a className="text-center font-bold tracking-wide leading-relaxed text-lg">

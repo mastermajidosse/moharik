@@ -3,6 +3,7 @@ import CategoriesStripe from "../../components/cards/CategoriesStripe";
 import ProjectCard from "../../components/cards/ProjectCard";
 import { IProject } from "../../interfaces/project";
 import { client } from "../../utils/api";
+import Head from "next/head";
 
 interface ProjectsPageProps {
   projects: IProject[] | [];
@@ -11,6 +12,9 @@ interface ProjectsPageProps {
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
   return (
     <>
+      <Head>
+        <title>Moharik | Projects</title>
+      </Head>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <div className="">
           <div className="mb-14 text-center">

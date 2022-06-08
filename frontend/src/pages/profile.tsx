@@ -6,13 +6,14 @@ import {
   EmailIcon,
   GlobeIcon,
   LogoutIcon,
-} from "../components/materials/Icons";
+} from "../components/materials/icons";
 import { ICurrentUser } from "../interfaces/currentUser";
 import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
 import { useState } from "react";
 import clsx from "clsx";
 import { removeCookies } from "cookies-next";
+import Head from "next/head";
 
 interface ProfilePageProps {
   myProjects: IProject[];
@@ -34,6 +35,9 @@ export default function ProfilePage({
 
   return (
     <div className="mt-20 bg-light ">
+      <Head>
+        <title>Moharik | Profile</title>
+      </Head>
       {/* cover */}
       <section className="w-full h-72">
         <figure className="relative __pattern w-full h-full flex justify-center items-center group cursor-pointer">
