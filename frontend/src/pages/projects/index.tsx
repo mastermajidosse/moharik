@@ -4,12 +4,14 @@ import ProjectCard from "../../components/cards/ProjectCard";
 import { IProject } from "../../interfaces/project";
 import { client } from "../../utils/api";
 import Head from "next/head";
+import { useState } from "react";
 
 interface ProjectsPageProps {
   projects: IProject[] | [];
 }
 
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
+  const [limit, setLimit] = useState(12);
   return (
     <>
       <Head>
@@ -32,39 +34,46 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
           <CategoriesStripe />
         </div>
         <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-          {projects.map(
-            (
-              {
-                _id,
-                category,
-                deadline,
-                desc,
-                images,
-                price,
-                title,
-                createdAt,
-                collected,
-              },
-              idx
-            ) => (
-              <ProjectCard
-                key={idx}
-                title={title}
-                createdAt={createdAt}
-                id={_id}
-                category={category}
-                deadline={deadline}
-                price={price}
-                desc={desc}
-                images={images}
-                collected={collected || 0}
-              />
-            )
-          )}
+          {projects
+            .slice(0, limit)
+            .map(
+              (
+                {
+                  _id,
+                  category,
+                  deadline,
+                  desc,
+                  images,
+                  price,
+                  title,
+                  createdAt,
+                  collected,
+                },
+                idx
+              ) => (
+                <ProjectCard
+                  key={idx}
+                  title={title}
+                  createdAt={createdAt}
+                  id={_id}
+                  category={category}
+                  deadline={deadline}
+                  price={price}
+                  desc={desc}
+                  images={images}
+                  collected={collected || 0}
+                />
+              )
+            )}
         </div>
-        <button className="w-fit mx-auto px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
-          Show more
-        </button>
+        {projects.length > limit && (
+          <button
+            onClick={() => setLimit(limit + 12)}
+            className="w-fit mx-auto px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md"
+          >
+            Show more
+          </button>
+        )}
       </section>
     </>
   );
