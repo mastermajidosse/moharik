@@ -155,9 +155,7 @@ export default function HomePage({
                 Latest Campaigns
               </h2>
               <p className="w-full md:w-3/4 md:mx-auto text-lightDark mt-8">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo
-                dignissimos accusantium accusamus ut voluptatum iste modi
-                perferendis facere suscipit vero.
+                Here you will find the most recent projects from our creators and dreamers, <br /> take a look and explore them.
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
