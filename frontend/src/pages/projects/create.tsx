@@ -87,7 +87,7 @@ export default function CreateProjectPage() {
           console.log("images: ", images);
           console.log("data posted: ", projectData);
           toast.success("Project has been created successfully.");
-          // push("/projects");
+          push("/projects");
         }
       });
     } catch (error) {
