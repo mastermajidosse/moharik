@@ -175,3 +175,8 @@
     transform: rotate(360deg);
   }
 }
+
+/* Quill editor */
+.ql-editor {
+  min-height: 200px;
+}

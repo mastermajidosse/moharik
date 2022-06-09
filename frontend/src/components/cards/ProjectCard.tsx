@@ -118,11 +118,11 @@ export default function ProjectCard({
             </h3>
           </a>
         </Link>
-        {desc && (
+        {/* {desc && (
           <p className="text-lightDark font-medium leading-relaxed tracking-wide text-sm line-clamp-2">
             {desc}
           </p>
-        )}
+        )} */}
         {price && (
           <div className="flex flex-col gap-1 border-t pt-2">
             <p className="text-lightDark text-sm font-medium">

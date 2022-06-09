@@ -95,9 +95,13 @@ export default function SingleProjectPage({
           <div className="md:w-11/12 w-full h-[1px] bg-lightDark/25 my-5 md:mb-8" />
           {/* description */}
           <div className="md:w-11/12 my-4">
-            <p className="text-dark/75 font-medium leading-relaxed tracking-wide">
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: project?.desc }}
+            />
+            {/* <p className="text-dark/75 font-medium leading-relaxed tracking-wide">
               {project?.desc}
-            </p>
+            </p> */}
           </div>
           {/* share & donate buttons */}
           <div className="md:w-11/12 w-full flex  gap-3 mt-5">

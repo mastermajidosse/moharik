@@ -1,18 +1,21 @@
-import Input from "../../components/materials/Inputs";
+import { useEffect } from "react";
+import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import Head from "next/head";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import axios from "axios";
+import "react-quill/dist/quill.snow.css";
+
+import Input from "../../components/materials/Inputs";
 import FilesUploader from "../../components/materials/FilesUploader";
-import { GetServerSideProps } from "next";
 import { client } from "../../utils/api";
 import { getToken } from "../../utils/getToken";
 import CategoriesInput from "../../components/materials/CategoriesInput";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import Head from "next/head";
 import { cloudinary_endpoint, IUploadedFileRes } from "../../utils/uploadImage";
-import axios from "axios";
 
 export interface ProjectFrom {
   title: string;
@@ -47,6 +50,8 @@ export default function CreateProjectPage() {
     resolver: yupResolver(schema),
   });
 
+  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
   async function onSubmit(inputs: ProjectFrom) {
     try {
       // upload images
@@ -66,7 +71,7 @@ export default function CreateProjectPage() {
         images.push(data?.url || "/assets/images/placeholder.png");
         // create projects
         if (idx == inputs.images.length - 1) {
-          await client.post(
+          const { data: projectData } = await client.post(
             "/posts",
             {
               ...inputs,
@@ -78,10 +83,10 @@ export default function CreateProjectPage() {
               },
             }
           );
-          // console.log("inputs: ", inputs);
-          // console.log("images: ", images);
-          // console.log("data posted: ", data);
-          // toast.success("Project has been created successfully.");
+          console.log("inputs: ", inputs);
+          console.log("images: ", images);
+          console.log("data posted: ", projectData);
+          toast.success("Project has been created successfully.");
           // push("/projects");
         }
       });
@@ -145,7 +150,7 @@ export default function CreateProjectPage() {
               <div className="">
                 <FilesUploader setValue={setValue} />
               </div>
-              <div className="">
+              {/* <div className="">
                 <label
                   htmlFor="first_name"
                   className="block mb-2 text-sm font-medium text-dark"
@@ -157,6 +162,13 @@ export default function CreateProjectPage() {
                   required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                   {...register("desc")}
+                />
+              </div> */}
+              <div className="">
+                <ReactQuill
+                  theme="snow"
+                  value={getValues("desc")}
+                  onChange={(e) => setValue("desc", e)}
                 />
               </div>
               <button
