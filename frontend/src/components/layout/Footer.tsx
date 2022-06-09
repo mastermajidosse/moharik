@@ -4,7 +4,7 @@ import {
   InstagramIcon,
   TiktokIcon,
   YoutubeIcon,
-} from "../materials/Icons";
+} from "../materials/icons";
 
 export default function Footer() {
   return (

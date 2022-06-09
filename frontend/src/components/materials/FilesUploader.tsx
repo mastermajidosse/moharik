@@ -6,20 +6,27 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import { ProjectFrom } from "../../pages/projects/create";
-import { CloseIcon } from "./Icons";
+import { CloseIcon } from "./icons";
 
 export default function FilesUploader({
   setValue,
 }: {
   setValue: UseFormSetValue<ProjectFrom>;
 }) {
-  const { control, watch } = useForm<{ images: File[] | [] }>({
+  const { control, watch, getValues } = useForm<{ images: File[] | [] }>({
     defaultValues: { images: [] },
   });
   const { remove, append } = useFieldArray({
     control,
     name: "images",
   });
+
+  const watchImages = watch("images");
+
+  useEffect(() => {
+    console.log("watchImages: ", watchImages);
+    setValue("images", getValues("images"));
+  }, [getValues, setValue, watchImages]);
 
   return (
     <>

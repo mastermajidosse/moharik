@@ -3,7 +3,7 @@ import Link from "next/link";
 import { removeCookies } from "cookies-next";
 
 import { SquaredSolidButton } from "../materials/Buttons";
-import { CloseIcon, LogoutIcon } from "../materials/Icons";
+import { CloseIcon, LogoutIcon } from "../materials/icons";
 import { navs } from "../../data/navs";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 

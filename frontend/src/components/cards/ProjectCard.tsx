@@ -75,7 +75,7 @@ export default function ProjectCard({
         <img
           onClick={() => push(`/projects/${id}`)}
           className="w-full h-full bg-cover cursor-pointer"
-          src={images[0] || ""}
+          src={images[0] || "/assets/images/placeholder.png"}
           alt=""
         />
         {/* progress bar */}
@@ -107,7 +107,7 @@ export default function ProjectCard({
               (item) => item.name == category
             )?.color,
           }}
-          className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light"
+          className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize"
         >
           {category}
         </p>

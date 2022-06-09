@@ -11,6 +11,8 @@ import CategoriesInput from "../../components/materials/CategoriesInput";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { cloudinary_endpoint, IUploadedFileRes } from "../../utils/uploadImage";
+import axios from "axios";
 
 export interface ProjectFrom {
   title: string;
@@ -28,6 +30,7 @@ const schema = yup
     category: yup.string().required(),
     price: yup.number().positive().min(1).required(),
     deadline: yup.date().required(),
+    images: yup.array().min(1).required(),
   })
   .required();
 
@@ -46,23 +49,42 @@ export default function CreateProjectPage() {
 
   async function onSubmit(inputs: ProjectFrom) {
     try {
-      const { data } = await client.post(
-        "/posts",
-        {
-          ...inputs,
-          images: [
-            "http://res.cloudinary.com/senyou/image/upload/v1653736690/htm20wjsglpnepacf2qj.jpg",
-          ],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getToken() || ""}`,
-          },
+      // upload images
+      const images: string[] = [];
+      await inputs.images.forEach(async (file, idx) => {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("folder", process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER || "");
+        fd.append(
+          "upload_preset",
+          process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET_NAME || ""
+        );
+        const { data } = await axios.post<IUploadedFileRes>(
+          cloudinary_endpoint,
+          fd
+        );
+        images.push(data?.url || "/assets/images/placeholder.png");
+        // create projects
+        if (idx == inputs.images.length - 1) {
+          await client.post(
+            "/posts",
+            {
+              ...inputs,
+              images,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${getToken() || ""}`,
+              },
+            }
+          );
+          // console.log("inputs: ", inputs);
+          // console.log("images: ", images);
+          // console.log("data posted: ", data);
+          // toast.success("Project has been created successfully.");
+          // push("/projects");
         }
-      );
-      console.log("data posted: ", data);
-      toast.success("Project has been created successfully.");
-      push("/projects");
+      });
     } catch (error) {
       toast.error("Something went wrong!!!");
       console.log(error);

@@ -1,4 +1,4 @@
-import { PersonWithHeartIcon } from "../materials/Icons";
+import { PersonWithHeartIcon } from "../materials/icons";
 
 export default function DonatorItem() {
   return (
