@@ -17,7 +17,6 @@ export default function AboutPage() {
             to take your project to the next level. Welcome to MOHARIK, the
             right place to make your dreams real.
           </p>
-          
         </div>
       </section>
       {/* pic section */}
@@ -27,13 +26,13 @@ export default function AboutPage() {
         </figure>
       </section>
       <div className="flex flex-col gap-4 text-center mx-36 my-14">
-      <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-            Many small business owners in this world couldn&#39;t make their
-            dreams come true,because they didn&#39;t have the financial
-            opportunity to commercialize and grow their projects, MOHARIK gives
-            you the opportunity to meet the investors and like minded creative
-            people to get what you need to make your dream come true.
-          </p>
+        <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
+          Many small business owners in this world couldn&#39;t make their
+          dreams come true,because they didn&#39;t have the financial
+          opportunity to commercialize and grow their projects, MOHARIK gives
+          you the opportunity to meet the investors and like minded creative
+          people to get what you need to make your dream come true.
+        </p>
       </div>
     </div>
   );

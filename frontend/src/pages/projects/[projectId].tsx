@@ -150,7 +150,7 @@ export default function SingleProjectPage({
                 <h2 className="font-bold">Moharik</h2>
                 <p className="text-sm font-medium text-lightDark">Organizer</p>
                 <p className="text-sm font-medium text-lightDark">
-                  Reach us out 
+                  Reach us out
                 </p>
                 <button className="w-fit mt-2 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
                   Contact
