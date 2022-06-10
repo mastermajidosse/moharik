@@ -74,7 +74,7 @@ export default function HelpCenterPage() {
         </div>
       </section>
       {/* FAQ section */}
-      <section className="container my-8">
+      <section className="container mt-16 mb-32">
         <h2 className="text-dark font-bold text-2xl md:text-3xl text-center mb-4">
           FAQ
         </h2>

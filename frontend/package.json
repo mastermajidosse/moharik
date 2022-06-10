@@ -10,6 +10,7 @@
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check ./src",
     "check-lint": "eslint ./src",
+    "gorun": "concurrently \"cd ../backend && npm start \" \"next dev\"",
     "format": "prettier --write ./src"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
     "@types/nprogress": "^0.2.0",
     "axios": "^0.27.2",
     "clsx": "^1.1.1",
+    "concurrently": "^7.2.1",
     "cookies-next": "^2.0.4",
     "dayjs": "^1.11.3",
     "js-cookie": "^3.0.1",

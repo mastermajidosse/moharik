@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   FacebookIcon,
   InstagramIcon,
-  TiktokIcon,
+  GroupIcon,
   YoutubeIcon,
 } from "../materials/icons";
 
@@ -47,28 +47,28 @@ export default function Footer() {
         {/* social icons */}
         <ul className="flex items-center gap-5">
           <li>
-            <Link href="wwww.fb.com">
+            <Link href="https://web.facebook.com/Moharik.ma">
               <a target="_blank">
                 <FacebookIcon width="20" height="20" />
               </a>
             </Link>
           </li>
           <li>
-            <Link href="wwww.fb.com">
+            <Link href="https://www.instagram.com/moharik.ma">
               <a target="_blank">
                 <InstagramIcon width="20" height="20" className="" />
               </a>
             </Link>
           </li>
           <li>
-            <Link href="wwww.fb.com">
+            <Link href="https://web.facebook.com/groups/2224826977690975">
               <a target="_blank">
-                <TiktokIcon width="20" height="20" />
+                <GroupIcon width="20" height="20" />
               </a>
             </Link>
           </li>
           <li>
-            <Link href="wwww.fb.com">
+            <Link href="https://www.youtube.com/channel/UCyi8AOA2qA2RTK5JUfpKkmA">
               <a target="_blank">
                 <YoutubeIcon width="20" height="20" />
               </a>

@@ -11,14 +11,14 @@ export default function CategoriesStripe() {
         ))} */}
         <li className="">
           <a
-            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#f28944] bg-[#f28944]/10 duration-500`}
+            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#2ECC71] bg-[#2ECC71]/10 duration-500`}
           >
             thrive
           </a>
         </li>
         <li className="">
           <a
-            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#2ECC71] bg-[#2ECC71]/10 duration-500`}
+            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#b1817f] bg-[#b1817f]/10 duration-500`}
           >
             invention
           </a>
@@ -46,7 +46,7 @@ export default function CategoriesStripe() {
         </li>
         <li className="">
           <a
-            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#F4D03F] bg-[#F4D03F]/10 duration-500`}
+            className={`capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white hover:bg-[#ff9b59] bg-[#ff9b59]/10 duration-500`}
           >
             competition
           </a>

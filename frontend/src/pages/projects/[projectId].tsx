@@ -46,13 +46,13 @@ export default function SingleProjectPage({
             </h1>
             {/* progress bar */}
             <div className="my-2 w-full h-1 rounded-full overflow-hidden bg-primary-100/50">
-              <div className="w-2/6 h-full rounded-full bg-primary-500" />
+              <div className="w-0 h-full rounded-full bg-primary-500" />
             </div>
             {/* metadata */}
             <p className="text-dark font-bold text-lg">
               {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
-                raised of {project?.price}DH goal • 85 donors
+                raised of {project?.price}DH goal • 0 donors
               </span>
             </p>
             {/* share & donate buttons  */}
@@ -139,17 +139,18 @@ export default function SingleProjectPage({
             </div>
             <div className="flex gap-4 mt-6">
               <figure className="w-14 h-14 bg-primary-100/50 rounded-full flex justify-center items-center">
-                <PersonWithHeartIcon
+                {/* <PersonWithHeartIcon
                   width="24"
                   height="24"
                   className="text-primary-500"
-                />
+                /> */}
+                <b>M</b>
               </figure>
               <div className="flex flex-col gap-2 text-dark">
-                <h2 className="font-bold">Amigos de Lucía y Thomas</h2>
+                <h2 className="font-bold">Moharik</h2>
                 <p className="text-sm font-medium text-lightDark">Organizer</p>
                 <p className="text-sm font-medium text-lightDark">
-                  Vejer de la Frontera
+                  Reach us out 
                 </p>
                 <button className="w-fit mt-2 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
                   Contact
@@ -195,9 +196,9 @@ export default function SingleProjectPage({
             </p>
             {/* progress bar */}
             <div className="my-2 w-full h-1 rounded-full overflow-hidden bg-primary-100/50">
-              <div className="w-2/6 h-full rounded-full bg-primary-500" />
+              <div className="w-0 h-full rounded-full bg-primary-500" />
             </div>
-            <p className="text-lightDark text-sm">85 donors</p>
+            <p className="text-lightDark text-sm">0 donors</p>
             {/* share & donate buttons  */}
             <div className="w-full flex flex-col gap-3 mt-5">
               <div className="flex gap-2">
