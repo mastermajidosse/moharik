@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
-import { ChevronIcon } from "./Icons";
+import { ChevronIcon } from "./icons";
 
 export function FaqAccordion({
   question,
