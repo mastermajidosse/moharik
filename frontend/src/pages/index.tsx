@@ -13,6 +13,7 @@ import BlogCard from "../components/cards/BlogCard";
 import { motos } from "../data/motos";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { getCurrentUser } from "../utils/getCurrentUser";
 
 export default function HomePage({
   projects,
@@ -31,7 +32,7 @@ export default function HomePage({
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [counter, motos]);
+  }, [counter]);
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
@@ -57,7 +58,7 @@ export default function HomePage({
               <h1 className="text-4xl font-black text-dark h-24 capitalize">
                 {moto}
               </h1>
-              <Link href="/projects/create">
+              <Link href={getCurrentUser() ? "/projects/create" : "/login"}>
                 <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
                   <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
                     Get started

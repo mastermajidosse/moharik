@@ -47,8 +47,8 @@ export default function LoginPage() {
       <header className="fixed top-0 left-0 z-10 w-full h-[60px] bg-white flex items-center shadow-header-light">
         <div className="flex justify-between items-center container">
           <figure className="">
-          <Link href="/">
-            <a className="text-xl font-bold text-primary-500">Moharik</a>
+            <Link href="/">
+              <a className="text-xl font-bold text-primary-500">Moharik</a>
             </Link>
           </figure>
           <div className="text-dark">

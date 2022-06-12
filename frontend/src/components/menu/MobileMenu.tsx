@@ -66,12 +66,12 @@ export default function MobileMenu({
           ))}
         </nav>
         <div className="flex justify-between items-center">
-        <Link href="/login">
-          <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
-            <span className="text-center font-medium tracking-wide leading-relaxed">
-              Get started
-            </span>
-          </SquaredSolidButton>
+          <Link href="/login">
+            <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
+              <span className="text-center font-medium tracking-wide leading-relaxed">
+                Get started
+              </span>
+            </SquaredSolidButton>
           </Link>
           {getCurrentUser() ? (
             <div
