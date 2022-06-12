@@ -101,16 +101,18 @@ export default function ProjectCard({
         </div>
       </figure>
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
-        <p
-          style={{
-            backgroundColor: categoriesWithColors.find(
-              (item) => item.name == category
-            )?.color,
-          }}
-          className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize"
-        >
-          {category}
-        </p>
+        <Link href={`/projects?category=${category?.toLocaleLowerCase()}`}>
+          <p
+            style={{
+              backgroundColor: categoriesWithColors.find(
+                (item) => item.name == category
+              )?.color,
+            }}
+            className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize font-medium cursor-pointer"
+          >
+            {category}
+          </p>
+        </Link>
         <Link href={`/projects/${id}`}>
           <a>
             <h3 className="text-dark h-[56px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">

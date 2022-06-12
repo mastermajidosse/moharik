@@ -4,14 +4,21 @@ import ProjectCard from "../../components/cards/ProjectCard";
 import { IProject } from "../../interfaces/project";
 import { client } from "../../utils/api";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface ProjectsPageProps {
   projects: IProject[] | [];
 }
 
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
+  const { query } = useRouter();
   const [limit, setLimit] = useState(12);
+  const [category, setCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCategory((query?.category as string) || null);
+  }, [query?.category]);
   return (
     <>
       <Head>
@@ -34,37 +41,70 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
           <CategoriesStripe />
         </div>
         <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-          {projects
-            .slice(0, limit)
-            .map(
-              (
-                {
-                  _id,
-                  category,
-                  deadline,
-                  desc,
-                  images,
-                  price,
-                  title,
-                  createdAt,
-                  collected,
-                },
-                idx
-              ) => (
-                <ProjectCard
-                  key={idx}
-                  title={title}
-                  createdAt={createdAt}
-                  id={_id}
-                  category={category}
-                  deadline={deadline}
-                  price={price}
-                  desc={desc}
-                  images={images}
-                  collected={collected || 0}
-                />
-              )
-            )}
+          {category
+            ? projects
+                .filter((item) => item.category === category)
+                .slice(0, limit)
+                .map(
+                  (
+                    {
+                      _id,
+                      category,
+                      deadline,
+                      desc,
+                      images,
+                      price,
+                      title,
+                      createdAt,
+                      collected,
+                    },
+                    idx
+                  ) => (
+                    <ProjectCard
+                      key={idx}
+                      title={title}
+                      createdAt={createdAt}
+                      id={_id}
+                      category={category}
+                      deadline={deadline}
+                      price={price}
+                      desc={desc}
+                      images={images}
+                      collected={collected || 0}
+                    />
+                  )
+                )
+            : projects
+                .slice(0, limit)
+                .map(
+                  (
+                    {
+                      _id,
+                      category,
+                      deadline,
+                      desc,
+                      images,
+                      price,
+                      title,
+                      createdAt,
+                      collected,
+                    },
+                    idx
+                  ) => (
+                    <ProjectCard
+                      key={idx}
+                      title={title}
+                      createdAt={createdAt}
+                      id={_id}
+                      category={category}
+                      deadline={deadline}
+                      price={price}
+                      desc={desc}
+                      images={images}
+                      collected={collected || 0}
+                    />
+                  )
+                )}
         </div>
         {projects.length > limit && (
           <button
