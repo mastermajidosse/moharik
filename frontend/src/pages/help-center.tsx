@@ -98,10 +98,10 @@ export default function HelpCenterPage() {
             you with personalized support and connect you with one of our
             Customer Care agents if needed.
           </p>
-          <div className="flex justify-center mt-8">
+          <div className="w-full flex justify-center mt-8">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-1/3 mx-auto flex flex-col gap-6"
+              className="w-full md:w-1/3 mx-auto flex flex-col gap-6"
             >
               <div className="">
                 <Input
