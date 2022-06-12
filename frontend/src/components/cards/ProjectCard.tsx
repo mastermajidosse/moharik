@@ -43,7 +43,7 @@ export default function ProjectCard({
     likes?.includes(getCurrentUser()?._id || "")
   );
   const progress =
-    collected && price ? (1 - (100 / 100 - 90 / 100) / 100) * 100 : 50;
+    collected && price ? (1 - (price - collected) / 100) * 100 : 0;
   const daysCount = dayjs(Date.now()).diff(dayjs(createdAt), "days");
 
   async function handleLike() {

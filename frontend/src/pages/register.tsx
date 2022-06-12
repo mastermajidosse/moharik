@@ -24,7 +24,6 @@ const schema = yup
     email: yup.string().email().required(),
     password: yup.string().min(8).required(),
     confirmPassword: yup.string().min(8).required(),
-    // country: yup.string().required(),
   })
   .required();
 
@@ -134,15 +133,6 @@ export default function RegisterPage() {
                   />
                 </div>
               </div>
-              {/* <div className="">
-                <Input
-                  name="country"
-                  register={register}
-                  label="Country"
-                  type="text"
-                  className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
-                />
-              </div> */}
               <div className="">
                 <Input
                   name="email"
