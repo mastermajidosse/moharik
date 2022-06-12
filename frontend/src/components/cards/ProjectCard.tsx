@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { FilledHeartIcon } from "../materials/icons";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { useState } from "react";
 import clsx from "clsx";
-import { getCurrentUser } from "../../utils/getCurrentUser";
 import { toast } from "react-toastify";
-import { client } from "../../utils/api";
-import { getToken } from "../../utils/getToken";
+
+import { FilledHeartIcon } from "../materials/icons";
+import { getCurrentUser } from "../../utils/getCurrentUser";
 import { categoriesWithColors } from "../../data/categories";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 interface ProjectCardProps {
   id: string;
@@ -18,29 +17,24 @@ interface ProjectCardProps {
   images: string[];
   price?: number;
   collected?: number;
-  deadline: Date;
+  deadline?: Date;
   createdAt: Date;
   likes?: string[] | [];
 }
 
 export default function ProjectCard({
   id,
-  desc,
   category,
   createdAt,
-  deadline,
   images,
   price,
   title,
   collected,
-  likes = [],
 }: ProjectCardProps) {
   const { push } = useRouter();
-
-  const [liked, setLiked] = useState<boolean>(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    likes?.includes(getCurrentUser()?._id || "")
+  const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
+    "likes",
+    []
   );
   const progress =
     collected && price ? (1 - (price - collected) / 100) * 100 : 0;
@@ -48,21 +42,20 @@ export default function ProjectCard({
 
   async function handleLike() {
     try {
-      const { data } = await client.post(
-        `/posts/${id}/like`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${getToken() || ""}`,
-          },
-        }
-      );
-      console.log("liked data: ", data);
-
-      setLiked(!liked);
-      liked
-        ? toast.success("Project is Unliked")
-        : toast.success("Project is Liked");
+      if (!storedValue.find((item) => item.id === id)) {
+        setValue([
+          { id, category, createdAt, images, price, title, collected },
+          ...storedValue,
+        ]);
+        toast.success("Project is Liked", {
+          icon: "❤️",
+        });
+      } else {
+        setValue((val) => val.filter((item) => item.id !== id));
+        toast.success("Project is Unliked", {
+          icon: "💔",
+        });
+      }
     } catch (error) {
       toast.error("Something went wrong!!");
       console.log(error);
@@ -86,18 +79,20 @@ export default function ProjectCard({
             }}
             className="h-full bg-primary-400"
           />
-          {/* <div
-            onClick={handleLike}
-            className={clsx(
-              "absolute right-2 -top-3 h-8 w-8 bg-light flex justify-center items-center rounded-full shadow-md  hover:text-red-400 duration-300 cursor-pointer",
-              {
-                "text-red-200": !liked,
-                "text-red-400": liked,
-              }
-            )}
-          >
-            <FilledHeartIcon width="14" height="14" />
-          </div> */}
+          {getCurrentUser() && (
+            <div
+              onClick={handleLike}
+              className={clsx(
+                "absolute right-2 -top-3 h-8 w-8 bg-light flex justify-center items-center rounded-full shadow-md  hover:text-red-400 duration-300 cursor-pointer",
+                {
+                  "text-red-200": !storedValue.find((item) => item.id === id),
+                  "text-red-400": storedValue.find((item) => item.id === id),
+                }
+              )}
+            >
+              <FilledHeartIcon width="14" height="14" />
+            </div>
+          )}
         </div>
       </figure>
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">

@@ -14,11 +14,25 @@ import { useState } from "react";
 import clsx from "clsx";
 import { removeCookies } from "cookies-next";
 import Head from "next/head";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface ProfilePageProps {
   myProjects: IProject[];
   myFavorites: IProject[];
   myProfile: ICurrentUser;
+}
+
+interface ProjectCardProps {
+  id: string;
+  title: string;
+  desc?: string;
+  category: string;
+  images: string[];
+  price?: number;
+  collected?: number;
+  deadline?: Date;
+  createdAt: Date;
+  likes?: string[] | [];
 }
 
 export default function ProfilePage({
@@ -27,7 +41,10 @@ export default function ProfilePage({
   myProfile,
 }: ProfilePageProps) {
   const [active, setActive] = useState<"projects" | "favorites">("projects");
-
+  const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
+    "likes",
+    []
+  );
   function logOut() {
     removeCookies("currentUser");
     window.location.assign("/");
@@ -122,7 +139,7 @@ export default function ProfilePage({
           <div className="">
             {active === "projects" && <MyProjects myProjects={myProjects} />}
             {active === "favorites" && (
-              <MyFavorites myFavorites={myFavorites || []} />
+              <MyFavorites myFavorites={storedValue || []} />
             )}
           </div>
         </article>
@@ -131,17 +148,21 @@ export default function ProfilePage({
   );
 }
 
-function MyFavorites({ myFavorites }: { myFavorites: IProject[] | [] }) {
+function MyFavorites({
+  myFavorites,
+}: {
+  myFavorites: ProjectCardProps[] | [];
+}) {
   if (!myFavorites) return <EmptyProfile />;
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {myFavorites.map(
-        ({ _id, category, deadline, images, title, createdAt }, idx) => (
+        ({ id, category, deadline, images, title, createdAt }, idx) => (
           <ProjectCard
             key={idx}
             title={title}
             createdAt={createdAt}
-            id={_id}
+            id={id}
             category={category}
             deadline={deadline}
             images={images}

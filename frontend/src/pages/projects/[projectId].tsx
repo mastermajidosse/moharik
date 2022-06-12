@@ -10,16 +10,78 @@ import {
 import { client } from "../../utils/api";
 import dayjs from "dayjs";
 import Head from "next/head";
+import { toast } from "react-toastify";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { getCurrentUser } from "../../utils/getCurrentUser";
+import clsx from "clsx";
+
+interface ProjectCardProps {
+  id: string;
+  title: string;
+  desc?: string;
+  category: string;
+  images: string[];
+  price?: number;
+  collected?: number;
+  deadline?: Date;
+  createdAt: Date;
+  likes?: string[] | [];
+}
 
 export default function SingleProjectPage({
   project,
 }: {
   project: IProject | Record<string, never>;
 }) {
-  console.log("project: ", project);
-
+  const {
+    _id,
+    category,
+    collected,
+    createdAt,
+    deadline,
+    desc,
+    likes,
+    images,
+    price,
+    title,
+  } = project;
+  const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
+    "likes",
+    []
+  );
+  async function handleLike() {
+    try {
+      if (!storedValue.find((item) => item.id === _id)) {
+        setValue([
+          {
+            category,
+            collected,
+            createdAt,
+            deadline,
+            desc,
+            likes,
+            images,
+            price,
+            title,
+            id: _id,
+          },
+          ...storedValue,
+        ]);
+        toast.success("Project is Liked", {
+          icon: "❤️",
+        });
+      } else {
+        setValue((val) => val.filter((item) => item.id !== _id));
+        toast.success("Project is Unliked", {
+          icon: "💔",
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!!");
+      console.log(error);
+    }
+  }
   const daysCount = dayjs(Date.now()).diff(dayjs(project.createdAt), "days");
-
   return (
     <>
       <Head>
@@ -57,14 +119,31 @@ export default function SingleProjectPage({
             </p>
             {/* share & donate buttons  */}
             <div className="w-full flex flex-col gap-3 mt-5">
-              <div className="flex gap-2">
-                <button className="w-fit px-4 py-2 bg-gradient-to-tr from-secondary-400 to-secondary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-secondary-500 duration-200">
-                  <FilledHeartIcon width="22" height="22" />
-                </button>
+              {getCurrentUser() ? (
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleLike}
+                    className={clsx(
+                      "w-fit px-4 py-2 font-medium text-light rounded shadow-header-light duration-200",
+                      {
+                        "bg-gradient-to-tr from-secondary-400 to-secondary-200 text-lg hover:from-secondary-500":
+                          !storedValue.find((item) => item.id === _id),
+                        "bg-gradient-to-tr from-red-400 to-red-200 text-lg hover:from-red-500":
+                          storedValue.find((item) => item.id === _id),
+                      }
+                    )}
+                  >
+                    <FilledHeartIcon width="22" height="22" />
+                  </button>
+                  <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
+                    Share
+                  </button>
+                </div>
+              ) : (
                 <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
                   Share
                 </button>
-              </div>
+              )}
               <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
                 Donate now
               </button>
@@ -202,9 +281,22 @@ export default function SingleProjectPage({
             {/* share & donate buttons  */}
             <div className="w-full flex flex-col gap-3 mt-5">
               <div className="flex gap-2">
-                <button className="w-fit px-4 py-2 bg-gradient-to-tr from-secondary-400 to-secondary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-secondary-500 duration-200">
-                  <FilledHeartIcon width="22" height="22" />
-                </button>
+                {getCurrentUser() && (
+                  <button
+                    onClick={handleLike}
+                    className={clsx(
+                      "w-fit px-4 py-2 font-medium text-light rounded shadow-header-light duration-200",
+                      {
+                        "bg-gradient-to-tr from-secondary-400 to-secondary-200 text-lg hover:from-secondary-500":
+                          !storedValue.find((item) => item.id === _id),
+                        "bg-gradient-to-tr from-red-400 to-red-200 text-lg hover:from-red-500":
+                          storedValue.find((item) => item.id === _id),
+                      }
+                    )}
+                  >
+                    <FilledHeartIcon width="22" height="22" />
+                  </button>
+                )}
                 <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
                   Share
                 </button>
