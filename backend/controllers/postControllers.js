@@ -14,7 +14,7 @@ const categories = [
 // @route   GET /api/posts
 // @access  Public
 const getPosts = asyncHandler(async (req, res) => {
-    const posts = await Post.find({})
+    const posts = await Post.find().sort({createdAt: -1})
     if (posts && posts.length > 0) {
         res.status(200).json(posts)
     } else {
@@ -64,7 +64,7 @@ const getPostById = asyncHandler(async (req, res) => {
 const getPostsByUserId = asyncHandler(async (req, res) => {
     const { id } = req.params
 
-    const posts = await Post.find({user:id})
+    const posts = await Post.find({user:id}).sort({createdAt: -1})
     console.log("posts: ", posts);
     if (posts) {
         res.status(200).json(posts)
@@ -267,7 +267,7 @@ const reportPost = asyncHandler(async(req,res) => {
 // @access  Private
 const getReports = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const post = await Post.findById(id)
+    const post = await Post.findById(id).sort({createdAt: -1})
     if (post) {
         if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
             res.status(200).json(post.reports)
