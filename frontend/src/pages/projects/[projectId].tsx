@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 import clsx from "clsx";
+import Link from "next/link";
 
 interface ProjectCardProps {
   id: string;
@@ -166,9 +167,13 @@ export default function SingleProjectPage({
                 ? `Created ${daysCount} days ago |`
                 : "Created today |"}
             </p>{" "}
-            <p className="px-4 capitalize py-0.5 text-sm bg-primary-100/75 text-primary-800 font-medium cursor-pointer">
-              {project?.category}
-            </p>
+            <Link
+              href={`/projects?category=${project?.category.toLocaleLowerCase()}`}
+            >
+              <a className="px-4 capitalize py-0.5 text-sm bg-primary-100/75 text-primary-800 font-medium cursor-pointer">
+                {project?.category}
+              </a>
+            </Link>
           </div>
           {/* separetor */}
           <div className="md:w-11/12 w-full h-[1px] bg-lightDark/25 my-5 md:mb-8" />
@@ -178,9 +183,6 @@ export default function SingleProjectPage({
               className=""
               dangerouslySetInnerHTML={{ __html: project?.desc }}
             />
-            {/* <p className="text-dark/75 font-medium leading-relaxed tracking-wide">
-              {project?.desc}
-            </p> */}
           </div>
           {/* share & donate buttons */}
           <div className="md:w-11/12 w-full flex  gap-3 mt-5">
