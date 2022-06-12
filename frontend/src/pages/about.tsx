@@ -9,7 +9,7 @@ export default function AboutPage() {
         <h1 className="text-2xl md:text-3xl text-dark font-bold mb-6 text-center">
           About <span className="text-primary">Moharik</span>
         </h1>
-        <p className="w-full md:w-2/3 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
+        <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
           We believe that innovations and new ideas can make this world
           better,and we also believe that we can make your unique idea or
           project <span className="decoration-primary underline">POSSIBLE</span>{" "}
@@ -25,7 +25,7 @@ export default function AboutPage() {
           <img src="/assets/images/about.jpg" alt="" />
         </figure>
       </section>
-      <p className="w-full md:w-2/3 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
+      <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
         Many small business owners in this world couldn&#39;t make their dreams
         come true,because they didn&#39;t have the financial opportunity to
         commercialize and grow their projects,{" "}

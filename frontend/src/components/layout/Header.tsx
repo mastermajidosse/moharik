@@ -57,7 +57,7 @@ export default function Header() {
               </a>
             </Link>
           ) : (
-            <Link href="/register">
+            <Link href="/login">
               <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
                 <a className="text-center font-medium tracking-wide leading-relaxed">
                   Get started

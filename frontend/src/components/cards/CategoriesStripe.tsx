@@ -15,8 +15,8 @@ export default function CategoriesStripe() {
               className={clsx(
                 "capitalize cursor-pointer px-4 py-2 font-medium rounded-full text-sm text-dark/75 hover:text-white  duration-500",
                 {
-                  "bg-[#d75118] text-white": !query?.category,
-                  "hover:bg-[#d75118] bg-[#fc540c]/10": query?.category,
+                  "bg-[#15b2c0] text-white": !query?.category,
+                  "hover:bg-[#15b2c0] bg-[#15b2c0]/10": query?.category,
                 }
               )}
             >
