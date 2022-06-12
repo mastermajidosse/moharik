@@ -14,11 +14,15 @@ const categories = [
 interface CategoriesInputProps {
   register: UseFormRegister<ProjectFrom>;
   getValues: UseFormGetValues<ProjectFrom>;
+  required?: boolean;
+  error?: string;
 }
 
 export default function CategoriesInput({
   register,
   getValues,
+  required = false,
+  error,
 }: CategoriesInputProps) {
   return (
     <div className="">
@@ -26,7 +30,10 @@ export default function CategoriesInput({
         htmlFor="category"
         className="block mb-4 text-sm font-medium text-dark"
       >
-        Category
+        Category {required && <span className="text-red-500">*</span>}
+        {error && (
+          <span className="text-xs font-light text-red-500">{error}</span>
+        )}
       </label>
       <div className="flex gap-2 flex-wrap justify-center gap-y-4">
         {categories.map((category, idx) => (

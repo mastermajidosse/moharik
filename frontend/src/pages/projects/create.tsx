@@ -83,9 +83,6 @@ export default function CreateProjectPage() {
               },
             }
           );
-          console.log("inputs: ", inputs);
-          console.log("images: ", images);
-          console.log("data posted: ", projectData);
           toast.success("Project has been created successfully.");
           push("/projects");
         }
@@ -123,10 +120,24 @@ export default function CreateProjectPage() {
                   type="text"
                   label="Title"
                   required
+                  error={
+                    errors.title?.message
+                      ? "Title is a required field."
+                      : undefined
+                  }
                 />
               </div>
               <div className="">
-                <CategoriesInput getValues={getValues} register={register} />
+                <CategoriesInput
+                  required
+                  error={
+                    errors.category
+                      ? " Category is a required field."
+                      : undefined
+                  }
+                  getValues={getValues}
+                  register={register}
+                />
               </div>
               <div className="">
                 <Input
@@ -135,6 +146,11 @@ export default function CreateProjectPage() {
                   type="date"
                   label="Deadline"
                   required
+                  error={
+                    errors.deadline?.message
+                      ? "Select a valid deadline"
+                      : undefined
+                  }
                 />
               </div>
               <div className="">
@@ -145,31 +161,39 @@ export default function CreateProjectPage() {
                   min={0}
                   label="Price"
                   required
+                  error={
+                    errors.price?.message ? "Price should be > 0 " : undefined
+                  }
                 />
               </div>
               <div className="">
-                <FilesUploader setValue={setValue} />
-              </div>
-              {/* <div className="">
-                <label
-                  htmlFor="first_name"
-                  className="block mb-2 text-sm font-medium text-dark"
-                >
-                  Description
-                </label>
-                <textarea
-                  rows={6}
+                <FilesUploader
+                  error={
+                    errors?.images ? "Upload at least one image." : undefined
+                  }
                   required
-                  className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
-                  {...register("desc")}
+                  setValue={setValue}
                 />
-              </div> */}
+              </div>
               <div className="">
-                <ReactQuill
-                  theme="snow"
-                  value={getValues("desc")}
-                  onChange={(e) => setValue("desc", e)}
-                />
+                <>
+                  <label
+                    htmlFor="first_name"
+                    className="block mb-2 text-sm font-medium text-dark"
+                  >
+                    Description <span className="text-red-500">*</span>{" "}
+                    {errors.desc?.message && (
+                      <span className="text-xs font-light text-red-500">
+                        Description is required
+                      </span>
+                    )}
+                  </label>
+                  <ReactQuill
+                    theme="snow"
+                    value={getValues("desc")}
+                    onChange={(e) => setValue("desc", e)}
+                  />
+                </>
               </div>
               <button
                 onClick={() => console.log("errors: ", errors)}

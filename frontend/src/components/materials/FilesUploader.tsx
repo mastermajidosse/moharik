@@ -10,8 +10,12 @@ import { CloseIcon } from "./icons";
 
 export default function FilesUploader({
   setValue,
+  required = false,
+  error,
 }: {
   setValue: UseFormSetValue<ProjectFrom>;
+  required?: boolean;
+  error?: string;
 }) {
   const { control, watch, getValues } = useForm<{ images: File[] | [] }>({
     defaultValues: { images: [] },
@@ -34,7 +38,10 @@ export default function FilesUploader({
         htmlFor="first_name"
         className="block mb-2 text-sm font-medium text-dark"
       >
-        Images
+        Images {required && <span className="text-red-500">*</span>}
+        {error && (
+          <span className="text-xs font-light text-red-500"> {error}</span>
+        )}
       </label>
       <div className="w-full bg-light rounded grid grid-cols-4 gap-2 p-4">
         <FileInput append={append} remove={() => remove(0)} />
