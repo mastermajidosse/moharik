@@ -15,7 +15,7 @@ export default function HowItWorksPage() {
       {/* page title */}
       <section className="container flex flex-col gap-2 text-center justify-center items-center">
         <h1 className="text-4xl text-dark font-bold mb-4">
-          How <span className="text-primary">Moharik</span> Works
+          How <span className="text-primary">Moharik</span> Work
         </h1>
         <p className="w-full md:w-2/4 mx-auto text-lg text-lightDark leading-relaxed">
           Moharik can get you the money to build a business, and the attention
