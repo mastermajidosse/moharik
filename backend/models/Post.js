@@ -1,36 +1,36 @@
 import mongoose from 'mongoose'
 
 const updateSchema = mongoose.Schema({
-    title:{
-        type:String,
-        required:true
+    title: {
+        type: String,
+        required: true
     },
-    desc:{
-        type:String,
-        required:true
+    desc: {
+        type: String,
+        required: true
     },
-    images:[{
+    images: [{
         type: String,
         required: true,
-      }]
+    }]
 })
 const reportSchema = mongoose.Schema({
-    title:{
-        type:String,
-        required:true
+    title: {
+        type: String,
+        required: true
     },
-    desc:{
-        type:String,
-        required:true
+    desc: {
+        type: String,
+        required: true
     },
-    reporter:{
+    reporter: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User',
     },
-    images:[{
+    images: [{
         type: String
-          }],
+    }],
 })
 
 const postSchema = mongoose.Schema({
@@ -39,50 +39,54 @@ const postSchema = mongoose.Schema({
         required: true,
         ref: 'User',
     },
-    title:{
-        type:String,
-        required:true
+    title: {
+        type: String,
+        required: true
     },
-    desc:{
-        type:String,
-        required:true
+    desc: {
+        type: String,
+        required: true
     },
-    category:{
-        type:String,
-        required:true
+    category: {
+        type: String,
+        required: true
     },
-    images:[{
+    images: [{
         type: String,
         required: true,
-      }],
-    price:{
-        type:Number,
-        required:true
+    }],
+    price: {
+        type: Number,
+        required: true
     },
-    collected:{
-        type:Number,
-        default:false
+    collected: {
+        type: Number,
+        default: false
     },
-    deadline:{
-        type:Date,
-        required:true
+    status: {
+        type: String,
+        default: false
     },
-    updates:[
+    deadline: {
+        type: Date,
+        required: true
+    },
+    updates: [
         updateSchema
     ],
     likes: {
-         type: [String],
-          default: [] 
+        type: [String],
+        default: []
     },
-    reports:[
+    reports: [
         reportSchema
     ],
 },
-{
-    timestamps:true
-})
+    {
+        timestamps: true
+    })
 
-const Post = mongoose.model("posts",postSchema)
+const Post = mongoose.model("posts", postSchema)
 
 
 export default Post

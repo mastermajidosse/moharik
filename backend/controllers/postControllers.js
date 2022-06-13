@@ -14,7 +14,7 @@ const categories = [
 // @route   GET /api/posts
 // @access  Public
 const getPosts = asyncHandler(async (req, res) => {
-    const posts = await Post.find().sort({createdAt: -1})
+    const posts = await Post.find({ 'status': 'approved' }).sort({ createdAt: -1 })
     if (posts && posts.length > 0) {
         res.status(200).json(posts)
     } else {
@@ -33,7 +33,7 @@ const createPost = asyncHandler(async (req, res) => {
         deadline,
         images
     } = req.body
-   const user= req.user._id
+    const user = req.user._id
     // this should be a standalone collection in db, which will be editable by super_admin 
     let cat = category.toLowerCase().replace(/\s/g, "")
     if (!categories.includes(cat))
@@ -64,7 +64,7 @@ const getPostById = asyncHandler(async (req, res) => {
 const getPostsByUserId = asyncHandler(async (req, res) => {
     const { id } = req.params
 
-    const posts = await Post.find({user:id}).sort({createdAt: -1})
+    const posts = await Post.find({ user: id }).sort({ createdAt: -1 })
     console.log("posts: ", posts);
     if (posts) {
         res.status(200).json(posts)
@@ -88,25 +88,25 @@ const editPostById = asyncHandler(async (req, res) => {
 
     const post = await Post.findById(id)
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             //check the category 
             let cat = category.toLowerCase().replace(/\s/g, "")
             if (!categories.includes(cat))
-            return res.status(400).json({ message: "this category does not exist" })
-    
-    
+                return res.status(400).json({ message: "this category does not exist" })
+
+
             post.title = title || post.title
             post.desc = desc || post.desc
             post.category = category || post.category
             post.price = post.price
-            post.deadline =  post.deadline
+            post.deadline = post.deadline
             post.images = images || post.images
-    
+
             const updatedPost = await post.save()
             res.status(201).json(updatedPost)
 
         } else {
-            res.status(401).json({message:"you are not authorized to edit this project"})
+            res.status(401).json({ message: "you are not authorized to edit this project" })
         }
     } else {
         res.status(404).json({ message: "Post not found..." })
@@ -120,11 +120,11 @@ const deletePost = asyncHandler(async (req, res) => {
     const post = await Post.findById(id)
 
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             await post.remove()
             res.status(201).json({ message: "Post removed" })
         } else {
-            res.status(401).json({message:"you are not authorized to delete this project"})
+            res.status(401).json({ message: "you are not authorized to delete this project" })
         }
     } else {
         res.status(404).json({ message: "Post not found..." })
@@ -156,12 +156,12 @@ const addUpdate = asyncHandler(async (req, res) => {
 
     const post = await Post.findById(id)
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             post.updates.push({ title, desc, images })
             const updatedPost = await post.save()
             res.status(201).json(updatedPost)
         } else {
-            res.status(401).json({message:"you are not authorized to add an update of this project"})
+            res.status(401).json({ message: "you are not authorized to add an update of this project" })
         }
     } else {
         res.status(404).json({ message: "Post not found..." })
@@ -176,7 +176,7 @@ const editUpdate = asyncHandler(async (req, res) => {
     const { title, desc, images } = req.body
     const post = await Post.findById(id)
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             const update = post.updates.find(post => post._id = update_id)
             if (update) {
                 update.title = title || update.title
@@ -186,7 +186,7 @@ const editUpdate = asyncHandler(async (req, res) => {
             const updatedPost = await post.save()
             res.status(201).json(updatedPost)
         } else {
-            res.status(401).json({message:"you are not authorized to edit an update of this project"})
+            res.status(401).json({ message: "you are not authorized to edit an update of this project" })
         }
     } else {
         res.status(404).json({ message: "Post not found..." })
@@ -199,15 +199,15 @@ const deleteUpdate = asyncHandler(async (req, res) => {
     const { id, update_id } = req.params
     const post = await Post.findById(id)
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             const update = post.updates.find(post => post._id = update_id)
             if (update) {
                 post.updates = post.updates.filter(post => post._id != update_id)
             }
             await post.save()
-            res.status(201).json({message:"Update removed"})
+            res.status(201).json({ message: "Update removed" })
         } else {
-            res.status(401).json({message:"you are not authorized to delete an update of this project"})
+            res.status(401).json({ message: "you are not authorized to delete an update of this project" })
         }
     } else {
         res.status(404).json({ message: "post not found..." })
@@ -216,23 +216,23 @@ const deleteUpdate = asyncHandler(async (req, res) => {
 // @desc    like a post
 // @route   POST /api/posts/:id/like
 // @access  Private
-const likePost = asyncHandler(async(req,res) => {
-    const {id } = req.params
+const likePost = asyncHandler(async (req, res) => {
+    const { id } = req.params
     const post = await Post.findById(id);
     const user = await User.findById(req.user._id)
 
-    if(!user) {
-        return res.status(401).json({message:"you are not authorized, You need to login first"})
+    if (!user) {
+        return res.status(401).json({ message: "you are not authorized, You need to login first" })
     }
     const index = post.likes.findIndex((id) => id === String(req.user._id));
     if (index === -1) {
-      post.likes.push(req.user._id)
-      user.savedPosts.push(post._id)
+        post.likes.push(req.user._id)
+        user.savedPosts.push(post._id)
     } else {
-      post.likes = post.likes.filter((id) => id !== String(req.user._id))
-      user.savedPosts.filter(id => id != String(post._id))
+        post.likes = post.likes.filter((id) => id !== String(req.user._id))
+        user.savedPosts.filter(id => id != String(post._id))
     }
-    
+
     await user.save()
     const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
 
@@ -241,22 +241,22 @@ const likePost = asyncHandler(async(req,res) => {
 // @desc    Report a post
 // @route   POST /api/posts/:id/report
 // @access  Private
-const reportPost = asyncHandler(async(req,res) => {
+const reportPost = asyncHandler(async (req, res) => {
     const { title, desc, images } = req.body
     const { id } = req.params
     const user = await User.findById(req.user._id)
 
     const post = await Post.findById(id)
     if (post) {
-            post.reports.push({ title, desc, images,reporter:req.user._id })
-            user.reports++;
-            if(user.reports >= 5) {
-                user.blocked = true;
-            } 
-            await user.save()
-            const reportedPost = await post.save()
-            res.status(201).json(reportedPost)
-   
+        post.reports.push({ title, desc, images, reporter: req.user._id })
+        user.reports++;
+        if (user.reports >= 5) {
+            user.blocked = true;
+        }
+        await user.save()
+        const reportedPost = await post.save()
+        res.status(201).json(reportedPost)
+
     } else {
         res.status(404).json({ message: "Post not found..." })
     }
@@ -267,12 +267,12 @@ const reportPost = asyncHandler(async(req,res) => {
 // @access  Private
 const getReports = asyncHandler(async (req, res) => {
     const { id } = req.params
-    const post = await Post.findById(id).sort({createdAt: -1})
+    const post = await Post.findById(id).sort({ createdAt: -1 })
     if (post) {
-        if(post.user.toString() == req.user._id || req.user.isAdmin === true) {
+        if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
             res.status(200).json(post.reports)
         } else {
-            res.status(401).json({message:"You are not allowed to access the report of other user"})
+            res.status(401).json({ message: "You are not allowed to access the report of other user" })
         }
 
     } else {
@@ -286,12 +286,12 @@ const deleteReport = asyncHandler(async (req, res) => {
     const { id, report_id } = req.params
     const post = await Post.findById(id)
     if (post) {
-            const report = post.reports.find(post => post._id = report_id)
-            if (report) {
-                post.reports = post.reports.filter(report => report._id != report_id)
-            }
-            await post.save()
-            res.status(201).json({message: "Report was deleted successfully."})
+        const report = post.reports.find(post => post._id = report_id)
+        if (report) {
+            post.reports = post.reports.filter(report => report._id != report_id)
+        }
+        await post.save()
+        res.status(201).json({ message: "Report was deleted successfully." })
     } else {
         res.status(404).json({ message: "post not found..." })
     }
