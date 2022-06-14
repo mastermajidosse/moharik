@@ -24,14 +24,11 @@ export default function SingleBlogPage() {
               alt=""
             />
           </figure>
-          <div className="flex flex-col gap-4"> 
-        
-              <p 
-                className="text-right text-lightDark font-medium leading-relaxed tracking-wide"
-                dangerouslySetInnerHTML={{ __html: blog?.description }}
-                >
-
-              </p> 
+          <div className="flex flex-col gap-4">
+            <p
+              className="text-right text-lightDark font-medium leading-relaxed tracking-wide"
+              dangerouslySetInnerHTML={{ __html: blog?.description }}
+            ></p>
           </div>
         </div>
       </section>

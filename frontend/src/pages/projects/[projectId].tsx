@@ -260,9 +260,7 @@ export default function SingleProjectPage({
           {/* report */}
           <div className="flex justify-center items-center gap-2 pt-8">
             <ReportFlagIcon width="20" height="20" />
-            <p className="font-medium cursor-pointer hover:underline">
-              Report 
-            </p>
+            <p className="font-medium cursor-pointer hover:underline">Report</p>
           </div>
         </div>
         {/* aside */}

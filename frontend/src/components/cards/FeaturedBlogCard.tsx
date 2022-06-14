@@ -13,23 +13,20 @@ export default function FeaturedBlogCard() {
               alt=""
             />
           </figure>
-      <div className="container h-full">
-        <div className="w-5/12 md:w-3/12 ml-2 h-full flex flex-col justify-center gap-2">
-            <a>
-              <h1 className="text-xl md:text-2xl text-dark font-bold cursor-pointer hover:underline duration-200 decoration-link">
-                {title}
-              </h1>
-            </a>
-          <p className="text-sm md:text-base text-lightDark line-clamp-4">
-            {description.replace(/(<([^>]+)>)/ig, '')}
-            
-          </p>
-        </div>
-      </div>
-      </a>
-
+          <div className="container h-full">
+            <div className="w-5/12 md:w-3/12 ml-2 h-full flex flex-col justify-center gap-2">
+              <a>
+                <h1 className="text-xl md:text-2xl text-dark font-bold cursor-pointer hover:underline duration-200 decoration-link">
+                  {title}
+                </h1>
+              </a>
+              <p className="text-sm md:text-base text-lightDark line-clamp-4">
+                {description.replace(/(<([^>]+)>)/gi, "")}
+              </p>
+            </div>
+          </div>
+        </a>
       </Link>
-
     </section>
   );
 }
