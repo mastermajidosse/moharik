@@ -160,7 +160,7 @@ export default function SingleProjectPage({
               />
             </figure>
             <p className="text-sm">
-              Amigos de Lucía y Thomas is organizing this fundraiser.
+              Amigos de Lucía y Thomas is organizing this .
             </p> */}
             <p className="text-lightDark font-medium text-sm">
               {daysCount > 0
@@ -261,7 +261,7 @@ export default function SingleProjectPage({
           <div className="flex justify-center items-center gap-2 pt-8">
             <ReportFlagIcon width="20" height="20" />
             <p className="font-medium cursor-pointer hover:underline">
-              Report fundraiser
+              Report 
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
         <div className="">
           <div className="mb-14 text-center">
             <h1 className="text-3xl font-black text-dark">
-              Fundraising categories
+               Categories
             </h1>
             <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
               Many organizations and individuals run into trouble because they

@@ -14,10 +14,10 @@ export default function BlogPage() {
       {/* page title */}
       <div className="container my-20 text-center">
         <h1 className="text-2xl md:text-3xl text-dark font-bold">
-          Moharik Fundraising Blog
+          Moharik  Blog
         </h1>
         <p className="text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide">
-          Fundraising resources and tips to help raise more money
+          Resources and tips to help raise more money
         </p>
       </div>
       {/* blog list */}
