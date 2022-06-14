@@ -280,7 +280,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await client.get("/posts");
     projects = data;
     motos = motosData;
-    console.log("projects: ", projects);
   } catch (error) {
     console.log(error);
   }

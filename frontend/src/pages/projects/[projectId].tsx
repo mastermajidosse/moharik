@@ -15,6 +15,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 import clsx from "clsx";
 import Link from "next/link";
+import ShareModal from "../../components/modals/ShareModal";
 
 interface ProjectCardProps {
   id: string;
@@ -136,14 +137,18 @@ export default function SingleProjectPage({
                   >
                     <FilledHeartIcon width="22" height="22" />
                   </button>
+                  <ShareModal project={project as IProject}>
+                    <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
+                      Share
+                    </button>
+                  </ShareModal>
+                </div>
+              ) : (
+                <ShareModal project={project as IProject}>
                   <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
                     Share
                   </button>
-                </div>
-              ) : (
-                <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
-                  Share
-                </button>
+                </ShareModal>
               )}
               <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
                 Donate now
@@ -189,9 +194,11 @@ export default function SingleProjectPage({
             <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
               Donate now
             </button>
-            <button className="w-full py-2 text-lg font-medium text-primary rounded shadow-header-light border-2 border-primary-500 hover:bg-primary-50 duration-200">
-              Share
-            </button>
+            <ShareModal project={project as IProject}>
+              <button className="w-full py-2 text-lg font-medium text-primary rounded shadow-header-light border-2 border-primary-500 hover:bg-primary-50 duration-200">
+                Share
+              </button>
+            </ShareModal>
           </div>
           <div className="block md:hidden">
             {/* separetor */}
@@ -299,9 +306,11 @@ export default function SingleProjectPage({
                     <FilledHeartIcon width="22" height="22" />
                   </button>
                 )}
-                <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
-                  Share
-                </button>
+                <ShareModal project={project as IProject}>
+                  <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
+                    Share
+                  </button>
+                </ShareModal>
               </div>
               <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
                 Donate now
@@ -336,7 +345,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const { data } = await client.get(`/posts/${projectId}`);
     project = data;
-    console.log("projects: ", project);
+    // console.log("projects: ", project);
   } catch (error) {
     console.log(error);
   }
