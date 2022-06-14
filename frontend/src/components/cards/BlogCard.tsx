@@ -4,6 +4,7 @@ interface BlogCardProps {
   title: string;
   description: string;
   image: string;
+  date: string;
   idx?: number;
 }
 
@@ -11,6 +12,7 @@ export default function BlogCard({
   title,
   description,
   image,
+  date,
   idx,
 }: BlogCardProps) {
   return (
@@ -24,7 +26,7 @@ export default function BlogCard({
       </Link>
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium text-primary">
-          Mar {19 + 2 * (idx || 0)}, 2020 • {5 + 2 * (idx || 0)} minutes
+         {date} • {5 + 2 * (idx || 0)} minutes
         </p>
         <Link href={`/blog/${idx}`}>
           <a>
