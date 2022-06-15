@@ -27,9 +27,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <div className="">
           <div className="mb-14 text-center">
-            <h1 className="text-3xl font-black text-dark">
-              Fundraising categories
-            </h1>
+            <h1 className="text-3xl font-black text-dark">Categories</h1>
             <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
               Many organizations and individuals run into trouble because they
               only have one or two sources of funding. If any of the sources go
