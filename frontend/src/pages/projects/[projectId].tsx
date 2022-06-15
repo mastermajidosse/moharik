@@ -150,9 +150,9 @@ export default function SingleProjectPage({
                   </button>
                 </ShareModal>
               )}
-              <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-                Donate now
-              </button>
+              <a target="_blank" href="https://patreon.com/Moharik" className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
+                Support
+              </a>
             </div>
           </div>
           {/* orgnizer stripe */}
@@ -191,9 +191,9 @@ export default function SingleProjectPage({
           </div>
           {/* share & donate buttons */}
           <div className="md:w-11/12 w-full flex  gap-3 mt-5">
-            <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-              Donate now
-            </button>
+            <a target="_blank" href="https://patreon.com/Moharik" className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
+              Support
+            </a>
             <ShareModal project={project as IProject}>
               <button className="w-full py-2 text-lg font-medium text-primary rounded shadow-header-light border-2 border-primary-500 hover:bg-primary-50 duration-200">
                 Share
@@ -310,9 +310,9 @@ export default function SingleProjectPage({
                   </button>
                 </ShareModal>
               </div>
-              <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-                Donate now
-              </button>
+              <a target="_blank" href="https://patreon.com/Moharik" className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
+                Support
+              </a>
             </div>
             {/* separetor */}
             <div className="w-full h-[1px] bg-lightDark/25 my-5" />
