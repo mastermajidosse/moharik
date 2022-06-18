@@ -26,7 +26,7 @@ export default function BlogCard({
       </Link>
       <div className="flex flex-col gap-1">
         <p className="text-sm font-medium text-primary">
-        {date} • { Math.ceil(description.length / 150)  } minutes read
+          {date} • {Math.ceil(description.length / 150)} minutes read
         </p>
         <Link href={`/blog/${idx}`}>
           <a>

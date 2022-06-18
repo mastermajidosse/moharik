@@ -32,14 +32,14 @@ function MyApp({ Component, pageProps }: any) {
   }, [events]);
 
   return (
-    <>
+    <div dir={locale === "ar" ? "rtl" : "ltr"}>
       <TypesafeI18n locale={(locale as Locales) || "en"}>
         <Layout>
           <Component {...pageProps} />
           <ToastContainer />
         </Layout>
       </TypesafeI18n>
-    </>
+    </div>
   );
 }
 
