@@ -16,6 +16,7 @@ import { getCurrentUser } from "../../utils/getCurrentUser";
 import clsx from "clsx";
 import Link from "next/link";
 import ShareModal from "../../components/modals/ShareModal";
+import ContactModal from "../../components/modals/ContactModal";
 
 interface ProjectCardProps {
   id: string;
@@ -84,6 +85,9 @@ export default function SingleProjectPage({
     }
   }
   const daysCount = dayjs(Date.now()).diff(dayjs(project.createdAt), "days");
+
+  console.log("project: ", project);
+
   return (
     <>
       <Head>
@@ -240,9 +244,11 @@ export default function SingleProjectPage({
                 <p className="text-sm font-medium text-lightDark">
                   Reach us out
                 </p>
-                <button className="w-fit mt-2 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
-                  Contact
-                </button>
+                <ContactModal contact={{}}>
+                  <button className="w-fit mt-2 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
+                    Contact
+                  </button>
+                </ContactModal>
               </div>
             </div>
           </div>
