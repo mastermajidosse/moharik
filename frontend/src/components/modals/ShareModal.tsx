@@ -155,6 +155,7 @@ export default function ShareModal({ children, project }: ShareModalProps) {
                         )}
                       >
                         <Link href={link}>
+                          <a target="_blank">
                           <button className="w-full">
                             <div className="flex flex-col items-center gap-2">
                               {icon}
@@ -177,6 +178,7 @@ export default function ShareModal({ children, project }: ShareModalProps) {
                               </span>
                             </div>
                           </button>
+                          </a>
                         </Link>
                       </li>
                     ))}

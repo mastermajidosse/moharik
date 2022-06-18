@@ -104,7 +104,7 @@ export default function SingleProjectPage({
             <img
               className="w-full h-full object-cover rounded-xl shadow-header-light"
               src={project.images[0]}
-              alt=""
+              alt={project?.title}
             />
           </figure>
           <div className="block md:hidden">
@@ -154,9 +154,14 @@ export default function SingleProjectPage({
                   </button>
                 </ShareModal>
               )}
-              <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-                Donate now
-              </button>
+              <a
+                target="_blank"
+                href="https://patreon.com/Moharik"
+                rel="noreferrer"
+                className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
+              >
+                Support
+              </a>
             </div>
           </div>
           {/* orgnizer stripe */}
@@ -169,7 +174,7 @@ export default function SingleProjectPage({
               />
             </figure>
             <p className="text-sm">
-              Amigos de Lucía y Thomas is organizing this fundraiser.
+              Amigos de Lucía y Thomas is organizing this .
             </p> */}
             <p className="text-lightDark font-medium text-sm">
               {daysCount > 0
@@ -195,9 +200,14 @@ export default function SingleProjectPage({
           </div>
           {/* share & donate buttons */}
           <div className="md:w-11/12 w-full flex  gap-3 mt-5">
-            <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-              Donate now
-            </button>
+            <a
+              target="_blank"
+              href="https://patreon.com/Moharik"
+              rel="noreferrer"
+              className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
+            >
+              Support
+            </a>
             <ShareModal project={project as IProject}>
               <button className="w-full py-2 text-lg font-medium text-primary rounded shadow-header-light border-2 border-primary-500 hover:bg-primary-50 duration-200">
                 Share
@@ -273,9 +283,7 @@ export default function SingleProjectPage({
           {/* report */}
           <div className="flex justify-center items-center gap-2 pt-8">
             <ReportFlagIcon width="20" height="20" />
-            <p className="font-medium cursor-pointer hover:underline">
-              Report fundraiser
-            </p>
+            <p className="font-medium cursor-pointer hover:underline">Report</p>
           </div>
         </div>
         {/* aside */}
@@ -318,9 +326,14 @@ export default function SingleProjectPage({
                   </button>
                 </ShareModal>
               </div>
-              <button className="w-full py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200">
-                Donate now
-              </button>
+              <a
+                target="_blank"
+                href="https://patreon.com/Moharik"
+                rel="noreferrer"
+                className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
+              >
+                Support
+              </a>
             </div>
             {/* separetor */}
             <div className="w-full h-[1px] bg-lightDark/25 my-5" />
