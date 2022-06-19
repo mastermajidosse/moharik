@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
 import { getCookie } from "cookies-next";
+import { useTranslation } from "next-i18next";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
@@ -12,6 +13,7 @@ import { navs } from "../../data/navs";
 import { ICurrentUser } from "../../interfaces/currentUser";
 
 export default function Header() {
+  const { t } = useTranslation("header");
   const { route, query } = useRouter();
   const scrollPosition = useScrollPosition();
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +46,7 @@ export default function Header() {
           {navs.map(({ link, title }, idx) => (
             <Link href={link} key={idx}>
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                {title.fr}
+                {t(title)}
               </a>
             </Link>
           ))}

@@ -1,1 +1,7 @@
-
+{
+  "home": "Home",
+  "projects": "Projects",
+  "blog": "Blog",
+  "help_center": "Help center",
+  "about": "About"
+}
