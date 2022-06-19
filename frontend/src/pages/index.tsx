@@ -1,18 +1,19 @@
-import Head from "next/head";
+import { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
 import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
 import { IMoto } from "../interfaces/motos";
-import { useState, useEffect } from "react";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
 import { motos } from "../data/motos";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { getCurrentUser } from "../utils/getCurrentUser";
 
 export default function HomePage({
@@ -135,7 +136,7 @@ export default function HomePage({
             </div>
             {/*  */}
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {blogs.map((blog, idx) => (
+              {blogs.slice(0, 3).map((blog, idx) => (
                 <BlogCard key={idx} idx={idx} {...blog} />
               ))}
             </div>
@@ -272,7 +273,7 @@ export default function HomePage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let projects: IProject[] = [];
   let motos: IMoto[] = [];
   try {
@@ -287,6 +288,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       projects,
       motos,
+      ...(await serverSideTranslations(locale as string, [
+        "commonm",
+        "footer",
+        "header",
+      ])),
     },
   };
 };

@@ -4,9 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Router, useRouter } from "next/router";
 import { done, start } from "nprogress";
+import { appWithTranslation } from "next-i18next";
 import Layout from "../components/layout/Layout";
-import TypesafeI18n from "../i18n/i18n-react";
-import { Locales } from "../i18n/i18n-types";
 import * as ga from "../lib/ga";
 
 function MyApp({ Component, pageProps }: any) {
@@ -33,14 +32,12 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <div dir={locale === "ar" ? "rtl" : "ltr"}>
-      <TypesafeI18n locale={(locale as Locales) || "en"}>
-        <Layout>
-          <Component {...pageProps} />
-          <ToastContainer />
-        </Layout>
-      </TypesafeI18n>
+      <Layout>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </Layout>
     </div>
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
