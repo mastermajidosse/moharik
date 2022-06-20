@@ -8,28 +8,29 @@ import Input from "../components/materials/Inputs";
 import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps } from "next";
+import clsx from "clsx";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function HelpCenterPage() {
+  const { t } = useTranslation("help-center");
+  const { locale } = useRouter();
   const faqList = [
     {
-      question: "What is Moharik?",
-      answer:
-        "Moharik is a way to raise money from a large number of people or individulas to provide the capital needed to get a company or project off the ground. Individuals, charities, or companies can create a campaign for specific causes and anyone can contribute",
+      question: "faq_1",
+      answer: "faq_1_desc",
     },
     {
-      question: "What are the advantages of Moharik?",
-      answer:
-        "There are many advantages of Moharik; Community building and feedback collection, low overall risk for a potentially high reward, Helps you avoid giving up equity in your company, New opportunities and collaborations.",
+      question: "faq_2",
+      answer: "faq_2_desc",
     },
     {
-      question: "I have a project. How can I apply?",
-      answer:
-        "create an account and add your project with all the details included",
+      question: "faq_3",
+      answer: "faq_3_desc",
     },
     {
-      question: "How to create an account?",
-      answer:
-        "simply click on get started and fill up the data to register a new account",
+      question: "faq_4",
+      answer: "faq_4_desc",
     },
   ];
 
@@ -60,17 +61,20 @@ export default function HelpCenterPage() {
       <section className="bg-secondary-50 h-[200px]">
         <div className="container h-full flex flex-col items-center justify-center gap-2">
           <h1 className="text-dark font-bold text-2xl md:text-3xl">
-            How can we help you?
+            {t("how_we_help")}
           </h1>
           <div className="relative w-full flex justify-center items-center">
             <input
               className="w-full md:w-1/2 outline-none rounded-md p-2.5 md:p-3 shadow-md shadow-secondary-300/10"
-              placeholder="Search term"
+              placeholder={t("search_term")}
             />
             <SearchIcon
               width="20"
               height="20"
-              className="w-fit text-lightDark absolute right-3 md:right-[26%]"
+              className={clsx("w-fit text-lightDark absolute", {
+                "right-3 md:right-[26%]": locale === "en",
+                "left-3 md:left-[26%]": locale === "ar",
+              })}
             />
           </div>
         </div>
@@ -78,7 +82,7 @@ export default function HelpCenterPage() {
       {/* FAQ section */}
       <section className="container mt-16 mb-32">
         <h2 className="text-dark font-bold text-2xl md:text-3xl text-center mb-4">
-          FAQ
+          {t("faq")}
         </h2>
         {/* accordions */}
         <ul className="grid grid-cols-1 gap-4">
@@ -93,12 +97,10 @@ export default function HelpCenterPage() {
       <section className="bg-secondary-50 py-12">
         <div className="container">
           <h2 className="text-dark font-bold text-2xl md:text-3xl text-center mb-4">
-            We&#39;re here for you
+            {t("here_for_help")}
           </h2>
           <p className="w-full md:w-3/5 mx-auto text-center font-medium text-dark/75 text-sm">
-            Still need help? Just click the button below and we&#39;ll provide
-            you with personalized support and connect you with one of our
-            Customer Care agents if needed.
+            {t("here_for_help_desc")}
           </p>
           <div className="w-full flex justify-center mt-8">
             <form
@@ -109,7 +111,7 @@ export default function HelpCenterPage() {
                 <Input
                   name="name"
                   register={register}
-                  label="Full Name"
+                  label={t("full_name")}
                   type="name"
                   required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -119,7 +121,7 @@ export default function HelpCenterPage() {
                 <Input
                   name="email"
                   register={register}
-                  label="Email address"
+                  label={t("email")}
                   type="email"
                   required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -127,10 +129,10 @@ export default function HelpCenterPage() {
               </div>
               <div className="">
                 <label
-                  htmlFor="first_name"
+                  htmlFor="description"
                   className="block mb-2 text-sm font-medium text-dark"
                 >
-                  Description
+                  {t("description")}
                 </label>
                 <textarea
                   rows={6}
@@ -144,7 +146,7 @@ export default function HelpCenterPage() {
                   type="submit"
                   className="text-center font-medium tracking-wide leading-relaxed"
                 >
-                  Contact us
+                  {t("send")}
                 </button>
               </SquaredSolidButton>
             </form>
@@ -160,6 +162,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale as string, [
         "common",
+        "help-center",
         "footer",
         "header",
       ])),

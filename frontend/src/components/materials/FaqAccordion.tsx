@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { ChevronIcon } from "./icons";
 
@@ -10,13 +11,14 @@ export function FaqAccordion({
   answer: string;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const { t } = useTranslation("help-center");
   return (
     <>
       <div
         onClick={() => setExpanded(!expanded)}
         className="bg-secondary-50/50 p-2 md:p-3 rounded-md hover:bg-primary-50/75 cursor-pointer duration-200 flex items-center justify-between gap-2"
       >
-        <p className="font-medium text-dark">{question}</p>
+        <p className="font-medium text-dark">{t(question)}</p>
         <ChevronIcon
           width="16"
           height="16"
@@ -33,7 +35,7 @@ export function FaqAccordion({
         })}
       >
         <p className="text-sm font-medium text-dark/75 leading-relaxed tracking-wide">
-          {answer}
+          {t(answer)}
         </p>
       </div>
     </>
