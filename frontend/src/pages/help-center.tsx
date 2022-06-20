@@ -6,6 +6,8 @@ import { FaqAccordion } from "../components/materials/FaqAccordion";
 import { SquaredSolidButton } from "../components/materials/Buttons";
 import Input from "../components/materials/Inputs";
 import { toast } from "react-toastify";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetStaticProps } from "next";
 
 export default function HelpCenterPage() {
   const faqList = [
@@ -152,3 +154,15 @@ export default function HelpCenterPage() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

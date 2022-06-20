@@ -289,7 +289,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       projects,
       motos,
       ...(await serverSideTranslations(locale as string, [
-        "commonm",
+        "common",
         "footer",
         "header",
       ])),

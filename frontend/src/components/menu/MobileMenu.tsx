@@ -6,6 +6,7 @@ import { SquaredSolidButton } from "../materials/Buttons";
 import { CloseIcon, LogoutIcon } from "../materials/icons";
 import { navs } from "../../data/navs";
 import { getCurrentUser } from "../../utils/getCurrentUser";
+import { useTranslation } from "next-i18next";
 
 export default function MobileMenu({
   isOpen,
@@ -14,6 +15,9 @@ export default function MobileMenu({
   isOpen: boolean;
   handleClose: () => void;
 }) {
+  const { t } = useTranslation("header");
+  const { t: tt } = useTranslation("common");
+
   function logOut() {
     removeCookies("currentUser");
     handleClose();
@@ -50,7 +54,7 @@ export default function MobileMenu({
                 onClick={handleClose}
                 className="cursor-pointer text-primary-800 hover:bg-light duration-200 rounded-sm px-2 py-1"
               >
-                {"Profile"}
+                {t("profile")}
               </a>
             </Link>
           )}
@@ -60,7 +64,7 @@ export default function MobileMenu({
                 onClick={handleClose}
                 className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1"
               >
-                {title.fr}
+                {t(title)}
               </a>
             </Link>
           ))}
@@ -69,7 +73,7 @@ export default function MobileMenu({
           <Link href="/login">
             <SquaredSolidButton className="my-5 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
               <span className="text-center font-medium tracking-wide leading-relaxed">
-                Get started
+                {tt("get_started")}
               </span>
             </SquaredSolidButton>
           </Link>
@@ -78,13 +82,13 @@ export default function MobileMenu({
               onClick={logOut}
               className="flex items-center gap-2 hover:text-link duration-300 cursor-pointer"
             >
-              <p className="">Sign out</p>
+              <p className="">{t("sign_out")}</p>
               <LogoutIcon />
             </div>
           ) : (
             <Link href="/login">
               <a className="flex items-center gap-2 hover:text-link duration-300 cursor-pointer">
-                <p className="">Sign in</p>
+                <p className="">{t("sign_in")}</p>
                 <div className="rotate-180">
                   <LogoutIcon />
                 </div>

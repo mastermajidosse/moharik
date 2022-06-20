@@ -8,6 +8,9 @@ import { client } from "../utils/api";
 import { toast } from "react-toastify";
 import { setCookies } from "cookies-next";
 import Head from "next/head";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 interface LoginForm {
   email: string;
@@ -22,6 +25,9 @@ const schema = yup
 
 export default function LoginPage() {
   const { push } = useRouter();
+  const { t } = useTranslation("footer");
+  const { t: tt } = useTranslation("header");
+  const { t: ttt } = useTranslation("login-registration");
   const { handleSubmit, register } = useForm<LoginForm>({
     resolver: yupResolver(schema),
   });
@@ -38,6 +44,7 @@ export default function LoginPage() {
       console.log(error);
     }
   }
+
   return (
     <>
       <Head>
@@ -52,11 +59,11 @@ export default function LoginPage() {
             </Link>
           </figure>
           <div className="text-dark">
-            <span className="hidden md:inline">
-              Don&#39;t have an account?{" "}
-            </span>
+            <span className="hidden md:inline">{ttt("no_account")} </span>
             <Link href="/register">
-              <a className="text-primary-500 hover:underline ">Sign up</a>
+              <a className="text-primary-500 hover:underline ">
+                {tt("sign_up")}
+              </a>
             </Link>
           </div>
         </div>
@@ -68,7 +75,7 @@ export default function LoginPage() {
             {/* header */}
             <div className="flex flex-col gap-2 pt-7 pb-14">
               <h1 className="text-3xl font-black text-primary text-center">
-                Sign in
+                {tt("sign_in")}
               </h1>
             </div>
             {/* form */}
@@ -80,7 +87,7 @@ export default function LoginPage() {
                 <Input
                   name="email"
                   register={register}
-                  label="Email address"
+                  label={ttt("email")}
                   type="email"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
@@ -89,26 +96,26 @@ export default function LoginPage() {
                 <Input
                   name="password"
                   register={register}
-                  label="Password"
+                  label={ttt("password")}
                   type="password"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
               <a className="text-lightDark hover:text-primary-300 text-sm font-medium w-full hover:underline cursor-pointer text-right">
-                Forgot your password?
+                {ttt("forgot_password")}
               </a>
               <button
                 type="submit"
                 className="w-full hover:bg-primary-600 bg-primary-500 text-light font-medium text-lg p-2.5"
               >
-                Log in
+                {tt("sign_in")}
               </button>
               <p className="text-lightDark text-center">
-                Don&#39;t have an account?
+                {ttt("no_account")}
                 <span className="text-primary hover:underline cursor-pointer">
                   {" "}
                   <Link href="/register">
-                    <a className="">Sign up</a>
+                    <a className="">{tt("sign_up")}</a>
                   </Link>
                 </span>
               </p>
@@ -123,21 +130,21 @@ export default function LoginPage() {
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Terms
+                {t("terms")}
               </a>
             </Link>
           </li>
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Privacy
+                {t("privacy")}
               </a>
             </Link>
           </li>
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Legal
+                {t("legal")}
               </a>
             </Link>
           </li>
@@ -146,3 +153,16 @@ export default function LoginPage() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "login-registration",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

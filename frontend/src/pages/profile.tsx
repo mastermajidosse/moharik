@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { removeCookies } from "cookies-next";
 import Head from "next/head";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface ProfilePageProps {
   myProjects: IProject[];
@@ -211,9 +212,9 @@ function EmptyProfile() {
 
 export const getServerSideProps: GetServerSideProps = async ({
   req: { cookies },
+  locale,
 }) => {
   let myProjects: IProject[] = [];
-  const myFavorites: IProject[] = [];
   let myProfile: ICurrentUser | any = {};
   try {
     if (!cookies.currentUser) {
@@ -245,8 +246,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     myProjects = myProjectsData;
     myProfile = myProfileData;
-    // console.log("myProjectsData: ", myProjectsData);
-    // console.log("myProfileData: ", myProfileData);
   } catch (error) {
     console.log(error);
   }
@@ -254,6 +253,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       myProjects,
       myProfile,
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
     },
   };
 };

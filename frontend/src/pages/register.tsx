@@ -7,6 +7,9 @@ import Input from "../components/materials/Inputs";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Head from "next/head";
+import { useTranslation } from "next-i18next";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface RegisterForm {
   firstName: string;
@@ -37,6 +40,9 @@ const defaultValues = {
 
 export default function RegisterPage() {
   const { push } = useRouter();
+  const { t } = useTranslation("footer");
+  const { t: tt } = useTranslation("header");
+  const { t: ttt } = useTranslation("login-registration");
   const {
     handleSubmit,
     register,
@@ -91,7 +97,9 @@ export default function RegisterPage() {
           <div className="text-dark">
             <span className="hidden md:inline">Do have an account? </span>
             <Link href="/login">
-              <a className="text-primary-500 hover:underline ">Sign in</a>
+              <a className="text-primary-500 hover:underline ">
+                {tt("sign_in")}
+              </a>
             </Link>
           </div>
         </div>
@@ -103,7 +111,7 @@ export default function RegisterPage() {
             {/* header */}
             <div className="flex flex-col gap-2 pt-10 pb-14">
               <h1 className="text-3xl font-black text-primary text-center">
-                Sign up
+                {tt("sign_up")}
               </h1>
             </div>
             {/* form */}
@@ -118,7 +126,7 @@ export default function RegisterPage() {
                     register={register}
                     error={errors.firstName?.message}
                     required
-                    label="First name"
+                    label={ttt("first_name")}
                     type="text"
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                   />
@@ -128,7 +136,7 @@ export default function RegisterPage() {
                     required
                     name="lastName"
                     register={register}
-                    label="Last name"
+                    label={ttt("last_name")}
                     type="text"
                     error={errors.lastName?.message}
                     className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -139,7 +147,7 @@ export default function RegisterPage() {
                 <Input
                   name="email"
                   register={register}
-                  label="Email"
+                  label={ttt("email")}
                   error={errors.email?.message}
                   type="email"
                   required
@@ -151,7 +159,7 @@ export default function RegisterPage() {
                   <Input
                     name="password"
                     register={register}
-                    label="Password"
+                    label={ttt("password")}
                     required
                     error={errors.password?.message}
                     type="password"
@@ -162,7 +170,7 @@ export default function RegisterPage() {
                   <Input
                     name="confirmPassword"
                     register={register}
-                    label="Confirm password"
+                    label={ttt("confirm_password")}
                     type="password"
                     required
                     error={errors.password?.message}
@@ -174,14 +182,14 @@ export default function RegisterPage() {
                 type="submit"
                 className="w-fit mx-auto py-2 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300 my-4"
               >
-                Register
+                {tt("sign_up")}
               </button>
               <p className="text-lightDark text-center">
-                Already have an account?
+                {ttt("have_account")}
                 <span className="text-primary hover:underline cursor-pointer">
                   {" "}
                   <Link href="/login">
-                    <a className="">Sign in</a>
+                    <a className="">{tt("sign_in")}</a>
                   </Link>
                 </span>
               </p>
@@ -196,21 +204,21 @@ export default function RegisterPage() {
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Terms
+                {t("terms")}
               </a>
             </Link>
           </li>
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Privacy
+                {t("privacy")}
               </a>
             </Link>
           </li>
           <li className="">
             <Link href="">
               <a className="cursor-pointer hover:bg-light duration-200 rounded-sm px-2 py-1">
-                Legal
+                {t("legal")}
               </a>
             </Link>
           </li>
@@ -219,3 +227,16 @@ export default function RegisterPage() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "login-registration",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

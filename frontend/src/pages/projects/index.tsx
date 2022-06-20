@@ -6,6 +6,7 @@ import { client } from "../../utils/api";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 interface ProjectsPageProps {
   projects: IProject[] | [];
@@ -117,7 +118,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let projects: IProject[] = [];
   try {
     const { data } = await client.get("/posts");
@@ -129,6 +130,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       projects,
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
     },
   };
 };

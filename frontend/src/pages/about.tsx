@@ -1,4 +1,6 @@
 import Head from "next/head";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 export default function AboutPage() {
   return (
     <div className="container mt-10 py-16 md:py-24">
@@ -22,7 +24,7 @@ export default function AboutPage() {
       {/* pic section */}
       <section className="my-8 md:my-16 w-full md:w-2/3 mx-auto">
         <figure className="relative rounded-md overflow-hidden">
-          <img src="/assets/images/about.jpg" alt="" />
+          <img src="/assets/images/about.jpg" alt="about moharik" />
         </figure>
       </section>
       <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
@@ -36,3 +38,15 @@ export default function AboutPage() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

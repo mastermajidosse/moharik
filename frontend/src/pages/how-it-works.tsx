@@ -6,6 +6,8 @@ import {
   ChevronBarDownIcon,
   VideoPlayerIcon,
 } from "../components/materials/icons";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 export default function HowItWorksPage() {
   return (
     <div className="mt-10 py-16 md:py-24">
@@ -108,3 +110,15 @@ export default function HowItWorksPage() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

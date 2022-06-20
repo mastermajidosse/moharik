@@ -14,6 +14,7 @@ import { ICurrentUser } from "../../interfaces/currentUser";
 
 export default function Header() {
   const { t } = useTranslation("header");
+  const { t: tt } = useTranslation("common");
   const { route, query } = useRouter();
   const scrollPosition = useScrollPosition();
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function Header() {
             <Link href="/login">
               <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
                 <a className="text-center font-medium tracking-wide leading-relaxed">
-                  Get started
+                  {tt("get_started")}
                 </a>
               </SquaredSolidButton>
             </Link>

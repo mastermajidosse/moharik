@@ -1,9 +1,10 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Home: NextPage = () => {
+const NewsLetterPage: NextPage = () => {
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
       newsLetter: "",
@@ -92,4 +93,16 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default NewsLetterPage;
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};

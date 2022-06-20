@@ -1,0 +1,10 @@
+{
+  "no_account": "ليس لديك حساب؟",
+  "have_account": "هل لديك حساب؟",
+  "forgot_password": "نسيت رقمك السري؟",
+  "email": "عنوان البريد الالكترونى",
+  "password": "كلمة المرور",
+  "first_name": "الاسم الشخصي",
+  "last_name": "اسم العائلة",
+  "confirm_password": "تأكيد كلمة المرور"
+}

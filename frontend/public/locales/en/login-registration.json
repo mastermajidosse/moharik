@@ -1,0 +1,10 @@
+{
+  "no_account": "Don't have an account?",
+  "have_account": "Already have an account?",
+  "forgot_password": "Forgot your password?",
+  "email": "Email address",
+  "password": "Password",
+  "first_name": "First name",
+  "last_name": "Last name",
+  "confirm_password": "Confirm password"
+}

@@ -3,5 +3,11 @@
   "projects": "Projects",
   "blog": "Blog",
   "help_center": "Help center",
-  "about": "About"
+  "about": "About",
+  "profil": "Profile",
+  "log_in": "Login",
+  "log_out": "Log out",
+  "sign_in": "Sign in",
+  "sign_out": "Sign out",
+  "sign_up": "Sign up"
 }
