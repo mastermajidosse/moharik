@@ -7,12 +7,15 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 interface ProjectsPageProps {
   projects: IProject[] | [];
 }
 
 export default function ProjectsPage({ projects }: ProjectsPageProps) {
+  const { t } = useTranslation("project");
+  const { t: tt } = useTranslation("common");
   const { query } = useRouter();
   const [limit, setLimit] = useState(12);
   const [category, setCategory] = useState<string | null>(null);
@@ -28,13 +31,11 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <div className="">
           <div className="mb-14 text-center">
-            <h1 className="text-3xl font-black text-dark">Categories</h1>
+            <h1 className="text-3xl font-black text-dark">
+              {t("project_categories")}
+            </h1>
             <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
-              Many organizations and individuals run into trouble because they
-              only have one or two sources of funding. If any of the sources go
-              away, the organization will likely find itself in trouble.
-              That&#39;s why it is important to have as many sources as
-              possible.
+              {t("project_categories_desc")}
             </p>
           </div>
           <CategoriesStripe />
@@ -110,7 +111,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
             onClick={() => setLimit(limit + 12)}
             className="w-fit mx-auto px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md"
           >
-            Show more
+            {tt("show_more")}
           </button>
         )}
       </section>
@@ -132,6 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       projects,
       ...(await serverSideTranslations(locale as string, [
         "common",
+        "project",
         "footer",
         "header",
       ])),
