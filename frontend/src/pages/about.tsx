@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 export default function AboutPage() {
+  const { t } = useTranslation("about");
   return (
     <div className="container mt-10 py-16 md:py-24">
       <Head>
@@ -9,16 +11,10 @@ export default function AboutPage() {
       </Head>
       <section className="">
         <h1 className="text-2xl md:text-3xl text-dark font-bold mb-6 text-center">
-          About <span className="text-primary">Moharik</span>
+          {t("about_moharik")}
         </h1>
         <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
-          We believe that innovations and new ideas can make this world
-          better,and we also believe that we can make your unique idea or
-          project <span className="decoration-primary underline">POSSIBLE</span>{" "}
-          by showing your project to investors or supporters to take your
-          project to the next level. Welcome to{" "}
-          <span className="text-primary">MOHARIK</span>, the right place to make
-          your dreams real.
+          {t("about_desc_1")}
         </p>
       </section>
       {/* pic section */}
@@ -28,12 +24,7 @@ export default function AboutPage() {
         </figure>
       </section>
       <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
-        Many small business owners in this world couldn&#39;t make their dreams
-        come true,because they didn&#39;t have the financial opportunity to
-        commercialize and grow their projects,{" "}
-        <span className="text-primary">MOHARIK</span> gives you the opportunity
-        to meet the investors and like minded creative people to get what you
-        need to make your dream come true.
+        {t("about_desc_2")}
       </p>
     </div>
   );
@@ -44,6 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale as string, [
         "common",
+        "about",
         "footer",
         "header",
       ])),
