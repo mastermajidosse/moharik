@@ -1,12 +1,16 @@
 import { useRouter } from "next/router";
 import { blogs } from "../../data/blogs";
 import Head from "next/head";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function SingleBlogPage() {
   const {
     query: { blogId },
   } = useRouter();
   const blog = blogs[(blogId as unknown as number) || 0];
+  console.log("blogId: ", blogId);
+
   return (
     <>
       <Head>
@@ -35,3 +39,26 @@ export default function SingleBlogPage() {
     </>
   );
 }
+
+export async function getStaticPaths() {
+  const paths = blogs.map((blog, idx) => ({
+    params: { blogId: idx.toString() },
+  }));
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "common",
+        "blog",
+        "footer",
+        "header",
+      ])),
+    },
+  };
+};
