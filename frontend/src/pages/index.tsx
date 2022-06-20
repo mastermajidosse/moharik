@@ -13,9 +13,10 @@ import { client } from "../utils/api";
 import { IMoto } from "../interfaces/motos";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
-// import { motos } from "../data/motos";
 import { getCurrentUser } from "../utils/getCurrentUser";
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
+import { useRouter } from "next/router";
 
 export default function HomePage({
   projects,
@@ -26,9 +27,11 @@ export default function HomePage({
 }) {
   const { t } = useTranslation("home-page");
   const { t: tt } = useTranslation("common");
+  const { t: ttt } = useTranslation("newsletter");
   const [counter, setCounter] = useState(0);
   const motos = useMemo(() => ["moto_1", "moto_2", "moto_3", "moto_4"], []);
   const [moto, setMoto] = useState<string>(motos[0]);
+  const { locale } = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -218,13 +221,20 @@ export default function HomePage({
             />
           </figure>
           <div className="container grid grid-cols-7">
-            <div className="md:pl-8 bg-light md:bg-white col-span-full md:col-span-5 flex flex-col justify-center gap-4">
+            <div
+              className={clsx(
+                "md:pl-8 bg-light md:bg-white col-span-full md:col-span-5 flex flex-col justify-center gap-4",
+                {
+                  "md:pl-0 md:pr-8": locale === "ar",
+                }
+              )}
+            >
               <div className="">
                 <h2 className="text-2xl font-black text-dark">
-                  Subscribe to our newsletter
+                  {ttt("newsletter_title")}
                 </h2>
                 <p className="text-lightDark font-medium text-sm">
-                  Receive new projects in your inbox every week!
+                  {ttt("newsletter_subtitle")}
                 </p>
               </div>
               <form
@@ -233,7 +243,7 @@ export default function HomePage({
               >
                 <input
                   className="w-full md:w-3/4 outline-none border-2 border-primary-200 focus:border-primary-300 p-2.5 md:p-3 bg-light"
-                  placeholder="Eneter your email adress"
+                  placeholder={ttt("newsletter_email_palceholder")}
                   type="email"
                   {...register("newsLetter")}
                 />
@@ -241,12 +251,11 @@ export default function HomePage({
                   type="submit"
                   className="w-full md:w-1/4 flex justify-center items-center bg-primary-500 text-light font-medium  py-1.5 md:py-3 hover:bg-primary-600 duration-200 text-lg"
                 >
-                  Subscribe
+                  {ttt("subscribe")}
                 </button>
               </form>
               <p className="text-lightDark font-medium text-xs">
-                We will only use your email address to send you our newsletter.
-                Learn more
+                {ttt("newsletter_desc")}
               </p>
             </div>
             <figure className="bg-light md:bg-white col-span-2 md:block hidden relative h-64 overflow-hidden">
@@ -254,7 +263,9 @@ export default function HomePage({
                 style={{
                   clipPath: "polygon(36% 0, 100% 0, 100% 100%, 0 100%)",
                 }}
-                className="h-full w-full object-cover"
+                className={clsx("h-full w-full object-cover", {
+                  "rotate-180 -scale-y-100": locale === "ar",
+                })}
                 src="https://s3-eu-west-1.amazonaws.com/com.ulule.assets/site/build/img/newsletter/newsletter-1@2x.84917bf5e0b2.jpg"
                 alt=""
               />
@@ -262,7 +273,12 @@ export default function HomePage({
                 style={{
                   clipPath: "polygon(36% 0, 100% 0, 100% 100%, 0 100%)",
                 }}
-                className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-primary-700/60"
+                className={clsx(
+                  "absolute top-0 left-0 w-full h-full bg-gradient-to-t from-primary-700/60",
+                  {
+                    "rotate-180 -scale-y-100": locale === "ar",
+                  }
+                )}
               />
             </figure>
           </div>
@@ -290,6 +306,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       motos,
       ...(await serverSideTranslations(locale as string, [
         "home-page",
+        "newsletter",
         "common",
         "footer",
         "header",
