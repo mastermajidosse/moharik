@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -13,8 +13,9 @@ import { client } from "../utils/api";
 import { IMoto } from "../interfaces/motos";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
-import { motos } from "../data/motos";
+// import { motos } from "../data/motos";
 import { getCurrentUser } from "../utils/getCurrentUser";
+import { useTranslation } from "next-i18next";
 
 export default function HomePage({
   projects,
@@ -23,7 +24,10 @@ export default function HomePage({
   projects: IProject[];
   // motos: IMoto[];
 }) {
+  const { t } = useTranslation("home-page");
+  const { t: tt } = useTranslation("common");
   const [counter, setCounter] = useState(0);
+  const motos = useMemo(() => ["moto_1", "moto_2", "moto_3", "moto_4"], []);
   const [moto, setMoto] = useState<string>(motos[0]);
 
   useEffect(() => {
@@ -33,7 +37,7 @@ export default function HomePage({
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [counter]);
+  }, [counter, motos]);
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
@@ -57,12 +61,12 @@ export default function HomePage({
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
               <h1 className="text-4xl font-black text-dark h-24 capitalize">
-                {moto}
+                {t(moto)}
               </h1>
               <Link href={getCurrentUser() ? "/projects/create" : "/login"}>
                 <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
                   <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
-                    Get started
+                    {tt("get_started")}
                   </a>
                 </SquaredSolidButton>
               </Link>
@@ -81,11 +85,10 @@ export default function HomePage({
           <div className="container">
             <div className="mb-14 text-center">
               <h1 className="text-4xl font-black text-dark">
-                What&#39;s Popular
+                {t("whats_popular")}
               </h1>
               <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
-                Here you will find the most popular projects from our creators
-                and dreamers, take a look and explore them.
+                {t("whats_popular_desc")}
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
@@ -126,12 +129,10 @@ export default function HomePage({
           <div className="container">
             <div className="mb-14 text-center">
               <h1 className="text-4xl font-black text-dark capitalize">
-                Explore our blogs
+                {t("explore_our_blogs")}
               </h1>
               <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
-                Looking for inspiration? Here you find wild of creative ideas
-                from our creators and dreamers that promote thinking and
-                problem-solving.
+                {t("explore_our_blogs_desc")}
               </p>
             </div>
             {/*  */}
@@ -143,7 +144,7 @@ export default function HomePage({
             <div className="w-fit mx-auto">
               <Link href="/blog">
                 <a className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
-                  Explore more
+                  {tt("explore_more")}
                 </a>
               </Link>
             </div>
@@ -154,11 +155,10 @@ export default function HomePage({
           <div className="container">
             <div className="mb-14 text-center">
               <h2 className="text-4xl font-black text-dark">
-                Latest Campaigns
+                {t("latest_campaigns")}
               </h2>
               <p className="w-full md:w-3/4 md:mx-auto text-lightDark mt-8">
-                Here you will find the most recent projects from our creators
-                and dreamers, <br /> take a look and explore them.
+                {t("latest_campaigns_desc")}
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
@@ -197,7 +197,7 @@ export default function HomePage({
             <div className="w-fit mx-auto">
               <Link href="/projects">
                 <a className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
-                  Show more
+                  {tt("show_more")}
                 </a>
               </Link>
             </div>
@@ -289,6 +289,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       projects,
       motos,
       ...(await serverSideTranslations(locale as string, [
+        "home-page",
         "common",
         "footer",
         "header",

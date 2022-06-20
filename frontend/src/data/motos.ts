@@ -1,6 +1,1 @@
-export const motos = [
-  "whenever there is a will \n there's a way",
-  "if you can dream it \n you can do it",
-  "focus on your goal",
-  "self belief and hard work is the key",
-];
+export const motos = ["moto_1", "moto_2", "moto_3", "moto_4"];
