@@ -156,28 +156,28 @@ export default function ShareModal({ children, project }: ShareModalProps) {
                       >
                         <Link href={link}>
                           <a target="_blank">
-                          <button className="w-full">
-                            <div className="flex flex-col items-center gap-2">
-                              {icon}
-                              <span
-                                className={clsx(
-                                  "text-xs font-light text-lightDark",
-                                  {
-                                    "group-hover:text-[#3b5998]":
-                                      label === "Facebook",
-                                    "group-hover:text-[#55acee]":
-                                      label === "Twitter",
-                                    "group-hover:text-[#4dc247]":
-                                      label === "Whatsapp",
-                                    "group-hover:text-[#ff0084]":
-                                      label === "Instagram",
-                                  }
-                                )}
-                              >
-                                {label}
-                              </span>
-                            </div>
-                          </button>
+                            <button className="w-full">
+                              <div className="flex flex-col items-center gap-2">
+                                {icon}
+                                <span
+                                  className={clsx(
+                                    "text-xs font-light text-lightDark",
+                                    {
+                                      "group-hover:text-[#3b5998]":
+                                        label === "Facebook",
+                                      "group-hover:text-[#55acee]":
+                                        label === "Twitter",
+                                      "group-hover:text-[#4dc247]":
+                                        label === "Whatsapp",
+                                      "group-hover:text-[#ff0084]":
+                                        label === "Instagram",
+                                    }
+                                  )}
+                                >
+                                  {label}
+                                </span>
+                              </div>
+                            </button>
                           </a>
                         </Link>
                       </li>
