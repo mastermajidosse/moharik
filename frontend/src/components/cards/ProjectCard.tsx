@@ -8,6 +8,7 @@ import { FilledHeartIcon } from "../materials/icons";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 import { categoriesWithColors } from "../../data/categories";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useTranslation } from "next-i18next";
 
 interface ProjectCardProps {
   id: string;
@@ -31,6 +32,7 @@ export default function ProjectCard({
   title,
   collected,
 }: ProjectCardProps) {
+  const { t } = useTranslation("project");
   const { push } = useRouter();
   const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
     "likes",
@@ -124,12 +126,12 @@ export default function ProjectCard({
           <div className="flex flex-col gap-1 border-t pt-2">
             <p className="text-lightDark text-sm font-medium">
               {daysCount > 0
-                ? `Created ${daysCount} days ago`
-                : "Created today"}
+                ? t("created_days_ago", { date: daysCount })
+                : t("created_today")}
             </p>
             <p className="text-link font-bold">
-              {collected}Dhs raised{" "}
-              <span className="text-lightDark">of {price}Dhs</span>
+              {collected}Dhs {t("raised_of")}{" "}
+              <span className="text-lightDark">{price}Dhs</span>
             </p>
           </div>
         )}

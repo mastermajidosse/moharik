@@ -1,4 +1,15 @@
 {
   "project_categories": "Categories",
-  "project_categories_desc": "Many organizations and individuals run into trouble because they only have one or two sources of funding. If any of the sources go away, the organization will likely find itself in trouble. That's why it is important to have as many sources as possible."
+  "project_categories_desc": "Many organizations and individuals run into trouble because they only have one or two sources of funding. If any of the sources go away, the organization will likely find itself in trouble. That's why it is important to have as many sources as possible.",
+  "raised_of": "Raised of",
+  "goal": "Goal",
+  "donors": "Donors",
+  "donators": "Donators",
+  "donations": "Donations",
+  "created_days_ago": "Created {{date}} days ago",
+  "created_today": "Created today",
+  "organizer": "Organizer",
+  "reach_us_out": "Reach us out",
+  "comments": "Comments",
+  "comment_desc": "Please donate to share words of support."
 }

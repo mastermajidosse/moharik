@@ -1,20 +1,19 @@
 import { GetServerSideProps } from "next";
-import CommentItem from "../../components/items/CommentItem";
+import Link from "next/link";
+import Head from "next/head";
+import dayjs from "dayjs";
+import { toast } from "react-toastify";
+import clsx from "clsx";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import DonatorItem from "../../components/items/DonatorItem";
 import { FilledHeartIcon } from "../../components/materials/icons";
 import { IProject } from "../../interfaces/project";
-import {
-  PersonWithHeartIcon,
-  ReportFlagIcon,
-} from "../../components/materials/icons";
+import { ReportFlagIcon } from "../../components/materials/icons";
 import { client } from "../../utils/api";
-import dayjs from "dayjs";
-import Head from "next/head";
-import { toast } from "react-toastify";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getCurrentUser } from "../../utils/getCurrentUser";
-import clsx from "clsx";
-import Link from "next/link";
 import ShareModal from "../../components/modals/ShareModal";
 import ContactModal from "../../components/modals/ContactModal";
 
@@ -36,6 +35,8 @@ export default function SingleProjectPage({
 }: {
   project: IProject | Record<string, never>;
 }) {
+  const { t } = useTranslation("project");
+  const { t: tt } = useTranslation("common");
   const {
     _id,
     category,
@@ -84,9 +85,8 @@ export default function SingleProjectPage({
       console.log(error);
     }
   }
-  const daysCount = dayjs(Date.now()).diff(dayjs(project.createdAt), "days");
 
-  console.log("project: ", project);
+  const daysCount = dayjs(Date.now()).diff(dayjs(project.createdAt), "days");
 
   return (
     <>
@@ -120,7 +120,8 @@ export default function SingleProjectPage({
             <p className="text-dark font-bold text-lg">
               {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
-                raised of {project?.price}DH goal • 0 donors
+                {t("raised_of")} {project?.price}DH {t("goal")} • 0{" "}
+                {t("donors")}
               </span>
             </p>
             {/* share & donate buttons  */}
@@ -143,14 +144,14 @@ export default function SingleProjectPage({
                   </button>
                   <ShareModal project={project as IProject}>
                     <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
-                      Share
+                      {tt("share")}
                     </button>
                   </ShareModal>
                 </div>
               ) : (
                 <ShareModal project={project as IProject}>
                   <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
-                    Share
+                    {tt("share")}
                   </button>
                 </ShareModal>
               )}
@@ -160,7 +161,7 @@ export default function SingleProjectPage({
                 rel="noreferrer"
                 className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
               >
-                Support
+                {tt("support")}
               </a>
             </div>
           </div>
@@ -178,8 +179,8 @@ export default function SingleProjectPage({
             </p> */}
             <p className="text-lightDark font-medium text-sm">
               {daysCount > 0
-                ? `Created ${daysCount} days ago |`
-                : "Created today |"}
+                ? t("created_days_ago", { date: daysCount }) + " |"
+                : t("created_today") + " |"}
             </p>{" "}
             <Link
               href={`/projects?category=${project?.category.toLocaleLowerCase()}`}
@@ -206,11 +207,11 @@ export default function SingleProjectPage({
               rel="noreferrer"
               className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
             >
-              Support
+              {tt("support")}
             </a>
             <ShareModal project={project as IProject}>
               <button className="w-full py-2 text-lg font-medium text-primary rounded shadow-header-light border-2 border-primary-500 hover:bg-primary-50 duration-200">
-                Share
+                {tt("share")}
               </button>
             </ShareModal>
           </div>
@@ -220,15 +221,17 @@ export default function SingleProjectPage({
             {/* donators */}
             <div className="">
               <div className="">
-                <h2 className="text-xl font-bold text-dark">Donations (3)</h2>
+                <h2 className="text-xl font-bold text-dark">
+                  {t("donators")} (0)
+                </h2>
               </div>
               <div className="flex flex-col gap-6 mt-6">
-                {Array.from(Array(5)).map((_, idx) => (
+                {Array.from(Array(0)).map((_, idx) => (
                   <DonatorItem key={idx} />
                 ))}
               </div>
               <button className="w-full mt-8 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
-                See all
+                {tt("see_all")}
               </button>
             </div>
           </div>
@@ -237,7 +240,7 @@ export default function SingleProjectPage({
           {/* Organizer details */}
           <div className="md:w-11/12">
             <div className="">
-              <h2 className="text-xl font-bold text-dark">Organizer</h2>
+              <h2 className="text-xl font-bold text-dark">{t("organizer")}</h2>
             </div>
             <div className="flex gap-4 mt-6">
               <figure className="w-14 h-14 bg-primary-100/50 rounded-full flex justify-center items-center">
@@ -250,13 +253,15 @@ export default function SingleProjectPage({
               </figure>
               <div className="flex flex-col gap-2 text-dark">
                 <h2 className="font-bold">Moharik</h2>
-                <p className="text-sm font-medium text-lightDark">Organizer</p>
                 <p className="text-sm font-medium text-lightDark">
-                  Reach us out
+                  {t("organizer")}
+                </p>
+                <p className="text-sm font-medium text-lightDark">
+                  {t("reach_us_out")}
                 </p>
                 <ContactModal contact={{}}>
                   <button className="w-fit mt-2 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
-                    Contact
+                    {tt("contact")}
                   </button>
                 </ContactModal>
               </div>
@@ -267,10 +272,10 @@ export default function SingleProjectPage({
           {/* comments */}
           <div className="md:w-11/12 ">
             <div className="">
-              <h2 className="text-xl font-bold text-dark">Comments (0)</h2>
-              <p className="font-meduim text-lightDark">
-                Please donate to share words of support.
-              </p>
+              <h2 className="text-xl font-bold text-dark">
+                {t("comments")} (0)
+              </h2>
+              <p className="font-meduim text-lightDark">{t("comment_desc")}</p>
             </div>
             {/* <div className="flex flex-col gap-6 mt-6">
               {Array.from(Array(5)).map((_, idx) => (
@@ -283,7 +288,9 @@ export default function SingleProjectPage({
           {/* report */}
           <div className="flex justify-center items-center gap-2 pt-8">
             <ReportFlagIcon width="20" height="20" />
-            <p className="font-medium cursor-pointer hover:underline">Report</p>
+            <p className="font-medium cursor-pointer hover:underline">
+              {tt("report")}
+            </p>
           </div>
         </div>
         {/* aside */}
@@ -293,14 +300,14 @@ export default function SingleProjectPage({
             <p className="text-dark font-bold text-2xl">
               {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
-                raised of {project?.price}DH goal
+                {t("raised_of")} {project?.price}DH {t("goal")}
               </span>
             </p>
             {/* progress bar */}
             <div className="my-2 w-full h-1 rounded-full overflow-hidden bg-primary-100/50">
               <div className="w-0 h-full rounded-full bg-primary-500" />
             </div>
-            <p className="text-lightDark text-sm">0 donors</p>
+            <p className="text-lightDark text-sm">0 {t("donors")}</p>
             {/* share & donate buttons  */}
             <div className="w-full flex flex-col gap-3 mt-5">
               <div className="flex gap-2">
@@ -322,7 +329,7 @@ export default function SingleProjectPage({
                 )}
                 <ShareModal project={project as IProject}>
                   <button className="w-full py-2 bg-gradient-to-tr from-primary-400 to-primary-200 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-500 duration-200">
-                    Share
+                    {tt("share")}
                   </button>
                 </ShareModal>
               </div>
@@ -332,7 +339,7 @@ export default function SingleProjectPage({
                 rel="noreferrer"
                 className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
               >
-                Support
+                {tt("support")}
               </a>
             </div>
             {/* separetor */}
@@ -340,7 +347,9 @@ export default function SingleProjectPage({
             {/* donators */}
             <div className="">
               <div className="">
-                <h2 className="text-xl font-bold text-dark">Donators (0)</h2>
+                <h2 className="text-xl font-bold text-dark">
+                  {t("donators")} (0)
+                </h2>
               </div>
               {/* <div className="flex flex-col gap-6 mt-6">
                 {Array.from(Array(3)).map((_, idx) => (
@@ -348,7 +357,7 @@ export default function SingleProjectPage({
                 ))}
               </div>
               <button className="w-full mt-8 px-4 py-1 text-lg font-medium text-primary rounded shadow-header-light border border-primary-500 hover:bg-primary-50 duration-200">
-                See all
+                {tt("see_all")}
               </button> */}
             </div>
           </div>
@@ -358,7 +367,10 @@ export default function SingleProjectPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  locale,
+}) => {
   const { projectId } = query;
   let project: IProject | Record<string, never> = {};
   try {
@@ -371,6 +383,12 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       project,
+      ...(await serverSideTranslations(locale as string, [
+        "project",
+        "common",
+        "footer",
+        "header",
+      ])),
     },
   };
 };
