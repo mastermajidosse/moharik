@@ -180,3 +180,19 @@
 .ql-editor {
   min-height: 200px;
 }
+
+
+/* carousel */
+.slick-dots {
+  bottom: 16px !important;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: .75 !important;
+  color: #15b2c0 !important;
+}
+
+.slick-dots li button:before {
+  font-size: 12px !important;
+  color: #15b2c0 !important;
+}

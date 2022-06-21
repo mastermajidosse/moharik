@@ -16,6 +16,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 import ShareModal from "../../components/modals/ShareModal";
 import ContactModal from "../../components/modals/ContactModal";
+import CoverCarousel from "../../components/carousels/CoverCarousel";
 
 interface ProjectCardProps {
   id: string;
@@ -100,13 +101,7 @@ export default function SingleProjectPage({
             {project?.title}
           </h1>
           {/* cover */}
-          <figure className="w-full h-[260px] md:h-[400px]">
-            <img
-              className="w-full h-full object-cover rounded-xl shadow-header-light"
-              src={project.images[0]}
-              alt={project?.title}
-            />
-          </figure>
+          <CoverCarousel images={images} alt={title} />
           <div className="block md:hidden">
             {/* title */}
             <h1 className="mt-5 text-xl font-black text-dark tracking-wide">
