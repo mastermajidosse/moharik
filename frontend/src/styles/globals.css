@@ -240,3 +240,46 @@
     margin-top: 0px;
   }
 }
+
+.hero-text__list_ar {
+  animation: change_ar ease-in-out infinite 12s;
+}
+
+@keyframes change_ar {
+
+  0% {
+    margin-top: 0px;
+  }
+
+  5% {
+    margin-top: -300px;
+  }
+
+  25% {
+    margin-top: -300px;
+  }
+
+  30% {
+    margin-top: -200px;
+  }
+
+  50% {
+    margin-top: -200px;
+  }
+
+  55% {
+    margin-top: -100px;
+  }
+
+  75% {
+    margin-top: -100px;
+  }
+
+  80% {
+    margin-top: 0px;
+  }
+
+  100% {
+    margin-top: 0px;
+  }
+}

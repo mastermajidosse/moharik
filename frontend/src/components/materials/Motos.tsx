@@ -1,10 +1,23 @@
+import clsx from "clsx";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 export default function Motos() {
   const { t } = useTranslation("home-page");
+  const { locale } = useRouter();
   return (
-    <div className="h-[90px] overflow-hidden">
-      <div className="hero-text__list h-full">
+    <div
+      className={clsx("overflow-hidden", {
+        "h-[90px] ": locale === "en",
+        "h-[100px] ": locale === "ar",
+      })}
+    >
+      <div
+        className={clsx("h-full", {
+          "hero-text__list": locale === "en",
+          "hero-text__list_ar": locale === "ar",
+        })}
+      >
         <h2 className="text-4xl font-black text-dark capitalize h-full ">
           {t("moto_1")}
         </h2>
