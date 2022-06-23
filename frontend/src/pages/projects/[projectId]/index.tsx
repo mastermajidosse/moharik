@@ -7,16 +7,16 @@ import clsx from "clsx";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import DonatorItem from "../../components/items/DonatorItem";
-import { FilledHeartIcon } from "../../components/materials/icons";
-import { IProject } from "../../interfaces/project";
-import { ReportFlagIcon } from "../../components/materials/icons";
-import { client } from "../../utils/api";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { getCurrentUser } from "../../utils/getCurrentUser";
-import ShareModal from "../../components/modals/ShareModal";
-import ContactModal from "../../components/modals/ContactModal";
-import CoverCarousel from "../../components/carousels/CoverCarousel";
+import DonatorItem from "../../../components/items/DonatorItem";
+import { FilledHeartIcon } from "../../../components/materials/icons";
+import { IProject } from "../../../interfaces/project";
+import { ReportFlagIcon } from "../../../components/materials/icons";
+import { client } from "../../../utils/api";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { getCurrentUser } from "../../../utils/getCurrentUser";
+import ShareModal from "../../../components/modals/ShareModal";
+import ContactModal from "../../../components/modals/ContactModal";
+import CoverCarousel from "../../../components/carousels/CoverCarousel";
 
 interface ProjectCardProps {
   id: string;

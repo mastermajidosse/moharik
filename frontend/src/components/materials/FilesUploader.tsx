@@ -12,10 +12,12 @@ export default function FilesUploader({
   setValue,
   required = false,
   error,
+  previews=[],
 }: {
   setValue: UseFormSetValue<ProjectFrom>;
   required?: boolean;
   error?: string;
+  previews?: string[];
 }) {
   const { control, watch, getValues } = useForm<{ images: File[] | [] }>({
     defaultValues: { images: [] },
@@ -44,10 +46,26 @@ export default function FilesUploader({
         )}
       </label>
       <div className="w-full bg-light rounded grid grid-cols-4 gap-2 p-4">
-        <FileInput append={append} remove={() => remove(0)} />
-        <FileInput append={append} remove={() => remove(1)} />
-        <FileInput append={append} remove={() => remove(2)} />
-        <FileInput append={append} remove={() => remove(3)} />
+        <FileInput
+          defaultPreview={previews[0] || null}
+          append={append}
+          remove={() => remove(0)}
+        />
+        <FileInput
+          defaultPreview={previews[1] || null}
+          append={append}
+          remove={() => remove(1)}
+        />
+        <FileInput
+          defaultPreview={previews[2] || null}
+          append={append}
+          remove={() => remove(2)}
+        />
+        <FileInput
+          defaultPreview={previews[3] || null}
+          append={append}
+          remove={() => remove(3)}
+        />
       </div>
     </>
   );
@@ -56,7 +74,9 @@ export default function FilesUploader({
 function FileInput({
   append,
   remove,
+  defaultPreview,
 }: {
+  defaultPreview: string | null;
   remove: () => void;
   append: UseFieldArrayAppend<
     {
@@ -65,7 +85,7 @@ function FileInput({
     "images"
   >;
 }) {
-  const [preview, setPreview] = useState<null | string>(null);
+  const [preview, setPreview] = useState<null | string>(defaultPreview || null);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {
     if (e.target.files) {
