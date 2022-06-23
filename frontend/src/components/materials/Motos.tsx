@@ -1,21 +1,7 @@
 import { useTranslation } from "next-i18next";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
 
 export default function Motos() {
   const { t } = useTranslation("home-page");
-  const [counter, setCounter] = useState(0);
-
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       if (counter === 4) {
-  //         setCounter(0);
-  //       }
-  //       setCounter(counter + 1);
-  //     }, 1000);
-
-  //     return () => clearInterval(interval);
-  //   }, [counter]);
   return (
     <div className="h-[90px] overflow-hidden">
       <div className="hero-text__list h-full">

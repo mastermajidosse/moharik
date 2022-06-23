@@ -1,10 +1,12 @@
-import { useState, useEffect, useMemo } from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import clsx from "clsx";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 import ProjectCard from "../components/cards/ProjectCard";
 import { SquaredSolidButton } from "../components/materials/Buttons";
@@ -14,34 +16,13 @@ import { IMoto } from "../interfaces/motos";
 import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
 import { getCurrentUser } from "../utils/getCurrentUser";
-import { useTranslation } from "next-i18next";
-import clsx from "clsx";
-import { useRouter } from "next/router";
 import Motos from "../components/materials/Motos";
 
-export default function HomePage({
-  projects,
-}: // motos,
-{
-  projects: IProject[];
-  // motos: IMoto[];
-}) {
+export default function HomePage({ projects }: { projects: IProject[] }) {
   const { t } = useTranslation("home-page");
   const { t: tt } = useTranslation("common");
   const { t: ttt } = useTranslation("newsletter");
-  const [counter, setCounter] = useState(0);
-  const motos = useMemo(() => ["moto_1", "moto_2", "moto_3", "moto_4"], []);
-  const [moto, setMoto] = useState<string>(motos[0]);
   const { locale } = useRouter();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMoto(motos[counter] || "");
-      counter >= motos.length - 1 ? setCounter(0) : setCounter(counter + 1);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [counter, motos]);
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
