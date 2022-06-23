@@ -9,5 +9,9 @@
   "logout": "تسجيل خروج",
   "sign_in": "تسجيل الدخول",
   "sign_out": "تسجيل خروج",
-  "sign_up": "تسجيل"
+  "sign_up": "تسجيل",
+  "change_cover": "تغيير صورة الغلاف الخاصة بك",
+  "my_projects": "مشاريعي",
+  "my_favorites": "مفضلتي",
+  "launch_project": "إطلاق مشروع"
 }

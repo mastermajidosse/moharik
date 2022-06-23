@@ -16,6 +16,8 @@ import { removeCookies } from "cookies-next";
 import Head from "next/head";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 interface ProfilePageProps {
   myProjects: IProject[];
@@ -41,6 +43,8 @@ export default function ProfilePage({
   myFavorites,
   myProfile,
 }: ProfilePageProps) {
+  const { t } = useTranslation("header");
+  const { locale } = useRouter();
   const [active, setActive] = useState<"projects" | "favorites">("projects");
   const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
     "likes",
@@ -48,7 +52,7 @@ export default function ProfilePage({
   );
   function logOut() {
     removeCookies("currentUser");
-    window.location.assign("/");
+    window.location.assign("/" + locale);
   }
 
   return (
@@ -72,7 +76,7 @@ export default function ProfilePage({
               <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
               <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
             </svg>
-            <p className="font-bold text-lg">Change your cover image</p>
+            <p className="font-bold text-lg">{t("change_cover")}</p>
           </div>
         </figure>
       </section>
@@ -98,7 +102,7 @@ export default function ProfilePage({
             >
               <LogoutIcon width="18" height="18" className="mb-1.5  " />
               <p className="font-medium text-sm flex items-center gap-1.5  mb-2">
-                Sign out
+                {t("sign_out")}
               </p>
             </div>
           </div>
@@ -116,7 +120,7 @@ export default function ProfilePage({
                   }
                 )}
               >
-                My projects
+                {t("my_projects")}
               </li>
               <li
                 onClick={() => setActive("favorites")}
@@ -128,12 +132,12 @@ export default function ProfilePage({
                   }
                 )}
               >
-                My favorites
+                {t("my_favorites")}
               </li>
             </ul>
             <Link href="/projects/create">
               <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-600 text-white">
-                Launch Project
+                {t("launch_project")}
               </a>
             </Link>
           </div>

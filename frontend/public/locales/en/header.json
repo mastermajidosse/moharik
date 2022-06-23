@@ -9,5 +9,9 @@
   "log_out": "Log out",
   "sign_in": "Sign in",
   "sign_out": "Sign out",
-  "sign_up": "Sign up"
+  "sign_up": "Sign up",
+  "change_cover": "Change your cover image",
+  "my_projects": "My projects",
+  "my_favorites": "My favorites",
+  "launch_project": "Launch Project"
 }
