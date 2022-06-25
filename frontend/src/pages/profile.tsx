@@ -191,6 +191,7 @@ function MyProjects({ myProjects }: { myProjects: IProject[] | [] }) {
             category={category}
             deadline={deadline}
             images={images}
+            isMine={true}
           />
         )
       )}

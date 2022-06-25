@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import { toast } from "react-toastify";
 
-import { FilledHeartIcon } from "../materials/icons";
+import { EditIcon, FilledHeartIcon } from "../materials/icons";
 import { getCurrentUser } from "../../utils/getCurrentUser";
 import { categoriesWithColors } from "../../data/categories";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -14,6 +14,7 @@ interface ProjectCardProps {
   id: string;
   title: string;
   desc?: string;
+  isMine?: boolean;
   category: string;
   images: string[];
   price?: number;
@@ -31,6 +32,7 @@ export default function ProjectCard({
   price,
   title,
   collected,
+  isMine = false,
 }: ProjectCardProps) {
   const { t } = useTranslation("project");
   const { push } = useRouter();
@@ -70,7 +72,10 @@ export default function ProjectCard({
         <img
           onClick={() => push(`/projects/${id}`)}
           className="w-full h-full bg-cover cursor-pointer"
-          src={images[0] || "/assets/images/placeholder.png"}
+          src={
+            images[0].replace("http://res", "https://res") ||
+            "/assets/images/placeholder.png"
+          }
           alt=""
         />
         {/* progress bar */}
@@ -81,7 +86,14 @@ export default function ProjectCard({
             }}
             className="h-full bg-primary-400"
           />
-          {getCurrentUser() && (
+          {isMine && (
+            <Link href={`/projects/${id}/edit`}>
+              <a className="absolute right-2 -top-3 h-8 w-8 bg-light flex justify-center items-center rounded-full shadow-md  hover:text-primary-700 duration-300 cursor-pointer">
+                <EditIcon width="14" height="14" />
+              </a>
+            </Link>
+          )}
+          {!isMine && getCurrentUser() && (
             <div
               onClick={handleLike}
               className={clsx(

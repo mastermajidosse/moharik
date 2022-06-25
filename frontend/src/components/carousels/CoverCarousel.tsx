@@ -26,7 +26,7 @@ export default function CoverCarousel({
         <figure key={idx} className="w-full h-[260px] md:h-[400px]">
           <img
             className="w-full h-full object-cover rounded-xl shadow-header-light"
-            src={img}
+            src={img.replace("http://res", "https://res")}
             alt={alt}
           />
         </figure>
