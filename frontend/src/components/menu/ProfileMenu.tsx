@@ -22,7 +22,6 @@ export default function ProfileMenu() {
     if (currentUser) {
       const parsed = JSON.parse(currentUser as string) as ICurrentUser;
       setName(parsed?.name || null);
-      console.log("cookie: ", parsed);
     }
   }, []);
 

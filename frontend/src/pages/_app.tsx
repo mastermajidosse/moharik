@@ -7,9 +7,11 @@ import { done, start } from "nprogress";
 import { appWithTranslation } from "next-i18next";
 import Layout from "../components/layout/Layout";
 import * as ga from "../lib/ga";
+import { NextSeo } from "next-seo";
+import { defaultSEO } from "../utils/default-seo.config";
 
 function MyApp({ Component, pageProps }: any) {
-  const { locale, events } = useRouter();
+  const { locale, events, asPath } = useRouter();
 
   Router.events.on("routeChangeStart", () => start());
   Router.events.on("routeChangeComplete", () => done());
@@ -19,12 +21,7 @@ function MyApp({ Component, pageProps }: any) {
     const handleRouteChange = (url: string) => {
       ga.pageview(url);
     };
-    //When the component is mounted, subscribe to router changes
-    //and log those page views
     events.on("routeChangeComplete", handleRouteChange);
-
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method
     return () => {
       events.off("routeChangeComplete", handleRouteChange);
     };
@@ -33,6 +30,10 @@ function MyApp({ Component, pageProps }: any) {
   return (
     <div dir={locale === "ar" ? "rtl" : "ltr"}>
       <Layout>
+        <NextSeo
+          canonical={`https://www.moharik.ma${asPath}`}
+          {...defaultSEO}
+        />
         <Component {...pageProps} />
         <ToastContainer />
       </Layout>

@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon, UserIcon } from "../materials/icons";
+import { BurgerMenuIcon } from "../materials/icons";
 import MobileMenu from "../menu/MobileMenu";
 import { navs } from "../../data/navs";
 import { ICurrentUser } from "../../interfaces/currentUser";
@@ -55,14 +55,9 @@ export default function Header() {
         </div>
         <div className="hidden md:flex">
           {currentUser ? (
-            // <Link href="/profile">
-            //   <a>
-            //     <UserIcon width="28" height="28" className="text-primary-700" />
-            //   </a>
-            // </Link>
             <ProfileMenu />
           ) : (
-            <Link href="/login">
+            <Link href="/login" passHref>
               <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-600 duration-300">
                 <a className="text-center font-medium tracking-wide leading-relaxed">
                   {tt("get_started")}

@@ -12,7 +12,7 @@ export default function FilesUploader({
   setValue,
   required = false,
   error,
-  previews=[],
+  previews = [],
 }: {
   setValue: UseFormSetValue<ProjectFrom>;
   required?: boolean;

@@ -35,6 +35,7 @@
     "react-slick": "^0.29.0",
     "react-toastify": "^9.0.3",
     "slick-carousel": "^1.8.1",
+    "slugify": "^1.6.5",
     "swr": "^1.3.0",
     "tailwindcss-rtl": "^0.9.0",
     "yup": "^0.32.11"

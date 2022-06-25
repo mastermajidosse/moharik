@@ -16,14 +16,12 @@ export default function BlogCard({
   idx,
 }: BlogCardProps) {
   return (
-    <Link href={`/blog/${idx}`}>
+    <Link href={`/blog/${idx}`} passHref>
       <a>
         <div className="group flex flex-col gap-2">
-          <a className="w-full h-64">
-            <figure className="w-full h-full overflow-hidden rounded-lg cursor-pointer">
-              <img className="w-full h-full object-cover" src={image} alt="" />
-            </figure>
-          </a>
+          <figure className="w-full h-64 overflow-hidden rounded-lg cursor-pointer">
+            <img className="w-full h-full object-cover" src={image} alt="" />
+          </figure>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium text-primary">
               {date} • {Math.ceil(description.trim().split(/\s+/).length / 150)}{" "}
