@@ -1,17 +1,17 @@
 {
   "home": "الصفحه الرئيسيه",
-  "projects": "المشاريع",
+  "projects": "تصفح المشاريع",
   "blog": "مقالات",
   "help_center": "مركز المساعدة",
-  "about": "حول",
+  "about": "من نحن",
   "profile": "الملف الشخصي",
   "login": "تسجيل الدخول",
   "logout": "تسجيل خروج",
   "sign_in": "تسجيل الدخول",
   "sign_out": "تسجيل خروج",
   "sign_up": "تسجيل",
-  "change_cover": "تغيير صورة الغلاف الخاصة بك",
+  "change_cover": "تغيير الصورة الخاصة بك",
   "my_projects": "مشاريعي",
   "my_favorites": "مفضلتي",
-  "launch_project": "إطلاق مشروع"
+  "launch_project": "أضف مشروع"
 }
