@@ -6,6 +6,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import { ProjectFrom } from "../../pages/projects/create";
+import { TeamFrom } from "../../pages/teams/create";
 import { CloseIcon } from "./icons";
 
 export default function FilesUploader({
@@ -14,7 +15,7 @@ export default function FilesUploader({
   error,
   previews = [],
 }: {
-  setValue: UseFormSetValue<ProjectFrom>;
+  setValue: UseFormSetValue<ProjectFrom | TeamFrom | any>;
   required?: boolean;
   error?: string;
   previews?: string[];

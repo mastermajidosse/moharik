@@ -9,13 +9,24 @@ import { getCurrentUser } from "../../utils/getCurrentUser";
 import { categoriesWithColors } from "../../data/categories";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useTranslation } from "next-i18next";
+import { ICategory } from "../../interfaces/category";
 
 interface ProjectCardProps {
   id: string;
-  title: string;
-  desc?: string;
+  title:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
+  desc?:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
   isMine?: boolean;
-  category: string;
+  category?: ICategory;
   images: string[];
   price?: number;
   collected?: number;
@@ -35,7 +46,7 @@ export default function ProjectCard({
   isMine = false,
 }: ProjectCardProps) {
   const { t } = useTranslation("project");
-  const { push } = useRouter();
+  const { push, locale } = useRouter();
   const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
     "likes",
     []
@@ -76,7 +87,7 @@ export default function ProjectCard({
             images[0].replace("http://res", "https://res") ||
             "/assets/images/placeholder.png"
           }
-          alt=""
+          alt={typeof title === "string" ? title : title.en}
         />
         {/* progress bar */}
         <div className="absolute bottom-0 left-0 w-full h-1.5 bg-light/50">
@@ -110,22 +121,29 @@ export default function ProjectCard({
         </div>
       </figure>
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
-        <Link href={`/projects?category=${category?.toLocaleLowerCase()}`}>
+        <Link
+          href={`/projects?category=${
+            category?.name?.en?.toLocaleLowerCase() || ""
+          }`}
+        >
           <p
             style={{
-              backgroundColor: categoriesWithColors.find(
-                (item) => item.name == category
-              )?.color,
+              backgroundColor: category?.color || "red",
             }}
             className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize font-medium cursor-pointer"
           >
-            {category}
+            {category &&
+              (locale === "ar" ? category?.name?.ar : category?.name?.en)}
           </p>
         </Link>
         <Link href={`/projects/${id}`}>
           <a>
             <h3 className="text-dark h-[56px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">
-              {title}
+              {typeof title === "string"
+                ? title
+                : locale === "ar"
+                ? title.ar
+                : title.en}
             </h3>
           </a>
         </Link>

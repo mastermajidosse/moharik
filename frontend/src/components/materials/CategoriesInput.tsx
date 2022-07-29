@@ -1,19 +1,12 @@
 import clsx from "clsx";
 import { UseFormGetValues, UseFormRegister } from "react-hook-form";
+import useGetCategories from "../../hooks/useGetCategories";
 import { ProjectFrom } from "../../pages/projects/create";
-
-const categories = [
-  "thrive",
-  "invention",
-  "big",
-  "digital",
-  "incubator",
-  "competition",
-];
+import { useRouter } from "next/router";
 
 interface CategoriesInputProps {
-  register: UseFormRegister<ProjectFrom>;
-  getValues: UseFormGetValues<ProjectFrom>;
+  register: UseFormRegister<ProjectFrom | any>;
+  getValues: UseFormGetValues<ProjectFrom | any>;
   required?: boolean;
   error?: string;
 }
@@ -24,6 +17,8 @@ export default function CategoriesInput({
   required = false,
   error,
 }: CategoriesInputProps) {
+  const { locale } = useRouter();
+  const { categories } = useGetCategories();
   return (
     <div className="">
       <label
@@ -43,18 +38,18 @@ export default function CategoriesInput({
                 "cursor-pointer px-4 py-2 font-medium rounded-full duration-500 text-sm capitalize",
                 {
                   "text-lightDark hover:text-white hover:bg-primary-500 bg-slate-100 duration-500":
-                    category !== getValues("category"),
+                    category._id !== getValues("category"),
                   "text-white bg-primary-500 duration-500":
-                    category === getValues("category"),
+                    category._id === getValues("category"),
                 }
               )}
             >
-              {category}
+              {locale === "ar" ? category?.name.ar : category?.name.en}
             </label>
             <input
               className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer"
               type="radio"
-              value={category}
+              value={category._id}
               {...register("category")}
             />
           </div>

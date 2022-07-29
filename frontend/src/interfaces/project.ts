@@ -1,9 +1,35 @@
+import { ICategory } from "./category";
+import { IComment } from "./comment";
+
 export interface IProject {
   _id: string;
-  user: string;
-  title: string;
-  desc: string;
-  category: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    country: string;
+    isAdmin: boolean;
+    reports: number;
+    blocked: boolean;
+    verified: boolean;
+    __v: number;
+  };
+  title:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
+  desc:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
+  status: string;
+  supportLink?: string;
+  category?: ICategory;
   images: string[];
   price: number;
   collected: number;
@@ -14,4 +40,5 @@ export interface IProject {
   updatedAt: Date;
   __v?: number;
   reports: any[];
+  comments?: IComment[] | [];
 }

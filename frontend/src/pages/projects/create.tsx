@@ -23,6 +23,7 @@ export interface ProjectFrom {
   desc: string;
   category: string[] | string;
   price: string;
+  link: string;
   deadline: Date;
   images: File[];
 }
@@ -30,6 +31,7 @@ export interface ProjectFrom {
 const schema = yup
   .object({
     title: yup.string().min(10).required(),
+    link: yup.string().required(),
     desc: yup.string().required(),
     category: yup.string().required(),
     price: yup.number().positive().min(1).required(),
@@ -79,6 +81,7 @@ export default function CreateProjectPage() {
             {
               ...inputs,
               images,
+              supportLink: "",
             },
             {
               headers: {
@@ -100,10 +103,9 @@ export default function CreateProjectPage() {
 
   const watchCategory = watch("category");
 
-  useEffect(
-    () => console.log("watchCategory: ", watchCategory),
-    [watchCategory]
-  );
+  useEffect(() => {
+    console.log("watchCategory: ", watchCategory);
+  }, [watchCategory]);
 
   return (
     <>
@@ -142,6 +144,16 @@ export default function CreateProjectPage() {
                   }
                   getValues={getValues}
                   register={register}
+                />
+              </div>
+              <div className="">
+                <Input
+                  name="link"
+                  register={register}
+                  type="text"
+                  label="Project Link"
+                  required
+                  error={errors.link?.message}
                 />
               </div>
               <div className="">

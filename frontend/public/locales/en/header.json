@@ -2,6 +2,7 @@
   "home": "Home",
   "projects": "Projects",
   "blog": "Blog",
+  "teams": "Teams",
   "help_center": "Help center",
   "about": "About",
   "profil": "Profile",
@@ -12,6 +13,8 @@
   "sign_up": "Sign up",
   "change_cover": "Change your cover image",
   "my_projects": "My projects",
+  "my_teams": "My teams",
   "my_favorites": "My favorites",
-  "launch_project": "Launch Project"
+  "launch_project": "Launch Project",
+  "launch_team": "Launch Team"
 }

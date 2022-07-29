@@ -1,35 +1,43 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import ProjectCard from "../components/cards/ProjectCard";
-import { SquaredSolidButton } from "../components/materials/Buttons";
-import {
-  EmailIcon,
-  GlobeIcon,
-  LogoutIcon,
-} from "../components/materials/icons";
-import { ICurrentUser } from "../interfaces/currentUser";
-import { IProject } from "../interfaces/project";
-import { client } from "../utils/api";
+import ProjectCard from "../../components/cards/ProjectCard";
+import { SquaredSolidButton } from "../../components/materials/Buttons";
+import { ICurrentUser } from "../../interfaces/currentUser";
+import { IProject } from "../../interfaces/project";
+import { client } from "../../utils/api";
 import { useState } from "react";
 import clsx from "clsx";
-import { removeCookies } from "cookies-next";
 import Head from "next/head";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
+import ProfileAside from "../../components/asides/ProfileAside";
+import { ICategory } from "../../interfaces/category";
+import { ITeam } from "../../interfaces/team";
+import TeamCard from "../../components/cards/TeamCard";
 
 interface ProfilePageProps {
   myProjects: IProject[];
   myFavorites: IProject[];
   myProfile: ICurrentUser;
+  myTeams: ITeam[];
 }
 
 interface ProjectCardProps {
   id: string;
-  title: string;
-  desc?: string;
-  category: string;
+  title:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
+  desc?:
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
+  category?: ICategory;
   images: string[];
   price?: number;
   collected?: number;
@@ -42,18 +50,18 @@ export default function ProfilePage({
   myProjects,
   myFavorites,
   myProfile,
+  myTeams,
 }: ProfilePageProps) {
   const { t } = useTranslation("header");
-  const { locale } = useRouter();
-  const [active, setActive] = useState<"projects" | "favorites">("projects");
+  const [active, setActive] = useState<"projects" | "favorites" | "teams">(
+    "projects"
+  );
   const [storedValue, setValue] = useLocalStorage<ProjectCardProps[]>(
     "likes",
     []
   );
-  function logOut() {
-    removeCookies("currentUser");
-    window.location.assign("/" + locale);
-  }
+
+  console.log("myTeams: ", myTeams);
 
   return (
     <div className="mt-20 bg-light ">
@@ -82,31 +90,11 @@ export default function ProfilePage({
       </section>
       {/* main */}
       <section className="container min-h-screen grid grid-cols-12 gap-4 py-4 bg-white">
-        <aside className="hidden md:flex md:col-span-2 h-full bg-light rounded-md border-2 border-light p-2">
-          <div className="w-full flex flex-col gap-2 items-center">
-            <figure className="relative __pattern w-28 h-28 mx-auto rounded-full ring-2 ring-primary-100 shadow-md"></figure>
-            <p className="text-lg font-medium text-dark">
-              {myProfile.name || "---"}
-            </p>
-            <div className="w-full">
-              <p className="font-medium text-sm flex items-center gap-1.5 text-lightDark mb-2">
-                <EmailIcon /> {myProfile.email || "---"}
-              </p>
-              <p className="font-medium text-sm flex items-center gap-1.5 text-lightDark">
-                <GlobeIcon /> {myProfile?.country || "---"}
-              </p>
-            </div>
-            <div
-              onClick={logOut}
-              className="w-full flex items-center gap-2 cursor-pointer hover:text-link text-lightDark"
-            >
-              <LogoutIcon width="18" height="18" className="mb-1.5  " />
-              <p className="font-medium text-sm flex items-center gap-1.5  mb-2">
-                {t("sign_out")}
-              </p>
-            </div>
-          </div>
-        </aside>
+        <ProfileAside
+          name={myProfile.name}
+          email={myProfile.email}
+          country={myProfile.country}
+        />
         <article className="col-span-full md:col-span-10 h-full bg-light rounded-md border-2 border-light p-4">
           <div className="flex justify-between items-center mb-8">
             <ul className="flex gap-4">
@@ -115,7 +103,7 @@ export default function ProfilePage({
                 className={clsx(
                   "rounded-md font-medium px-4 py-2 cursor-pointer",
                   {
-                    "bg-slate-200 text-dark": active === "favorites",
+                    "bg-slate-200 text-dark": active !== "projects",
                     "bg-link text-white": active === "projects",
                   }
                 )}
@@ -123,11 +111,23 @@ export default function ProfilePage({
                 {t("my_projects")}
               </li>
               <li
+                onClick={() => setActive("teams")}
+                className={clsx(
+                  "rounded-md font-medium px-4 py-2 cursor-pointer",
+                  {
+                    "bg-slate-200 text-dark": active !== "teams",
+                    "bg-link text-white": active === "teams",
+                  }
+                )}
+              >
+                {t("my_teams")}
+              </li>
+              <li
                 onClick={() => setActive("favorites")}
                 className={clsx(
                   "rounded-md font-medium px-4 py-2 cursor-pointer",
                   {
-                    "bg-slate-200 text-dark": active === "projects",
+                    "bg-slate-200 text-dark": active !== "favorites",
                     "bg-link text-white": active === "favorites",
                   }
                 )}
@@ -135,14 +135,22 @@ export default function ProfilePage({
                 {t("my_favorites")}
               </li>
             </ul>
-            <Link href="/projects/create">
-              <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-600 text-white">
-                {t("launch_project")}
-              </a>
-            </Link>
+            <div className="flex gap-4">
+              <Link href="/projects/create">
+                <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-600 text-white">
+                  {t("launch_project")}
+                </a>
+              </Link>
+              <Link href="/teams/create">
+                <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-500 text-white">
+                  {t("launch_team")}
+                </a>
+              </Link>
+            </div>
           </div>
           <div className="">
             {active === "projects" && <MyProjects myProjects={myProjects} />}
+            {active === "teams" && <MyTeams myTeams={myTeams} />}
             {active === "favorites" && (
               <MyFavorites myFavorites={storedValue || []} />
             )}
@@ -174,6 +182,24 @@ function MyFavorites({
           />
         )
       )}
+    </div>
+  );
+}
+function MyTeams({ myTeams }: { myTeams: ITeam[] | [] }) {
+  if (!myTeams) return <EmptyProfile />;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      {myTeams.map(({ _id, images, title, link, tags }, idx) => (
+        <TeamCard
+          key={idx}
+          title={title}
+          id={_id}
+          image={images[0]}
+          isMine={true}
+          link={link}
+          tags={tags}
+        />
+      ))}
     </div>
   );
 }
@@ -220,6 +246,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
 }) => {
   let myProjects: IProject[] = [];
+  let myTeams: ITeam[] = [];
   let myProfile: ICurrentUser | any = {};
   try {
     if (!cookies.currentUser) {
@@ -232,30 +259,40 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
 
     // get profile data
-    const [{ data: myProjectsData }, { data: myProfileData }] =
-      await Promise.all([
-        client.get<IProject[]>(
-          `/posts/user/${
-            (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
-          }`
-        ),
-        // client.get(),
-        client.get<ICurrentUser>("/users/profile", {
-          headers: {
-            Authorization: `Bearer ${
-              (JSON.parse(cookies.currentUser) as ICurrentUser)?.token || ""
-            }`,
-          },
-        }),
-      ]);
+    const [
+      { data: myProjectsData },
+      { data: myTeamsData },
+      { data: myProfileData },
+    ] = await Promise.all([
+      client.get<IProject[]>(
+        `/posts/user/${
+          (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
+        }`
+      ),
+      client.get<ITeam[]>(
+        `/teams/user/${
+          (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
+        }`
+      ),
+      // client.get(),
+      client.get<ICurrentUser>("/users/profile", {
+        headers: {
+          Authorization: `Bearer ${
+            (JSON.parse(cookies.currentUser) as ICurrentUser)?.token || ""
+          }`,
+        },
+      }),
+    ]);
 
     myProjects = myProjectsData;
+    myTeams = myTeamsData;
     myProfile = myProfileData;
   } catch (error) {
     console.log(error);
   }
   return {
     props: {
+      myTeams,
       myProjects,
       myProfile,
       ...(await serverSideTranslations(locale as string, [
