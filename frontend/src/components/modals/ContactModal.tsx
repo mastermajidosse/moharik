@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import clsx from "clsx";
+import { useState, useRef } from "react";
 import Portal from "./Portal";
-import { CloseIcon, FacebookIcon, InstagramIcon } from "../materials/icons";
+import { CloseIcon } from "../materials/icons";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { useLockedBody } from "../../hooks/useLockBodyScroll";
+import { IOrganizer } from "../../interfaces/organizer";
 
-interface ShareModalProps {
+interface ModalProps {
   children: JSX.Element;
-  contact: any;
+  contact: IOrganizer | Record<string, never>;
 }
 
-export default function ContactModal({ children, contact }: ShareModalProps) {
+export default function ContactModal({ children, contact }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
   const [locked, setLocked] = useLockedBody();
@@ -62,16 +62,16 @@ export default function ContactModal({ children, contact }: ShareModalProps) {
                   {/* contact info */}
                   <ul className="flex flex-col gap-2">
                     <li className="">
-                      <b>Name: </b> Moharik
+                      <b>Name: </b> {contact?.name || "-----"}
                     </li>
                     <li className="list">
-                      <b>Country: </b> Morocco
+                      <b>Email: </b> {contact?.email || "------"}
                     </li>
                     <li className="list">
-                      <b>Phone: </b> +212 665544330
+                      <b>Phone: </b> {contact?.phone || "-----"}
                     </li>
                     <li className="list">
-                      <b>Email: </b> orgnizer@email.com
+                      <b>Country: </b> {contact?.country || "-----"}
                     </li>
                   </ul>
                 </div>

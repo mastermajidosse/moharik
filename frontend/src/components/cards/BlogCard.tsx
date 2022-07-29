@@ -20,7 +20,11 @@ export default function BlogCard({
       <a>
         <div className="group flex flex-col gap-2">
           <figure className="w-full h-64 overflow-hidden rounded-lg cursor-pointer">
-            <img className="w-full h-full object-cover" src={image} alt="" />
+            <img
+              className="w-full h-full object-cover"
+              src={image}
+              alt={title}
+            />
           </figure>
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium text-primary">

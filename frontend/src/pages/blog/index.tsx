@@ -13,6 +13,10 @@ export default function BlogPage() {
     <div className="mt-10 py-16 md:py-24">
       <Head>
         <title>Moharik | Blogs</title>
+        <meta
+          name="description"
+          content="Resources and tips to help raise more money"
+        />
       </Head>
       {/* featured blog */}
       <FeaturedBlogCard />

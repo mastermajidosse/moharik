@@ -15,6 +15,7 @@ export default function SingleBlogPage() {
     <>
       <Head>
         <title>Moharik| {blog?.title}</title>
+        <meta name="description" content={blog?.description} />
       </Head>
       <section className="w-full bg-light min-h-screen mt-10">
         <div className="container bg-white min-h-screen py-28 flex flex-col gap-12">
@@ -25,7 +26,7 @@ export default function SingleBlogPage() {
             <img
               className="w-full h-full object-cover rounded-xl shadow-lg"
               src={blog?.image}
-              alt=""
+              alt={blog?.title}
             />
           </figure>
           <div className="flex flex-col gap-4">

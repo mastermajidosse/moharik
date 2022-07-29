@@ -1,19 +1,21 @@
+import { useRef } from "react";
+import { GetStaticProps } from "next";
 import Head from "next/head";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import clsx from "clsx";
 
 import { SearchIcon } from "../components/materials/icons";
 import { FaqAccordion } from "../components/materials/FaqAccordion";
 import { SquaredSolidButton } from "../components/materials/Buttons";
-import Input from "../components/materials/Inputs";
-import { toast } from "react-toastify";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { GetStaticProps } from "next";
-import clsx from "clsx";
-import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
+// import Input from "../components/materials/Inputs";
+import { sendEmail } from "../lib/sendEmail";
 
 export default function HelpCenterPage() {
   const { t } = useTranslation("help-center");
+  const form = useRef<HTMLFormElement | null>(null);
   const { locale } = useRouter();
   const faqList = [
     {
@@ -34,16 +36,12 @@ export default function HelpCenterPage() {
     },
   ];
 
-  const { handleSubmit, register } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      description: "",
-    },
-  });
-
-  async function onSubmit() {
+  async function onSubmit(e: any) {
+    e.preventDefault();
     try {
+      await sendEmail({
+        form: form?.current || "",
+      });
       toast.success(
         "Thanks for contacting us, We will respond you as soon as possible."
       );
@@ -104,24 +102,33 @@ export default function HelpCenterPage() {
           </p>
           <div className="w-full flex justify-center mt-8">
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              ref={form}
+              onSubmit={onSubmit}
               className="w-full md:w-1/3 mx-auto flex flex-col gap-6"
             >
               <div className="">
-                <Input
-                  name="name"
-                  register={register}
-                  label={t("full_name")}
-                  type="name"
+                <label
+                  htmlFor="user_name"
+                  className="block mb-2 text-sm font-medium text-dark"
+                >
+                  {t("full_name")}
+                </label>
+                <input
+                  name="user_name"
+                  type="text"
                   required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
                 />
               </div>
               <div className="">
-                <Input
-                  name="email"
-                  register={register}
-                  label={t("email")}
+                <label
+                  htmlFor="user_email"
+                  className="block mb-2 text-sm font-medium text-dark"
+                >
+                  {t("email")}
+                </label>
+                <input
+                  name="user_email"
                   type="email"
                   required
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2 py-3"
@@ -129,7 +136,7 @@ export default function HelpCenterPage() {
               </div>
               <div className="">
                 <label
-                  htmlFor="description"
+                  htmlFor="message"
                   className="block mb-2 text-sm font-medium text-dark"
                 >
                   {t("description")}
@@ -137,8 +144,8 @@ export default function HelpCenterPage() {
                 <textarea
                   rows={6}
                   required
+                  name="message"
                   className="outline-none bg-gray-50 border border-gray-300 text-dark text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
-                  {...register("description")}
                 />
               </div>
               <SquaredSolidButton className="mt-0 w-fit mx-auto py-1 px-6 rounded-[0.25rem] bg-secondary-500 text-white shadow-md shadow-lightDark/20 hover:bg-secondary-600 duration-300">

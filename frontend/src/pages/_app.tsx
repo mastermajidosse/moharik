@@ -9,8 +9,9 @@ import Layout from "../components/layout/Layout";
 import * as ga from "../lib/ga";
 import { NextSeo } from "next-seo";
 import { defaultSEO } from "../utils/default-seo.config";
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }: any) {
+function MyApp({ Component, pageProps, session }: any) {
   const { locale, events, asPath } = useRouter();
 
   Router.events.on("routeChangeStart", () => start());
@@ -29,14 +30,16 @@ function MyApp({ Component, pageProps }: any) {
 
   return (
     <div dir={locale === "ar" ? "rtl" : "ltr"}>
-      <Layout>
-        <NextSeo
-          canonical={`https://www.moharik.ma${asPath}`}
-          {...defaultSEO}
-        />
-        <Component {...pageProps} />
-        <ToastContainer />
-      </Layout>
+      <SessionProvider session={session}>
+        <Layout>
+          <NextSeo
+            canonical={`https://www.moharik.ma${asPath}`}
+            {...defaultSEO}
+          />
+          <Component {...pageProps} />
+          <ToastContainer />
+        </Layout>
+      </SessionProvider>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import express from 'express'
-import { blockUser, deleteUser, getUserById, getUserProfile, getUsers, login, register, unblockUser, updateUser, updateUserProfile } from '../controllers/userControllers.js'
+import { blockUser, deleteUser, getUserById, getUserProfile, getUsers, login, makeUserAdmin, register, unblockUser, updateUser, updateUserProfile } from '../controllers/userControllers.js'
 import { admin, protect } from '../middlewares/authMiddleware.js'
 
 
@@ -16,7 +16,7 @@ router
 router
   .route('/:id')
   .delete(protect, admin,deleteUser)
-  .get(protect, admin,getUserById)
+  .get(protect,getUserById)
   .put(protect, admin,updateUser)
 
 router
@@ -24,7 +24,11 @@ router
     .post(protect,admin,blockUser)
 
 router
-    .route('/:id/ublock')
+    .route('/:id/unblock')
     .post(protect,admin,unblockUser)
+
+router
+    .route('/:id/admin')
+    .post(protect,admin,makeUserAdmin)
 
 export default router

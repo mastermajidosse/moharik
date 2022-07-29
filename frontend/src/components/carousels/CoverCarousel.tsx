@@ -9,8 +9,6 @@ export default function CoverCarousel({
   images: string[];
   alt: string;
 }) {
-  console.log(images);
-
   const settings: Settings = {
     dots: true,
     infinite: true,

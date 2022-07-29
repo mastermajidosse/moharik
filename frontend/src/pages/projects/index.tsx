@@ -43,7 +43,12 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
         <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
           {category
             ? projects
-                .filter((item) => item.category === category)
+                .filter((item) => item.category?.name.en === category)
+                // .filter(
+                //   (item) =>
+                //     item?.status?.toLocaleLowerCase() === "top" ||
+                //     item?.status?.toLocaleLowerCase() === "approved"
+                // )
                 .slice(0, limit)
                 .map(
                   (
@@ -75,6 +80,11 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                   )
                 )
             : projects
+                // .filter(
+                //   (item) =>
+                //     item?.status?.toLocaleLowerCase() === "top" ||
+                //     item?.status?.toLocaleLowerCase() === "approved"
+                // )
                 .slice(0, limit)
                 .map(
                   (

@@ -70,7 +70,7 @@ export default function EditeProjectPage({
     setLoading(true);
     try {
       await client.post(
-        `/posts/${query.projectId}/update`,
+        `/posts/${query.projectId}`,
         {
           ...inputs,
         },

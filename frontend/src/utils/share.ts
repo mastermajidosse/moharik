@@ -21,3 +21,25 @@ export function share({ projectData, target }: ShareProps): string {
       return "/";
   }
 }
+export function shareTeam({
+  title,
+  target,
+}: {
+  target: "facebook" | "twitter" | "instagram" | "whatsapp";
+  title: string;
+}): string {
+  const teamUrl = typeof window !== "undefined" ? window.location.href : "/";
+
+  switch (target) {
+    case "facebook":
+      return `https://www.facebook.com/sharer.php?u=${teamUrl}`;
+    case "instagram":
+      return `https://www.instagram.com/?url=${teamUrl}`;
+    case "twitter":
+      return `https://twitter.com/share?url=${teamUrl}&text=${title}&via=Moharik&hashtags=#Moharik`;
+    case "whatsapp":
+      return `https://web.whatsapp.com/send?text=${teamUrl}`;
+    default:
+      return "/";
+  }
+}

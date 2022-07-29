@@ -1,6 +1,18 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
+const socialMediaSchema = mongoose.Schema({
+  Facebook:{
+    type:String
+  },
+  Instagram:{
+    type:String
+  },
+  Twitter:{
+    type:String
+  }
+})
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -12,6 +24,10 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    phone:{
+      type:String,
+    },
+    socialMediaLinks:socialMediaSchema,
     password: {
       type: String,
       required: true,
@@ -24,10 +40,6 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       required: true,
       default: false
-    },
-    reports: {
-      type: Number,
-      default: 0
     },
     blocked: {
       type: Boolean,

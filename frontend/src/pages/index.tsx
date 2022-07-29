@@ -17,12 +17,22 @@ import { blogs } from "../data/blogs";
 import BlogCard from "../components/cards/BlogCard";
 import { getCurrentUser } from "../utils/getCurrentUser";
 import Motos from "../components/materials/Motos";
+import { ITeam } from "../interfaces/team";
+import TeamCard from "../components/cards/TeamCard";
 
-export default function HomePage({ projects }: { projects: IProject[] }) {
+export default function HomePage({
+  projects,
+  teams,
+}: {
+  projects: IProject[];
+  teams: ITeam[];
+}) {
   const { t } = useTranslation("home-page");
   const { t: tt } = useTranslation("common");
   const { t: ttt } = useTranslation("newsletter");
   const { locale } = useRouter();
+
+  console.log("projects: ", projects);
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
@@ -35,6 +45,10 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
     reset();
   }
 
+  const ourPick = projects.filter(
+    (item) => item?.status?.toLocaleLowerCase() === "picked"
+  );
+
   return (
     <>
       <Head>
@@ -42,20 +56,33 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
       </Head>
       <div className="mt-16 py-16 md:py-24 bg-light">
         {/* hero */}
-        <section className="bg-light mb-8">
+        <section className="__hero_vh bg-light mb-8">
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
               <Motos />
-              <Link
-                href={getCurrentUser() ? "/projects/create" : "/login"}
-                passHref
-              >
-                <SquaredSolidButton className="md:w-fit md:block mt-0 py-1 md:py-2 px-6 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
-                  <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
-                    {tt("get_started")}
-                  </a>
-                </SquaredSolidButton>
-              </Link>
+              <div className="w-full flex gap-4">
+                <Link
+                  href={getCurrentUser() ? "/projects/create" : "/login"}
+                  passHref
+                >
+                  <SquaredSolidButton className="w-full md:w-fit md:block mt-0 py-1 md:py-2 px-5 rounded-[0.25rem] border-link border-[2px] text-link shadow-md shadow-lightDark/20 hover:bg-link/25 duration-300">
+                    <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
+                      {/* {tt("get_started")} */}
+                      {tt("Create Project")}
+                    </a>
+                  </SquaredSolidButton>
+                </Link>
+                <Link
+                  href={getCurrentUser() ? "/teams/create" : "/login"}
+                  passHref
+                >
+                  <SquaredSolidButton className="w-full md:w-fit md:block mt-0 py-1 md:py-2 px-5 rounded-[0.25rem] border-primary-500 border-[2px] text-primary shadow-md shadow-lightDark/20 hover:bg-primary-50 duration-300">
+                    <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
+                      {tt("Create Team")}
+                    </a>
+                  </SquaredSolidButton>
+                </Link>
+              </div>
             </div>
             <figure className="md:col-span-8 md:h-[400px]">
               <img
@@ -66,6 +93,52 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
             </figure>
           </div>
         </section>
+        {/* our pick */}
+        {ourPick.length > 0 && (
+          <section className="bg-white py-12">
+            <div className="container">
+              <div className="mb-14 text-center">
+                <h1 className="text-4xl font-black text-dark">
+                  {t("Our Pick")}
+                </h1>
+                <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                  {t("whats_popular_desc")}
+                </p>
+              </div>
+              <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
+                {ourPick
+                  .slice(0, 3)
+                  .map(
+                    (
+                      {
+                        _id,
+                        category,
+                        deadline,
+                        price,
+                        title,
+                        createdAt,
+                        images,
+                        collected,
+                      },
+                      idx
+                    ) => (
+                      <ProjectCard
+                        key={idx}
+                        category={category}
+                        title={title}
+                        createdAt={createdAt}
+                        id={_id}
+                        price={price}
+                        deadline={deadline}
+                        images={images}
+                        collected={collected}
+                      />
+                    )
+                  )}
+              </div>
+            </div>
+          </section>
+        )}
         {/* popular */}
         <section className="bg-white py-12">
           <div className="container">
@@ -79,6 +152,7 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
               {projects
+                .filter((item) => item?.status?.toLocaleLowerCase() === "top")
                 .slice(0, 3)
                 .map(
                   (
@@ -107,6 +181,43 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
                     />
                   )
                 )}
+            </div>
+          </div>
+        </section>
+        {/* teams */}
+        <section className="bg-white py-12">
+          <div className="container">
+            <div className="mb-14 text-center">
+              <h1 className="text-4xl font-black text-dark">
+                {t("Popular Teams")}
+              </h1>
+              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                {t("Join teams, and work together on interesting projects")}
+              </p>
+            </div>
+            <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
+              {teams
+                .filter(
+                  (team) => team?.status?.toLocaleLowerCase() === "approved"
+                )
+                .slice(0, 3)
+                .map(({ _id, title, images, link, tags }, idx) => (
+                  <TeamCard
+                    key={idx}
+                    title={title}
+                    id={_id}
+                    image={images[0]}
+                    link={link}
+                    tags={tags}
+                  />
+                ))}
+            </div>
+            <div className="w-fit mx-auto">
+              <Link href="/teams">
+                <a className="px-6 py-2 border-secondary border text-lg font-medium text-secondary hover:border-secondary-600 hover:bg-secondary-50 hover:text-secondary-600 duration-200 rounded-md">
+                  {tt("show_more")}
+                </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -149,6 +260,11 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
               {projects
+                .filter(
+                  (item) =>
+                    item?.status?.toLocaleLowerCase() === "top" ||
+                    item?.status?.toLocaleLowerCase() === "approved"
+                )
                 .slice(0, 6)
                 .map(
                   (
@@ -274,18 +390,25 @@ export default function HomePage({ projects }: { projects: IProject[] }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let projects: IProject[] = [];
+  let teams: ITeam[] = [];
   let motos: IMoto[] = [];
   try {
-    const { data: motosData } = await client.get("/motos");
-    const { data } = await client.get("/posts");
-    projects = data;
+    const [{ data: motosData }, { data: projectsData }, { data: teamsData }] =
+      await Promise.all([
+        client.get("/motos"),
+        client.get("/posts"),
+        client.get("/teams"),
+      ]);
+    projects = projectsData;
     motos = motosData;
+    teams = teamsData;
   } catch (error) {
     console.log(error);
   }
   return {
     props: {
       projects,
+      teams,
       motos,
       ...(await serverSideTranslations(locale as string, [
         "home-page",

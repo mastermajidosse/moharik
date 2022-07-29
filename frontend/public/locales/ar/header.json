@@ -2,6 +2,7 @@
   "home": "الصفحه الرئيسيه",
   "projects": "تصفح المشاريع",
   "blog": "مقالات",
+  "teams": "مجموعات",
   "help_center": "مركز المساعدة",
   "about": "من نحن",
   "profile": "الملف الشخصي",
@@ -12,6 +13,8 @@
   "sign_up": "تسجيل",
   "change_cover": "تغيير الصورة الخاصة بك",
   "my_projects": "مشاريعي",
+  "my_teams": "فريقي",
   "my_favorites": "مفضلتي",
-  "launch_project": "أضف مشروع"
+  "launch_project": "أضف مشروع",
+  "launch_team": "أطلق فريق"
 }
