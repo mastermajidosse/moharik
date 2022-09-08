@@ -31,22 +31,15 @@ const createPost = asyncHandler(async (req, res) => {
 		req.body;
 	const user = req.user._id;
 
-	//if the lang(boolean) is true,it means that we add title & desc to english cases
-	//Otherwise,we work on arabic cases
-	const cat = await Category.findOne({ name: category });
-	if (!cat) res.status(404).json({ message: 'This category does not exist' });
+
+
 	const post = new Post();
-	if (lang) {
 		post.title.en = title;
 		post.desc.en = desc;
-	} else {
-		post.title.ar = title;
-		post.desc.ar = desc;
-	}
+	
 	post.link = link || '';
 	post.lang = lang;
-	post.category = cat._id;
-	post.price = price;
+	post.category = category;
 	post.deadline = deadline;
 	post.images = images;
 	post.user = user;
@@ -88,7 +81,7 @@ const getPostById = asyncHandler(async (req, res) => {
 		})
 		.populate({
 			path: 'category',
-			select: '-updatedAt -createdAt -_id -__v',
+			select: '-updatedAt -createdAt _id -__v',
 		})
 		.populate({
 			path: 'comments.author',
@@ -107,7 +100,9 @@ const getPostById = asyncHandler(async (req, res) => {
 const getPostsByUserId = asyncHandler(async (req, res) => {
 	const { id } = req.params;
 
-	const posts = await Post.find({ user: id }).sort({ createdAt: -1 });
+	const posts = await Post.find({ user: id }).sort({ createdAt: -1 }).populate({
+		"path": "category",
+	});
 	if (posts) {
 		res.status(200).json(posts);
 	} else {
@@ -125,14 +120,11 @@ const editPostById = asyncHandler(async (req, res) => {
 	const post = await Post.findById(id);
 	if (post) {
 		if (post.user.toString() == req.user._id || req.user.isAdmin === true) {
-			const cat = await Category.findOne({ name: category });
-			if (!cat)
-				res.status(404).json({ message: 'This category does not exist' });
 
-			post.title = title || post.title;
-			post.desc = desc || post.desc;
-			post.category = cat._id || post.category;
-			post.price = post.price;
+
+			post.title.en = title || post.title.en;
+			post.desc.en = desc || post.desc.en;
+			post.category = category || post.category;
 			post.images = images || post.images;
 
 			const updatedPost = await post.save();

@@ -3,6 +3,7 @@ import { UseFormGetValues, UseFormRegister } from "react-hook-form";
 import useGetCategories from "../../hooks/useGetCategories";
 import { ProjectFrom } from "../../pages/projects/create";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface CategoriesInputProps {
   register: UseFormRegister<ProjectFrom | any>;
@@ -17,7 +18,8 @@ export default function CategoriesInput({
   required = false,
   error,
 }: CategoriesInputProps) {
-  const { locale } = useRouter();
+
+ 
   const { categories } = useGetCategories();
   return (
     <div className="">
@@ -37,17 +39,17 @@ export default function CategoriesInput({
               className={clsx(
                 "cursor-pointer px-4 py-2 font-medium rounded-full duration-500 text-sm capitalize",
                 {
-                  "text-lightDark hover:text-white hover:bg-primary-500 bg-slate-100 duration-500":
-                    category._id !== getValues("category"),
-                  "text-white bg-primary-500 duration-500":
+                  "text-lightDark hover:text-white hover:bg-primary-400 bg-slate-100 duration-500":
+                    category._id !== getValues("category") ,
+                  "text-white bg-primary-400 duration-500":
                     category._id === getValues("category"),
                 }
               )}
             >
-              {locale === "ar" ? category?.name.ar : category?.name.en}
+              {category &&  category?.name?.en}
             </label>
             <input
-              className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer"
+              className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer "
               type="radio"
               value={category._id}
               {...register("category")}

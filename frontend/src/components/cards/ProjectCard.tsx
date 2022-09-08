@@ -123,7 +123,7 @@ export default function ProjectCard({
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
         <Link
           href={`/projects?category=${
-            category?.name?.en?.toLocaleLowerCase() || ""
+            category?.name?.en?.toLocaleLowerCase() || category
           }`}
         >
           <p
@@ -132,37 +132,27 @@ export default function ProjectCard({
             }}
             className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize font-medium cursor-pointer"
           >
-            {category &&
-              (locale === "ar" ? category?.name?.ar : category?.name?.en)}
+            {category &&  category?.name?.en }
           </p>
         </Link>
         <Link href={`/projects/${id}`}>
           <a>
             <h3 className="text-dark h-[56px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">
-              {typeof title === "string"
-                ? title
-                : locale === "ar"
-                ? title.ar
-                : title.en}
+                {
+                typeof title === "string" ? title : title.en
+                }
             </h3>
           </a>
         </Link>
-        {/* {desc && (
-          <p className="text-lightDark font-medium leading-relaxed tracking-wide text-sm line-clamp-2">
-            {desc}
-          </p>
-        )} */}
-        {price && (
-          <div className="flex flex-col gap-1 border-t pt-2">
+   
+        { (
+          <div className="flex flex-col gap-1 border-t pt-2 justify-center">
             <p className="text-lightDark text-sm font-medium">
               {daysCount > 0
                 ? t("created_days_ago", { date: daysCount })
                 : t("created_today")}
             </p>
-            <p className="text-link font-bold">
-              {collected}Dhs {t("raised_of")}{" "}
-              <span className="text-lightDark">{price}Dhs</span>
-            </p>
+          
           </div>
         )}
       </div>

@@ -107,10 +107,6 @@ const postSchema = mongoose.Schema(
 				required: true,
 			},
 		],
-		price: {
-			type: Number,
-			required: true,
-		},
 		collected: {
 			type: Number,
 			default: false,

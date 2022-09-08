@@ -22,7 +22,6 @@ export interface ProjectFrom {
   title: string;
   desc: string;
   category: string[] | string;
-  price: string;
   link: string;
   deadline: Date;
   images: File[];
@@ -34,7 +33,6 @@ const schema = yup
     link: yup.string().required(),
     desc: yup.string().required(),
     category: yup.string().required(),
-    price: yup.number().positive().min(1).required(),
     deadline: yup.date().required(),
     images: yup.array().min(1).required(),
   })
@@ -170,19 +168,7 @@ export default function CreateProjectPage() {
                   }
                 />
               </div>
-              <div className="">
-                <Input
-                  name="price"
-                  register={register}
-                  type="number"
-                  min={0}
-                  label="Price"
-                  required
-                  error={
-                    errors.price?.message ? "Price should be > 0 " : undefined
-                  }
-                />
-              </div>
+            
               <div className="">
                 <FilesUploader
                   error={

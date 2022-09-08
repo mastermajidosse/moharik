@@ -287,6 +287,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     myProjects = myProjectsData;
     myTeams = myTeamsData;
     myProfile = myProfileData;
+    console.log("myProjects:",myProjects)
   } catch (error) {
     console.log(error);
   }

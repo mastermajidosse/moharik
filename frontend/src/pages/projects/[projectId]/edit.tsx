@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import "react-quill/dist/quill.snow.css";
-
+import moment from "moment";
 import Input from "../../../components/materials/Inputs";
 import { client } from "../../../utils/api";
 import { getToken } from "../../../utils/getToken";
@@ -20,8 +20,7 @@ export interface ProjectFrom {
   title: string;
   desc: string;
   category: string[] | string;
-  price: string;
-  deadline: Date;
+  deadline: string;
   images: File[];
 }
 
@@ -30,7 +29,6 @@ const schema = yup
     title: yup.string().min(10).required(),
     desc: yup.string().required(),
     category: yup.string().required(),
-    price: yup.number().positive().min(1).required(),
     deadline: yup.date().required(),
     // images: yup.array().min(1).required(),
   })
@@ -53,12 +51,11 @@ export default function EditeProjectPage({
     watch,
   } = useForm<ProjectFrom>({
     defaultValues: {
-      category: project.category,
-      deadline: project.deadline,
-      desc: project.desc,
+      category: project.category._id,
+      deadline: moment(project.deadline).format("YYYY-MM-DD"),
+      desc: project.desc?.en,
       images: project.images,
-      price: project.price,
-      title: project.title,
+      title: project.title?.en,
     },
     resolver: yupResolver(schema),
   });
@@ -93,7 +90,9 @@ export default function EditeProjectPage({
   const watchCategory = watch("category");
 
   useEffect(
-    () => console.log("watchCategory: ", watchCategory),
+    () => {
+      console.log("watchCategory: ", watchCategory)
+    },
     [watchCategory]
   );
 
@@ -103,7 +102,7 @@ export default function EditeProjectPage({
         <title>Moharik | Edite project</title>
       </Head>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
-        <h1 className="text-3xl font-bold text-center mb-8">Edite a project</h1>
+        <h1 className="text-3xl font-bold text-center mb-8">Edit a project</h1>
         {/*  */}
         <div className="min-h-screen md:w-2/5 md:mx-auto">
           <form onSubmit={handleSubmit(onSubmit)} className="">
@@ -148,7 +147,7 @@ export default function EditeProjectPage({
                   }
                 />
               </div>
-              <div className="">
+              {/* <div className="">
                 <Input
                   name="price"
                   register={register}
@@ -160,7 +159,7 @@ export default function EditeProjectPage({
                     errors.price?.message ? "Price should be > 0 " : undefined
                   }
                 />
-              </div>
+              </div> */}
               {/* <div className="">
                 <FilesUploader
                   previews={project.images || []}

@@ -42,7 +42,6 @@ interface ProjectCardProps {
       };
   category?: ICategory;
   images: string[];
-  price?: number;
   collected?: number;
   deadline?: Date;
   createdAt: Date;
@@ -54,6 +53,7 @@ export default function SingleProjectPage({
 }: {
   project: IProject | Record<string, never>;
 }) {
+  
   const { t } = useTranslation("project");
   const { t: tt } = useTranslation("common");
   const { locale } = useRouter();
@@ -66,7 +66,6 @@ export default function SingleProjectPage({
     desc,
     likes,
     images,
-    price,
     title,
     supportLink,
     user,
@@ -88,7 +87,6 @@ export default function SingleProjectPage({
             desc,
             likes,
             images,
-            price,
             title,
             id: _id,
           },
@@ -119,8 +117,10 @@ export default function SingleProjectPage({
           {typeof project?.title === "string"
             ? project?.title
             : locale === "ar"
-            ? project?.title?.ar
+            ? project?.title?.en
             : project?.title?.en}
+        
+
         </title>
         <meta
           name="description"
@@ -128,7 +128,7 @@ export default function SingleProjectPage({
             typeof project?.desc === "string"
               ? project?.desc
               : locale === "ar"
-              ? project?.desc?.ar
+              ? project?.desc?.en
               : project?.desc?.en
           }
         />
@@ -140,7 +140,7 @@ export default function SingleProjectPage({
             {typeof project?.title === "string"
               ? project?.title
               : locale === "ar"
-              ? project?.title?.ar
+              ? project?.title?.en
               : project?.title?.en}
           </h1>
           {/* cover */}
@@ -150,7 +150,7 @@ export default function SingleProjectPage({
               typeof project?.title === "string"
                 ? project?.title
                 : locale === "ar"
-                ? project?.title?.ar
+                ? project?.title?.en
                 : project?.title?.en
             }
           />
@@ -160,7 +160,7 @@ export default function SingleProjectPage({
               {typeof project?.title === "string"
                 ? project?.title
                 : locale === "ar"
-                ? project?.title?.ar
+                ? project?.title?.en
                 : project?.title?.en}
             </h1>
             {/* progress bar */}
@@ -234,9 +234,7 @@ export default function SingleProjectPage({
                 }}
                 className="px-4 capitalize py-0.5 text-sm text-white font-medium cursor-pointer"
               >
-                {locale === "ar"
-                  ? project?.category?.name.ar
-                  : project?.category?.name.en}
+                {project?.category?.name.en}
               </a>
             </Link>
           </div>
@@ -261,7 +259,7 @@ export default function SingleProjectPage({
                   typeof project?.desc === "string"
                     ? project?.desc
                     : locale === "ar"
-                    ? project?.desc?.ar
+                    ? project?.desc?.en
                     : project?.desc?.en,
               }}
             />
@@ -379,12 +377,12 @@ export default function SingleProjectPage({
         <aside className="hidden md:block col-span-4 relative">
           <div className="sticky top-4 w-full bg-white p-6 rounded-lg shadow-aside">
             {/* metadata */}
-            <p className="text-dark font-bold text-2xl">
+            {/* <p className="text-dark font-bold text-2xl">
               {project?.collected}DH{" "}
               <span className="text-lightDark text-sm">
                 {t("raised_of")} {project?.price}DH {t("goal")}
               </span>
-            </p>
+            </p> */}
             {/* progress bar */}
             <div className="my-2 w-full h-1 rounded-full overflow-hidden bg-primary-100/50">
               <div className="w-0 h-full rounded-full bg-primary-500" />
@@ -429,9 +427,9 @@ export default function SingleProjectPage({
             {/* donators */}
             <div className="">
               <div className="">
-                <h2 className="text-xl font-bold text-dark">
+                {/* <h2 className="text-xl font-bold text-dark">
                   {t("donators")} (0)
-                </h2>
+                </h2> */}
               </div>
               {/* <div className="flex flex-col gap-6 mt-6">
                 {Array.from(Array(3)).map((_, idx) => (
