@@ -1,6 +1,6 @@
 import express from 'express'
 import { admin,protect } from '../middlewares/authMiddleware.js'
-import { getArticles,createArticle, updateArticle, deleteArticle} from '../controllers/blogControllers.js'
+import { getArticles,createArticle, updateArticle, deleteArticle, getArticleById} from '../controllers/blogControllers.js'
 //create,getAblogpost,getPosts,delete,edit
 
 const router = express.Router()
@@ -13,6 +13,7 @@ router
 
 router
     .route('/:id')
+    .get(getArticleById)
     .post(protect,admin,updateArticle)
     .delete(protect,admin,deleteArticle)
 

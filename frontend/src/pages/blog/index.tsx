@@ -1,12 +1,17 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import BlogCard from "../../components/cards/BlogCard";
 import FeaturedBlogCard from "../../components/cards/FeaturedBlogCard";
-import { blogs } from "../../data/blogs";
+import { client } from "../../utils/api";
+import { IArticle } from "../../interfaces/article";
 
-export default function BlogPage() {
+interface ArticlePageProps {
+  blogs: IArticle[] | [];
+}
+
+export default function BlogPage({ blogs }: ArticlePageProps) {
   const { t } = useTranslation("blog");
   const { t: tt } = useTranslation("common");
   return (
@@ -19,7 +24,7 @@ export default function BlogPage() {
         />
       </Head>
       {/* featured blog */}
-      <FeaturedBlogCard />
+      <FeaturedBlogCard blog={blogs[0]}/>
       {/* page title */}
       <div className="container my-20 text-center">
         <h1 className="text-2xl md:text-3xl text-dark font-bold">
@@ -33,7 +38,7 @@ export default function BlogPage() {
       <section className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
           {blogs.map((blog, idx) => (
-            <BlogCard key={idx} idx={idx} {...blog} />
+            <BlogCard key={idx} id={blog._id} {...blog} />
           ))}
         </div>
         <div className="flex justify-center mt-12">
@@ -46,9 +51,18 @@ export default function BlogPage() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  let blogs: IArticle[] = [];
+  try {
+    const { data } = await client.get("/blog");
+    blogs = data;
+    console.log("blogs:", blogs)
+  } catch (error) {
+    console.log(error);
+  }
   return {
     props: {
+      blogs,
       ...(await serverSideTranslations(locale as string, [
         "common",
         "blog",

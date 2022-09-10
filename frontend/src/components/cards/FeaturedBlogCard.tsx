@@ -1,13 +1,24 @@
 import Link from "next/link";
-import { blogs } from "../../data/blogs";
 import clsx from "clsx";
 import { useRouter } from "next/router";
-export default function FeaturedBlogCard() {
+import { IArticle } from "../../interfaces/article";
+
+
+interface BlogArticleProps {
+  blog: IArticle ;
+}
+
+
+
+export default function FeaturedBlogCard({
+  blog
+}: BlogArticleProps) {
+
+console.log(blog)
   const { locale } = useRouter();
-  const { description, image, title } = blogs[0];
   return (
     <section className="relative w-full md:h-[480px] h-[300px]">
-      <Link href="/blog/0">
+      <Link href={`/blog/${blog._id}`}>
         <a>
           <figure
             className={clsx(
@@ -20,19 +31,19 @@ export default function FeaturedBlogCard() {
           >
             <img
               className="w-full h-full object-cover"
-              src={image}
-              alt={title}
+              src={blog?.image}
+              alt={blog?.title}
             />
           </figure>
           <div className="container h-full">
             <div className="w-5/12 md:w-3/12 ml-2 h-full flex flex-col justify-center gap-2">
               <a>
                 <h1 className="text-xl md:text-2xl text-dark font-bold cursor-pointer hover:underline duration-200 decoration-link">
-                  {title}
+                  {blog?.title}
                 </h1>
               </a>
               <p className="text-sm md:text-base text-lightDark line-clamp-4">
-                {description.replace(/(<([^>]+)>)/gi, "")}
+                {blog?.content.replace(/(<([^>]+)>)/gi, "")}
               </p>
             </div>
           </div>
