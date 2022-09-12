@@ -9,6 +9,7 @@ import blogRoutes from './routes/blogRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import teamRoutes from './routes/teamRoutes.js'
+import eventRoutes from './routes/eventRoutes.js'
 import bodyParser from 'body-parser'
 import cors from "cors"
 
@@ -37,6 +38,7 @@ app.use("/api/teams", teamRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/categories", categoryRoutes)
 app.use("/api/blog", blogRoutes)
+app.use("/api/events", eventRoutes)
 
 const PORT = process.env.port || 9000
 app.listen(PORT, console.log(`Server is running on ${PORT} in ${process.env.NODE_ENV} mode...`))

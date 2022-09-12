@@ -14,6 +14,10 @@ const blogSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    status: {
+			type: String,
+			default: 'false',
+		},
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

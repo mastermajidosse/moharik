@@ -43,7 +43,7 @@ console.log(blog)
                 </h1>
               </a>
               <p className="text-sm md:text-base text-lightDark line-clamp-4">
-                {blog?.content.replace(/(<([^>]+)>)/gi, "")}
+                {blog?.content?.replace(/(<([^>]+)>)/gi, "")}
               </p>
             </div>
           </div>

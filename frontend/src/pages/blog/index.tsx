@@ -9,9 +9,10 @@ import { IArticle } from "../../interfaces/article";
 
 interface ArticlePageProps {
   blogs: IArticle[] | [];
+  blog:IArticle | any;
 }
 
-export default function BlogPage({ blogs }: ArticlePageProps) {
+export default function BlogPage({ blogs,blog }: ArticlePageProps) {
   const { t } = useTranslation("blog");
   const { t: tt } = useTranslation("common");
   return (
@@ -24,7 +25,7 @@ export default function BlogPage({ blogs }: ArticlePageProps) {
         />
       </Head>
       {/* featured blog */}
-      <FeaturedBlogCard blog={blogs[0]}/>
+      <FeaturedBlogCard blog={blog}/>
       {/* page title */}
       <div className="container my-20 text-center">
         <h1 className="text-2xl md:text-3xl text-dark font-bold">
@@ -53,16 +54,35 @@ export default function BlogPage({ blogs }: ArticlePageProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let blogs: IArticle[] = [];
-  try {
-    const { data } = await client.get("/blog");
-    blogs = data;
-    console.log("blogs:", blogs)
-  } catch (error) {
-    console.log(error);
-  }
+  let blog : IArticle | any = {};
+  // try {
+  //   const { data } = await client.get("/blog");
+  //   const blog = await client.get("/blog/top");
+  //   blogs = data;
+  //   console.log("top:", blog)
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
+  const [
+      { data: blogsData },
+      { data: blogData },
+    ] = await Promise.all([
+      client.get<IArticle[]>(
+        `/blog`
+      ),
+      client.get<IArticle>(
+        `/blog/top`
+      ),
+      
+    ]);
+
+    blogs = blogsData;
+    blog = blogData;
   return {
     props: {
       blogs,
+      blog,
       ...(await serverSideTranslations(locale as string, [
         "common",
         "blog",

@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 // @route   GET /api/blog
 // @access  Public
 const getArticles = asyncHandler(async (req, res) => {
-    const articles = await Blog.find({}).populate({
+    const articles = await Blog.find({status:"approved"}).populate({
         path:"creator",
         select:"-password -savedPosts -createdAt -updatedAt"
     })
@@ -38,6 +38,22 @@ const getArticleById = asyncHandler(async(req,res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ message: `No post with id: ${id}` });
     const article = await Blog.findById(id).populate({
+        path: "creator",
+        select: "-password -savedPosts -createdAt -updatedAt"
+    })
+    if(article) {
+        res.status(200).json(article)
+    } else {
+        res.status(404).json({message:"There is not post "})
+    }
+})
+
+// @desc    Fetch an article 
+// @route   GET /api/blog/top
+// @access  Public
+const getTopArticle = asyncHandler(async(req,res) => {
+    const { id } = req.params;
+    const article = await Blog.findOne({status:"top"}).populate({
         path: "creator",
         select: "-password -savedPosts -createdAt -updatedAt"
     })
@@ -86,5 +102,6 @@ export {
     createArticle,
     updateArticle,
     deleteArticle,
-    getArticleById
+    getArticleById,
+    getTopArticle
 }
