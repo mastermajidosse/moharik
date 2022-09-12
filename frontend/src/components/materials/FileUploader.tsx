@@ -41,7 +41,7 @@ export default function FileUploader({
                 htmlFor="first_name"
                 className="block mb-2 text-sm font-medium text-dark"
             >
-                Images {required && <span className="text-red-500">*</span>}
+                Image {required && <span className="text-red-500">*</span>}
                 {error && (
                     <span className="text-xs font-light text-red-500"> {error}</span>
                 )}

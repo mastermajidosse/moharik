@@ -153,6 +153,13 @@ export default function ProfilePage({
                   </a>
                 </Link>
               )}
+               {myProfile.isAdmin && (
+                <Link href="/events/create">
+                  <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-500 text-white">
+                    {t("add_event")}
+                  </a>
+                </Link>
+              )}
               
             </div>
           </div>
@@ -303,6 +310,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       myProfile,
       ...(await serverSideTranslations(locale as string, [
         "common",
+        "project",
         "footer",
         "header",
       ])),

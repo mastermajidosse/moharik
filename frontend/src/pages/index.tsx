@@ -14,18 +14,25 @@ import { IProject } from "../interfaces/project";
 import { client } from "../utils/api";
 import { IMoto } from "../interfaces/motos";
 import { blogs } from "../data/blogs";
+import { IEvent } from "../interfaces/event";
+import {IArticle} from "../interfaces/article"
 import BlogCard from "../components/cards/BlogCard";
 import { getCurrentUser } from "../utils/getCurrentUser";
 import Motos from "../components/materials/Motos";
 import { ITeam } from "../interfaces/team";
 import TeamCard from "../components/cards/TeamCard";
+import EventCard from "../components/cards/EventCard";
 
 export default function HomePage({
   projects,
   teams,
+  events,
+  articles
 }: {
   projects: IProject[];
   teams: ITeam[];
+  events:IEvent[];
+  articles:IArticle[];
 }) {
   const { t } = useTranslation("home-page");
   const { t: tt } = useTranslation("common");
@@ -184,15 +191,46 @@ export default function HomePage({
             </div>
           </div>
         </section>
+        {/* Events */}
+        <section className="bg-light py-12">
+          <div className="container">
+            <div className="mb-14 text-center">
+              <h1 className="text-4xl font-black text-dark capitalize">
+                {t("upcoming_events")}
+              </h1>
+              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                {t("upcoming_events_desc")}
+              </p>
+            </div>
+            {/*  */}
+             <div className="flex flex-col w-full mx-auto space-y-10 bg-transparent  rounded sm:w-3/4 md:w-1/2 lg:w-3/5">
+
+              {events.map(({name,desc,image,link,date,_id}, idx) => (
+                
+                  <EventCard
+                    key={idx}
+                    name={name}
+                    desc={desc}
+                    image={image}
+                    link={link}
+                    date = {date}
+                    id={_id}
+                  />
+                
+              ))}
+            </div>
+           
+          </div>
+        </section>
         {/* teams */}
         <section className="bg-white py-12">
           <div className="container">
             <div className="mb-14 text-center">
               <h1 className="text-4xl font-black text-dark">
-                {t("Popular Teams")}
+                {t("popular_teams")}
               </h1>
               <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
-                {t("Join teams, and work together on interesting projects")}
+                {t("popular_teams_desc")}
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
@@ -234,8 +272,14 @@ export default function HomePage({
             </div>
             {/*  */}
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {blogs.slice(0, 3).map((blog, idx) => (
-                <BlogCard key={idx} idx={idx} {...blog} />
+              {articles?.slice(0, 3).map(({_id,title,content,image}, idx) => (
+                <BlogCard
+                   key={idx}
+                   id={_id}
+                   title={title}
+                   image={image}
+                   content={content}
+                 />
               ))}
             </div>
             <div className="w-fit mx-auto">
@@ -392,16 +436,22 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let projects: IProject[] = [];
   let teams: ITeam[] = [];
   let motos: IMoto[] = [];
+  let events: IEvent[] = [];
+  let articles: IArticle[] = [];
   try {
-    const [{ data: motosData }, { data: projectsData }, { data: teamsData }] =
+    const [{ data: motosData }, { data: projectsData }, { data: teamsData },{ data: eventsData},{data:articlesData}] =
       await Promise.all([
         client.get("/motos"),
         client.get("/posts"),
         client.get("/teams"),
+        client.get("/events"),
+        client.get("/blog"),
       ]);
     projects = projectsData;
     motos = motosData;
     teams = teamsData;
+    events = eventsData;
+    articles = articlesData;
   } catch (error) {
     console.log(error);
   }
@@ -410,6 +460,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       projects,
       teams,
       motos,
+      events,
+      articles,
       ...(await serverSideTranslations(locale as string, [
         "home-page",
         "newsletter",
