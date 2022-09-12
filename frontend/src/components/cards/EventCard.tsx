@@ -29,7 +29,7 @@ export default function EventCard({
                         </div>
                         <div className="flex flex-col w-full lg:flex-row ">
                             <div
-                                className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-primary-200 md:rounded-bl-lg md:flex-col md:items-center md:justify-center md:w-1/4">
+                                className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-primary-500 md:rounded-bl-lg md:flex-col md:items-center md:justify-center md:w-1/4">
                                 <div className="md:text-3xl">{moment(date).format('MMM')}</div>
                                 <div className="md:text-6xl">{moment(date).format('d')}</div>
                                 <div className="md:text-3xl">{moment(date).format('yyyy')}</div>
@@ -49,7 +49,7 @@ export default function EventCard({
                                             
                                         
                                 <div className="flex flex-row text-center justify-center md:justify-start  mt-4 text-gray-700">
-                                    <div className="w-sm px-4  px-6 py-2 bg-primary-200 rounded-full flex flex-row items-center justify-center">
+                                    <div className="w-sm px-4  px-6 py-2 bg-primary-500 rounded-full flex flex-row items-center justify-center">
                                         <svg
                                                 width="18"
                                                 height="18"
@@ -72,7 +72,10 @@ export default function EventCard({
                                                     d="M18.5411 2L23 6.01478L21.6617 7.50107L17.2029 3.48629L18.5411 2Z"
                                                     fill="currentColor"
                                                 />
-                                                </svg>{moment(date).format("h:mm a")}
+                                                </svg>
+                                                <span>
+                                                    {moment(date).format("h:mm a")}
+                                                </span>
                                     </div>
                                     
                                 </div>

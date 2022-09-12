@@ -38,8 +38,14 @@ export default function BlogPage({ blogs,blog }: ArticlePageProps) {
       {/* blog list */}
       <section className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {blogs.map((blog, idx) => (
-            <BlogCard key={idx} id={blog._id} {...blog} />
+          {blogs.map(({_id,title,image,content}, idx) => (
+            <BlogCard
+                   key={idx}
+                   id={_id}
+                   title={title}
+                   image={image}
+                   content={content}
+                 />
           ))}
         </div>
         <div className="flex justify-center mt-12">
@@ -77,8 +83,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       
     ]);
 
+
     blogs = blogsData;
     blog = blogData;
+    console.log("blogs",blogs)
   return {
     props: {
       blogs,

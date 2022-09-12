@@ -13,7 +13,6 @@ export default function SingleBlogPage({
 
   }) {
 
-    console.log(blog)
   return (
     <>
       <Head>
