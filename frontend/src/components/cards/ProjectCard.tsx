@@ -30,7 +30,6 @@ interface ProjectCardProps {
   images: string[];
   price?: number;
   collected?: number;
-  deadline?: Date;
   createdAt: Date;
   likes?: string[] | [];
 }

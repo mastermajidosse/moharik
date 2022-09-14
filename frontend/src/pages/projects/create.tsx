@@ -23,7 +23,6 @@ export interface ProjectFrom {
   desc: string;
   category: string[] | string;
   link: string;
-  deadline: Date;
   images: File[];
 }
 
@@ -33,7 +32,6 @@ const schema = yup
     link: yup.string().required(),
     desc: yup.string().required(),
     category: yup.string().required(),
-    deadline: yup.date().required(),
     images: yup.array().min(1).required(),
   })
   .required();
@@ -154,7 +152,7 @@ export default function CreateProjectPage() {
                   error={errors.link?.message}
                 />
               </div>
-              <div className="">
+              {/* <div className="">
                 <Input
                   name="deadline"
                   register={register}
@@ -167,7 +165,7 @@ export default function CreateProjectPage() {
                       : undefined
                   }
                 />
-              </div>
+              </div> */}
             
               <div className="">
                 <FilesUploader

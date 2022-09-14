@@ -107,14 +107,14 @@ const postSchema = mongoose.Schema(
 				required: true,
 			},
 		],
-		collected: {
-			type: Number,
-			default: false,
-		},
-		deadline: {
-			type: Date,
-			required: true,
-		},
+		// collected: {
+		// 	type: Number,
+		// 	default: false,
+		// },
+		// deadline: {
+		// 	type: Date,
+		// 	required: true,
+		// },
 		updates: [updateSchema],
 		likes: {
 			type: [String],

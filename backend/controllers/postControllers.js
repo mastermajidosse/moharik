@@ -40,7 +40,7 @@ const createPost = asyncHandler(async (req, res) => {
 	post.link = link || '';
 	post.lang = lang;
 	post.category = category;
-	post.deadline = deadline;
+	// post.deadline = deadline;
 	post.images = images;
 	post.user = user;
 	const createdPost = await post.save();

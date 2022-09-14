@@ -20,7 +20,6 @@ export interface ProjectFrom {
   title: string;
   desc: string;
   category: string[] | string;
-  deadline: string;
   images: File[];
 }
 
@@ -29,7 +28,6 @@ const schema = yup
     title: yup.string().min(10).required(),
     desc: yup.string().required(),
     category: yup.string().required(),
-    deadline: yup.date().required(),
     // images: yup.array().min(1).required(),
   })
   .required();
@@ -52,7 +50,6 @@ export default function EditeProjectPage({
   } = useForm<ProjectFrom>({
     defaultValues: {
       category: project.category._id,
-      deadline: moment(project.deadline).format("YYYY-MM-DD"),
       desc: project.desc?.en,
       images: project.images,
       title: project.title?.en,
@@ -133,7 +130,7 @@ export default function EditeProjectPage({
                   register={register}
                 />
               </div>
-              <div className="">
+              {/* <div className="">
                 <Input
                   name="deadline"
                   register={register}
@@ -146,7 +143,7 @@ export default function EditeProjectPage({
                       : undefined
                   }
                 />
-              </div>
+              </div> */}
               {/* <div className="">
                 <Input
                   name="price"

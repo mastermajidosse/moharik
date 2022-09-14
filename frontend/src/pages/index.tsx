@@ -136,7 +136,6 @@ export default function HomePage({
                         createdAt={createdAt}
                         id={_id}
                         price={price}
-                        deadline={deadline}
                         images={images}
                         collected={collected}
                       />
@@ -182,7 +181,6 @@ export default function HomePage({
                       createdAt={createdAt}
                       id={_id}
                       price={price}
-                      deadline={deadline}
                       images={images}
                       collected={collected}
                     />
@@ -191,37 +189,7 @@ export default function HomePage({
             </div>
           </div>
         </section>
-        {/* Events */}
-        <section className="bg-light py-12">
-          <div className="container">
-            <div className="mb-14 text-center">
-              <h1 className="text-4xl font-black text-dark capitalize">
-                {t("upcoming_events")}
-              </h1>
-              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
-                {t("upcoming_events_desc")}
-              </p>
-            </div>
-            {/*  */}
-             <div className="flex flex-col w-full mx-auto space-y-10 bg-transparent  rounded sm:w-3/4 md:w-1/2 lg:w-3/5">
-
-              {events.map(({name,desc,image,link,date,_id}, idx) => (
-                
-                  <EventCard
-                    key={idx}
-                    name={name}
-                    desc={desc}
-                    image={image}
-                    link={link}
-                    date = {date}
-                    id={_id}
-                  />
-                
-              ))}
-            </div>
-           
-          </div>
-        </section>
+        
         {/* teams */}
         <section className="bg-white py-12">
           <div className="container">
@@ -333,7 +301,6 @@ export default function HomePage({
                       createdAt={createdAt}
                       id={_id}
                       price={price}
-                      deadline={deadline}
                       images={images}
                       collected={collected}
                     />
@@ -347,6 +314,37 @@ export default function HomePage({
                 </a>
               </Link>
             </div>
+          </div>
+        </section>
+        {/* Events */}
+        <section className="bg-white py-12">
+          <div className="container">
+            <div className="mb-14 text-center">
+              <h1 className="text-4xl font-black text-dark capitalize">
+                {t("upcoming_events")}
+              </h1>
+              <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
+                {t("upcoming_events_desc")}
+              </p>
+            </div>
+            {/*  */}
+             <div className="flex flex-col w-full mx-auto space-y-10 bg-transparent  rounded  ">
+
+              {events.map(({name,desc,image,link,date,_id}, idx) => (
+                
+                  <EventCard
+                    key={idx}
+                    name={name}
+                    desc={desc}
+                    image={image}
+                    link={link}
+                    date = {date}
+                    id={_id}
+                  />
+                
+              ))}
+            </div>
+           
           </div>
         </section>
         {/* newsletter */}
