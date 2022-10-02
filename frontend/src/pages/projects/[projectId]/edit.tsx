@@ -48,12 +48,12 @@ export default function EditeProjectPage({
     setValue,
     watch,
   } = useForm<ProjectFrom>({
-    defaultValues: {
-      category: project.category._id,
-      desc: project.desc?.en,
-      images: project.images,
-      title: project.title?.en,
-    },
+    // defaultValues: {
+    //   category: project.category.,
+    //   desc: project.desc.en,
+    //   images: project.images,
+    //   title: project.title.en,
+    // },
     resolver: yupResolver(schema),
   });
 

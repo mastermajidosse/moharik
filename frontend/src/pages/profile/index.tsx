@@ -31,7 +31,7 @@ interface ProjectCardProps {
     en: string;
     ar: string;
   };
-  desc?:
+  desc:
   | string
   | {
     en: string;
@@ -185,14 +185,15 @@ function MyFavorites({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {myFavorites.map(
-        ({ id, category, deadline, images, title, createdAt }, idx) => (
+        ({ id, category, images, title, createdAt,desc }, idx) => (
           <ProjectCard
             key={idx}
-            title={title}
-            createdAt={createdAt}
             id={id}
             category={category} 
             images={images}
+            title={title}
+            createdAt={createdAt}
+            desc={desc}
           />
         )
       )}
@@ -222,12 +223,13 @@ function MyProjects({ myProjects }: { myProjects: IProject[] | [] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {myProjects.map(
-        ({ _id, category, deadline, images, title, createdAt }, idx) => (
+        ({ _id, category, desc, images, title, createdAt }, idx) => (
           <ProjectCard
             key={idx}
             title={title}
             createdAt={createdAt}
             id={_id}
+            desc={desc}
             category={category} 
             images={images}
             isMine={true}
