@@ -141,11 +141,11 @@ export default function ProfilePage({
                   {t("launch_project")}
                 </a>
               </Link>
-              <Link href="/teams/create">
+              {/* <Link href="/teams/create">
                 <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-500 text-white">
                   {t("launch_team")}
                 </a>
-              </Link>
+              </Link> */}
               {myProfile.isAdmin && (
                 <Link href="/blog/create">
                   <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-500 text-white">
@@ -191,8 +191,7 @@ function MyFavorites({
             title={title}
             createdAt={createdAt}
             id={id}
-            category={category}
-            deadline={deadline}
+            category={category} 
             images={images}
           />
         )
@@ -229,8 +228,7 @@ function MyProjects({ myProjects }: { myProjects: IProject[] | [] }) {
             title={title}
             createdAt={createdAt}
             id={_id}
-            category={category}
-            deadline={deadline}
+            category={category} 
             images={images}
             isMine={true}
           />

@@ -21,18 +21,21 @@ import { getCurrentUser } from "../utils/getCurrentUser";
 import Motos from "../components/materials/Motos";
 import { ITeam } from "../interfaces/team";
 import TeamCard from "../components/cards/TeamCard";
-import EventCard from "../components/cards/EventCard";
+// import EventCard from "../components/cards/EventCard";
+
+import React from "react" 
+React.useLayoutEffect = React.useEffect 
 
 export default function HomePage({
   projects,
   teams,
-  events,
-  articles
+  // events,
+  // articles
 }: {
   projects: IProject[];
   teams: ITeam[];
-  events:IEvent[];
-  articles:IArticle[];
+  // events:IEvent[];
+  // articles:IArticle[];
 }) {
   const { t } = useTranslation("home-page");
   const { t: tt } = useTranslation("common");
@@ -53,7 +56,7 @@ export default function HomePage({
   }
 
   const ourPick = projects.filter(
-    (item) => item?.status?.toLocaleLowerCase() === "picked"
+    (item) => item?.status?.toLocaleLowerCase() === "ourPick"
   );
 
   return (
@@ -75,11 +78,12 @@ export default function HomePage({
                   <SquaredSolidButton className="w-full md:w-fit md:block mt-0 py-1 md:py-2 px-5 rounded-[0.25rem] border-link border-[2px] text-link shadow-md shadow-lightDark/20 hover:bg-link/25 duration-300">
                     <a className="text-center font-bold tracking-wide leading-relaxed text-lg">
                       {/* {tt("get_started")} */}
-                      {tt("Create Project")}
+                      {/* {tt("Create Project")} */}
+                      Login or Signup
                     </a>
                   </SquaredSolidButton>
                 </Link>
-                <Link
+                {/* <Link
                   href={getCurrentUser() ? "/teams/create" : "/login"}
                   passHref
                 >
@@ -88,7 +92,7 @@ export default function HomePage({
                       {tt("Create Team")}
                     </a>
                   </SquaredSolidButton>
-                </Link>
+                </Link> */}
               </div>
             </div>
             <figure className="md:col-span-8 md:h-[400px]">
@@ -120,11 +124,10 @@ export default function HomePage({
                       {
                         _id,
                         category,
-                        deadline,
-                        price,
                         title,
                         createdAt,
-                        images,
+                        images, 
+                        price,
                         collected,
                       },
                       idx
@@ -136,8 +139,8 @@ export default function HomePage({
                         createdAt={createdAt}
                         id={_id}
                         price={price}
-                        images={images}
                         collected={collected}
+                        images={images}
                       />
                     )
                   )}
@@ -157,7 +160,7 @@ export default function HomePage({
               </p>
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {projects
+              {/* {projects
                 .filter((item) => item?.status?.toLocaleLowerCase() === "top")
                 .slice(0, 3)
                 .map(
@@ -165,12 +168,12 @@ export default function HomePage({
                     {
                       _id,
                       category,
-                      deadline,
-                      price,
+                      // deadline,
+                      // price,
                       title,
                       createdAt,
                       images,
-                      collected,
+                      // collected,
                     },
                     idx
                   ) => (
@@ -180,9 +183,44 @@ export default function HomePage({
                       title={title}
                       createdAt={createdAt}
                       id={_id}
-                      price={price}
+                      // price={price}
                       images={images}
-                      collected={collected}
+                      // collected={collected}
+                    />
+                  )
+                )} */}
+
+{projects
+                .filter(
+                  (item) =>
+                    item?.status?.toLocaleLowerCase() === "approved top"
+                )
+                .slice(0,3)
+                .map(
+                  (
+                    {
+                      _id,
+                      category,
+                      // deadline,
+                      // price,
+                      title,
+                      // createdAt,
+                      images,
+                      desc,
+                      // collected,
+                    },
+                    idx
+                  ) => (
+                    <ProjectCard
+                      key={idx}
+                      category={category}
+                      desc={desc}
+                      title={title}
+                      // createdAt={createdAt}
+                      id={_id}
+                      images={images}
+                      // price={price}
+                      // collected={collected}
                     />
                   )
                 )}
@@ -203,9 +241,6 @@ export default function HomePage({
             </div>
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
               {teams
-                .filter(
-                  (team) => team?.status?.toLocaleLowerCase() === "approved"
-                )
                 .slice(0, 3)
                 .map(({ _id, title, images, link, tags }, idx) => (
                   <TeamCard
@@ -240,7 +275,16 @@ export default function HomePage({
             </div>
             {/*  */}
             <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12">
-              {articles?.slice(0, 3).map(({_id,title,content,image}, idx) => (
+              {blogs?.slice(0, 3).map(({id,title,description,image}, idx) => (
+                <BlogCard
+                   key={idx}
+                   id={id}
+                   title={title}
+                   image={image}
+                   content={description}
+                 />
+              ))}
+              {/* {articles?.slice(0, 3).map(({_id,title,content,image}, idx) => (
                 <BlogCard
                    key={idx}
                    id={_id}
@@ -248,7 +292,7 @@ export default function HomePage({
                    image={image}
                    content={content}
                  />
-              ))}
+              ))} */}
             </div>
             <div className="w-fit mx-auto">
               <Link href="/blog">
@@ -275,7 +319,8 @@ export default function HomePage({
                 .filter(
                   (item) =>
                     item?.status?.toLocaleLowerCase() === "top" ||
-                    item?.status?.toLocaleLowerCase() === "approved"
+                    item?.status?.toLocaleLowerCase() === "approved" ||
+                    item?.status?.toLocaleLowerCase() === "approved top" 
                 )
                 .slice(0, 6)
                 .map(
@@ -283,13 +328,13 @@ export default function HomePage({
                     {
                       _id,
                       category,
-                      deadline,
-                      price,
                       title,
                       createdAt,
                       images,
                       desc,
-                      collected,
+                      // deadline,
+                      // price,
+                      // collected,
                     },
                     idx
                   ) => (
@@ -300,9 +345,9 @@ export default function HomePage({
                       title={title}
                       createdAt={createdAt}
                       id={_id}
-                      price={price}
                       images={images}
-                      collected={collected}
+                      // price={price}
+                      // collected={collected}
                     />
                   )
                 )}
@@ -317,18 +362,17 @@ export default function HomePage({
           </div>
         </section>
         {/* Events */}
-        <section className="bg-white py-12">
+        {/* <section className="bg-light py-12">
           <div className="container">
-            <div className="mb-14 text-center">
+            <div className="mb-2 text-center">
               <h1 className="text-4xl font-black text-dark capitalize">
                 {t("upcoming_events")}
               </h1>
               <p className="w-full md:w-2/4 md:mx-auto text-lightDark mt-8">
                 {t("upcoming_events_desc")}
               </p>
-            </div>
-            {/*  */}
-             <div className="flex flex-col w-full mx-auto space-y-10 bg-transparent  rounded  ">
+            </div> */} 
+             {/* <div className="flex flex-col w-full mx-auto space-y-10 bg-transparent  rounded  ">
 
               {events.map(({name,desc,image,link,date,_id}, idx) => (
                 
@@ -346,7 +390,7 @@ export default function HomePage({
             </div>
            
           </div>
-        </section>
+        </section> */}
         {/* newsletter */}
         <section className="mt-16 pb-8 md:p-0 bg-light">
           <figure className="block md:hidden relative h-64 overflow-hidden">
@@ -431,35 +475,36 @@ export default function HomePage({
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  let motos: IMoto[] = [];
   let projects: IProject[] = [];
   let teams: ITeam[] = [];
-  let motos: IMoto[] = [];
-  let events: IEvent[] = [];
-  let articles: IArticle[] = [];
+  // let events: IEvent[] = [];
+  // let articles: IArticle[] = [];
   try {
-    const [{ data: motosData }, { data: projectsData }, { data: teamsData },{ data: eventsData},{data:articlesData}] =
+    // ,{ data: eventsData},{data:articlesData}] =
+    const [{ data: motosData }, { data: projectsData } , { data: teamsData }] =
       await Promise.all([
         client.get("/motos"),
         client.get("/posts"),
-        client.get("/teams"),
-        client.get("/events"),
-        client.get("/blog"),
+        client.get("/teams?status=approved"),
       ]);
+      // client.get("/events"),
+      // client.get("/blog"),
     projects = projectsData;
     motos = motosData;
     teams = teamsData;
-    events = eventsData;
-    articles = articlesData;
+    // events = eventsData;
+    // articles = articlesData;
   } catch (error) {
-    console.log(error);
+    console.log("error is : "+error);
   }
+  // events,
+  // articles,
   return {
     props: {
       projects,
-      teams,
       motos,
-      events,
-      articles,
+      teams,
       ...(await serverSideTranslations(locale as string, [
         "home-page",
         "newsletter",

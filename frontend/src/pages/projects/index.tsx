@@ -71,7 +71,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                       createdAt={createdAt}
                       id={_id}
                       category={category}
-                      deadline={deadline}
+                      // deadline={deadline}
                       price={price}
                       desc={desc}
                       images={images}
@@ -91,7 +91,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                     {
                       _id,
                       category,
-                      deadline,
+                      // deadline,
                       desc,
                       images,
                       price,
@@ -107,7 +107,7 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
                       createdAt={createdAt}
                       id={_id}
                       category={category}
-                      deadline={deadline}
+                      // deadline={deadline}
                       price={price}
                       desc={desc}
                       images={images}

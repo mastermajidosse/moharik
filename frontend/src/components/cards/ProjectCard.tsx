@@ -30,18 +30,17 @@ interface ProjectCardProps {
   images: string[];
   price?: number;
   collected?: number;
-  createdAt: Date;
+  createdAt?: Date;
   likes?: string[] | [];
 }
 
 export default function ProjectCard({
   id,
   category,
-  createdAt,
-  images,
-  price,
+  // createdAt,
+  images, 
   title,
-  collected,
+  desc,
   isMine = false,
 }: ProjectCardProps) {
   const { t } = useTranslation("project");
@@ -50,15 +49,17 @@ export default function ProjectCard({
     "likes",
     []
   );
-  const progress =
-    collected && price ? (1 - (price - collected) / 100) * 100 : 0;
-  const daysCount = dayjs(Date.now()).diff(dayjs(createdAt), "days");
+  // const progress =
+  //   collected && price ? (1 - (price - collected) / 100) * 100 : 0;
+  // dayjs(Date.now()).diff(dayjs(createdAt), "days");
 
   async function handleLike() {
     try {
       if (!storedValue.find((item) => item.id === id)) {
         setValue([
-          { id, category, createdAt, images, price, title, collected },
+          { id, category,images, title,desc},
+          // { id, category, createdAt, images, price, title, collected },
+
           ...storedValue,
         ]);
         toast.success("Project is Liked", {
@@ -91,9 +92,9 @@ export default function ProjectCard({
         {/* progress bar */}
         <div className="absolute bottom-0 left-0 w-full h-1.5 bg-light/50">
           <div
-            style={{
-              width: `${progress}%`,
-            }}
+            // style={{
+            //   width: `${progress}%`,
+            // }}
             className="h-full bg-primary-400"
           />
           {isMine && (
@@ -136,24 +137,39 @@ export default function ProjectCard({
         </Link>
         <Link href={`/projects/${id}`}>
           <a>
-            <h3 className="text-dark h-[56px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">
+            <h3 className="text-dark h-[26px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">
                 {
                 typeof title === "string" ? title : title.en
                 }
             </h3>
+        { (
+            <p className="text-lightDark text-sm font-medium">
+            <div className="md:w-11/12 my-4">
+            <div 
+            className="text-dark h-[56px] text-xs md:text-sm group-hover:underline line-clamp-2 cursor-pointer"
+              dangerouslySetInnerHTML={{
+                __html:desc === "string" ? desc : desc?.en
+              }}
+            />
+          </div> 
+            </p>
+          
+        )}
           </a>
+
         </Link>
    
-        { (
+        {/* { (
           <div className="flex flex-col gap-1 border-t pt-2 justify-center">
             <p className="text-lightDark text-sm font-medium">
               {daysCount > 0
                 ? t("created_days_ago", { date: daysCount })
                 : t("created_today")}
+            
             </p>
           
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

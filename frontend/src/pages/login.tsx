@@ -162,7 +162,7 @@ export default function LoginPage() {
               </button>
             </form>
             {/* OAuth links */}
-            <p className="text-center text-lg font-semibold mt-6">Or sign in</p>
+            {/* <p className="text-center text-lg font-semibold mt-6">Or sign in</p>
             <ul className="flex justify-center items-center gap-4 my-4">
               <li
                 onClick={() => signIn(providers?.facebook.id)}
@@ -196,7 +196,7 @@ export default function LoginPage() {
                 </svg>
                 <a href="">with {providers?.google.name}</a>
               </li>
-            </ul>
+            </ul> */}
             {/* register link */}
             <p className="text-lightDark text-center mt-8">
               {ttt("no_account")}

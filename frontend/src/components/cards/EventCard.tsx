@@ -23,11 +23,11 @@ export default function EventCard({
     console.log(ourDate)
 
   return (
-       <div className="my-10 shadow rounded-b-md">
+       <div className="my-10 shadow rounded-b-md bg-white">
                        
                         <div className="flex flex-col-reverse  lg:flex-row-reverse ">
                             <div
-                                className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-primary-500 md:rounded-r-lg  md:flex-col md:items-center md:justify-center md:w-1/5">
+                                className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-sky-200 md:rounded-r-lg  md:flex-col md:items-center md:justify-center md:w-1/5">
                                 <div className="md:text-3xl">{moment(date).format('MMM')}</div>
                                 <div className="md:text-6xl">{moment(date).format('d')}</div>
                                 <div className="md:text-3xl">{moment(date).format('yyyy')}</div>
@@ -35,7 +35,7 @@ export default function EventCard({
                             <div className="p-4 font-normal text-gray-800 md:w-4/5">
                                 
                                     <a target="_blank" href={`${link}`} rel="noreferrer">
-                                        <span className="mb-4 text-3xl flex items-center justify-center font-bold leading-none tracking-tight text-gray-800">{name}</span>
+                                        <span className="mb-6 mt-2 text-3xl flex items-start justify-start font-bold leading-none tracking-tight text-gray-800">{name}</span>
                                     </a>
                                 
                                    <div
@@ -46,8 +46,8 @@ export default function EventCard({
                                         />
                                             
                                         
-                                <div className="flex flex-row text-center justify-center   mt-4 text-gray-700">
-                                    <div className="w-sm px-4  px-6 py-2 bg-primary-500 rounded-full flex flex-row items-center justify-center">
+                                <div className="flex flex-row text-start justify-start mt-4 text-gray-700">
+                                    <div className="w-sm px-4 px-6 py-2 bg-sky-100 font-bold rounded-full flex flex-row items-center justify-start">
                                         <svg
                                                 width="18"
                                                 height="18"
@@ -71,7 +71,7 @@ export default function EventCard({
                                                     fill="currentColor"
                                                 />
                                                 </svg>
-                                                <span>
+                                                <span className="px-2">
                                                     {moment(date).format("h:mm a")}
                                                 </span>
                                     </div>
