@@ -19,7 +19,7 @@ interface ProjectCardProps {
         en: string;
         ar: string;
       };
-  desc?:
+  desc:
     | string
     | {
         en: string;
@@ -147,8 +147,8 @@ export default function ProjectCard({
             <div className="md:w-11/12 my-4">
             <div 
             className="text-dark h-[56px] text-xs md:text-sm group-hover:underline line-clamp-2 cursor-pointer"
-              dangerouslySetInnerHTML={{
-                __html:desc === "string" ? desc : desc?.en
+            dangerouslySetInnerHTML={{
+                __html: typeof desc === "string" ?  desc : desc.en
               }}
             />
           </div> 

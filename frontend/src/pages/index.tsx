@@ -128,7 +128,8 @@ export default function HomePage({
                         createdAt,
                         images, 
                         price,
-                        collected,
+                        desc,
+                        // collected,
                       },
                       idx
                     ) => (
@@ -136,10 +137,11 @@ export default function HomePage({
                         key={idx}
                         category={category}
                         title={title}
+                        desc={desc}
                         createdAt={createdAt}
                         id={_id}
                         price={price}
-                        collected={collected}
+                        // collected={collected}
                         images={images}
                       />
                     )
