@@ -53,7 +53,6 @@ export default function SingleProjectPage({
 }: {
   project: IProject | Record<string, never>;
 }) {
-  
   const { t } = useTranslation("project");
   const { t: tt } = useTranslation("common");
   const { locale } = useRouter();
@@ -119,8 +118,6 @@ export default function SingleProjectPage({
             : locale === "ar"
             ? project?.title?.en
             : project?.title?.en}
-        
-
         </title>
         <meta
           name="description"

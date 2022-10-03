@@ -40,16 +40,7 @@ export default function SingleBlogPage() {
     </>
   );
 }
-
-export async function getStaticPaths() {
-  const paths = blogs.map((blog, idx) => ({
-    params: { blogId: idx.toString() },
-  }));
-  return {
-    paths,
-    fallback: true,
-  };
-}
+ 
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {

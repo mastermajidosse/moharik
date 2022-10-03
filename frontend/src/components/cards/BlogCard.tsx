@@ -15,7 +15,7 @@ export default function BlogCard({
   date,
   id,
 }: BlogCardProps) {
-  console.log(title)
+  console.log(title);
 
   return (
     <Link href={`/blog/${id}`} passHref>

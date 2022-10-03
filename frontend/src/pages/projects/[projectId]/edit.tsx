@@ -86,12 +86,9 @@ export default function EditeProjectPage({
 
   const watchCategory = watch("category");
 
-  useEffect(
-    () => {
-      console.log("watchCategory: ", watchCategory)
-    },
-    [watchCategory]
-  );
+  useEffect(() => {
+    console.log("watchCategory: ", watchCategory);
+  }, [watchCategory]);
 
   return (
     <>

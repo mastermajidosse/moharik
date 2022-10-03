@@ -6,13 +6,10 @@ import { IArticle } from "../../interfaces/article";
 import { client } from "../../utils/api";
 
 export default function SingleBlogPage({
-  blog }
-  : {
-
-    blog: IArticle | Record<string, never>;
-
-  }) {
-
+  blog,
+}: {
+  blog: IArticle | Record<string, never>;
+}) {
   return (
     <>
       <Head>
@@ -53,11 +50,14 @@ export default function SingleBlogPage({
 //   };
 // }
 
-export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  locale,
+}) => {
   const { blogId } = query;
   let blog: IArticle | Record<string, never> = {};
   try {
-    console.log(blogId)
+    console.log(blogId);
     const { data } = await client.get(`/blog/${blogId}`);
     blog = data;
     console.log("blog article: ", blog);

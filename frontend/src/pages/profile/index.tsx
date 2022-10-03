@@ -26,17 +26,17 @@ interface ProfilePageProps {
 interface ProjectCardProps {
   id: string;
   title:
-  | string
-  | {
-    en: string;
-    ar: string;
-  };
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
   desc:
-  | string
-  | {
-    en: string;
-    ar: string;
-  };
+    | string
+    | {
+        en: string;
+        ar: string;
+      };
   category?: ICategory;
   images: string[];
   price?: number;
@@ -153,14 +153,13 @@ export default function ProfilePage({
                   </a>
                 </Link>
               )}
-               {myProfile.isAdmin && (
+              {myProfile.isAdmin && (
                 <Link href="/events/create">
                   <a className="rounded-md font-medium px-4 py-2 cursor-pointer bg-primary-500 text-white">
                     {t("add_event")}
                   </a>
                 </Link>
               )}
-              
             </div>
           </div>
           <div className="">
@@ -185,11 +184,11 @@ function MyFavorites({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {myFavorites.map(
-        ({ id, category, images, title, createdAt,desc }, idx) => (
+        ({ id, category, images, title, createdAt, desc }, idx) => (
           <ProjectCard
             key={idx}
             id={id}
-            category={category} 
+            category={category}
             images={images}
             title={title}
             createdAt={createdAt}
@@ -230,7 +229,7 @@ function MyProjects({ myProjects }: { myProjects: IProject[] | [] }) {
             createdAt={createdAt}
             id={_id}
             desc={desc}
-            category={category} 
+            category={category}
             images={images}
             isMine={true}
           />
@@ -280,18 +279,21 @@ export const getServerSideProps: GetServerSideProps = async ({
       { data: myProfileData },
     ] = await Promise.all([
       client.get<IProject[]>(
-        `/posts/user/${(JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
+        `/posts/user/${
+          (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
         }`
       ),
       client.get<ITeam[]>(
-        `/teams/user/${(JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
+        `/teams/user/${
+          (JSON.parse(cookies.currentUser) as ICurrentUser)?._id || ""
         }`
       ),
       // client.get(),
       client.get<ICurrentUser>("/users/profile", {
         headers: {
-          Authorization: `Bearer ${(JSON.parse(cookies.currentUser) as ICurrentUser)?.token || ""
-            }`,
+          Authorization: `Bearer ${
+            (JSON.parse(cookies.currentUser) as ICurrentUser)?.token || ""
+          }`,
         },
       }),
     ]);
@@ -299,7 +301,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     myProjects = myProjectsData;
     myTeams = myTeamsData;
     myProfile = myProfileData;
-    console.log("myProjects:", myProjects)
+    console.log("myProjects:", myProjects);
   } catch (error) {
     console.log(error);
   }

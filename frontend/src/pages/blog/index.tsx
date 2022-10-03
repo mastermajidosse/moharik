@@ -9,10 +9,10 @@ import { IArticle } from "../../interfaces/article";
 
 interface ArticlePageProps {
   blogs: IArticle[] | [];
-  blog:IArticle | any;
+  blog: IArticle | any;
 }
 
-export default function BlogPage({ blogs,blog }: ArticlePageProps) {
+export default function BlogPage({ blogs, blog }: ArticlePageProps) {
   const { t } = useTranslation("blog");
   const { t: tt } = useTranslation("common");
   return (
@@ -25,7 +25,7 @@ export default function BlogPage({ blogs,blog }: ArticlePageProps) {
         />
       </Head>
       {/* featured blog */}
-      <FeaturedBlogCard blog={blog}/>
+      <FeaturedBlogCard blog={blog} />
       {/* page title */}
       <div className="container my-20 text-center">
         <h1 className="text-2xl md:text-3xl text-dark font-bold">
@@ -38,14 +38,14 @@ export default function BlogPage({ blogs,blog }: ArticlePageProps) {
       {/* blog list */}
       <section className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {blogs.map(({_id,title,image,content}, idx) => (
+          {blogs.map(({ _id, title, image, content }, idx) => (
             <BlogCard
-                   key={idx}
-                   id={_id}
-                   title={title}
-                   image={image}
-                   content={content}
-                 />
+              key={idx}
+              id={_id}
+              title={title}
+              image={image}
+              content={content}
+            />
           ))}
         </div>
         <div className="flex justify-center mt-12">
@@ -60,7 +60,7 @@ export default function BlogPage({ blogs,blog }: ArticlePageProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let blogs: IArticle[] = [];
-  let blog : IArticle | any = {};
+  let blog: IArticle | any = {};
   // try {
   //   const { data } = await client.get("/blog");
   //   const blog = await client.get("/blog/top");
@@ -70,23 +70,14 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   //   console.log(error);
   // }
 
-  const [
-      { data: blogsData },
-      { data: blogData },
-    ] = await Promise.all([
-      client.get<IArticle[]>(
-        `/blog`
-      ),
-      client.get<IArticle>(
-        `/blog/top`
-      ),
-      
-    ]);
+  const [{ data: blogsData }, { data: blogData }] = await Promise.all([
+    client.get<IArticle[]>(`/blog`),
+    client.get<IArticle>(`/blog/top`),
+  ]);
 
-
-    blogs = blogsData;
-    blog = blogData;
-    console.log("blogs",blogs)
+  blogs = blogsData;
+  blog = blogData;
+  console.log("blogs", blogs);
   return {
     props: {
       blogs,

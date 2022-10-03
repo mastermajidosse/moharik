@@ -38,7 +38,7 @@ export default function ProjectCard({
   id,
   category,
   // createdAt,
-  images, 
+  images,
   title,
   desc,
   isMine = false,
@@ -57,7 +57,7 @@ export default function ProjectCard({
     try {
       if (!storedValue.find((item) => item.id === id)) {
         setValue([
-          { id, category,images, title,desc},
+          { id, category, images, title, desc },
           // { id, category, createdAt, images, price, title, collected },
 
           ...storedValue,
@@ -132,33 +132,29 @@ export default function ProjectCard({
             }}
             className="w-fit px-4 py-1 text-xs tracking-wide leading-relaxed text-light capitalize font-medium cursor-pointer"
           >
-            {category &&  category?.name?.en }
+            {category && category?.name?.en}
           </p>
         </Link>
         <Link href={`/projects/${id}`}>
           <a>
             <h3 className="text-dark h-[26px] text-lg md:text-xl font-black group-hover:underline line-clamp-2 cursor-pointer">
-                {
-                typeof title === "string" ? title : title.en
-                }
+              {typeof title === "string" ? title : title.en}
             </h3>
-        { (
-            <p className="text-lightDark text-sm font-medium">
-            <div className="md:w-11/12 my-4">
-            <div 
-            className="text-dark h-[56px] text-xs md:text-sm group-hover:underline line-clamp-2 cursor-pointer"
-            dangerouslySetInnerHTML={{
-                __html: typeof desc === "string" ?  desc : desc.en
-              }}
-            />
-          </div> 
-            </p>
-          
-        )}
+            {
+              <p className="text-lightDark text-sm font-medium">
+                <div className="md:w-11/12 my-4">
+                  <div
+                    className="text-dark h-[56px] text-xs md:text-sm group-hover:underline line-clamp-2 cursor-pointer"
+                    dangerouslySetInnerHTML={{
+                      __html: typeof desc === "string" ? desc : desc.en,
+                    }}
+                  />
+                </div>
+              </p>
+            }
           </a>
-
         </Link>
-   
+
         {/* { (
           <div className="flex flex-col gap-1 border-t pt-2 justify-center">
             <p className="text-lightDark text-sm font-medium">

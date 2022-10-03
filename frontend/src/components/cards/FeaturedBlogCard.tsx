@@ -3,18 +3,12 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import { IArticle } from "../../interfaces/article";
 
-
 interface BlogArticleProps {
-  blog: IArticle ;
+  blog: IArticle;
 }
 
-
-
-export default function FeaturedBlogCard({
-  blog
-}: BlogArticleProps) {
-
-console.log(blog)
+export default function FeaturedBlogCard({ blog }: BlogArticleProps) {
+  console.log(blog);
   const { locale } = useRouter();
   return (
     <section className="relative w-full md:h-[480px] h-[300px]">

@@ -4,7 +4,7 @@ export interface IEvent {
   image: string;
   link: string;
   desc: string;
-  date:string;
+  date: string;
   createdAt: Date;
   updatedAt: Date;
 }

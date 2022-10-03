@@ -18,8 +18,6 @@ export default function CategoriesInput({
   required = false,
   error,
 }: CategoriesInputProps) {
-
- 
   const { categories } = useGetCategories();
   return (
     <div className="">
@@ -40,13 +38,13 @@ export default function CategoriesInput({
                 "cursor-pointer px-4 py-2 font-medium rounded-full duration-500 text-sm capitalize",
                 {
                   "text-lightDark hover:text-white hover:bg-primary-400 bg-slate-100 duration-500":
-                    category._id !== getValues("category") ,
+                    category._id !== getValues("category"),
                   "text-white bg-primary-400 duration-500":
                     category._id === getValues("category"),
                 }
               )}
             >
-              {category &&  category?.name?.en}
+              {category && category?.name?.en}
             </label>
             <input
               className="absolute w-full h-full top-0 left-0 opacity-0 cursor-pointer "

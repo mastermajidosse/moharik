@@ -15,13 +15,15 @@ export default function TeamsPage({ teams }: { teams: ITeam[] | [] }) {
       </Head>
       <section className="container mt-10 py-16 md:py-24 bg-white flex flex-col">
         <div className="">
-        <div className="mb-14 text-center">
+          <div className="mb-14 text-center">
             <h1 className="text-3xl font-black text-dark">
               Moharik <span className="text-primary">Teams</span>
             </h1>
             <p className="w-full md:w-3/5 md:mx-auto text-lightDark mt-8">
-              In case you can't find the fund and don't know anyone to join you in your project
-              you can reach us out to create a team for you and help you create a small group of people that want to work on same subject
+              In case you people to help and cannot find anyone to join you in
+              your project you can reach us out to create a team for you and
+              help you create a small group of people that want to work on same
+              subject
             </p>
           </div>
         </div>
