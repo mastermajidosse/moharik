@@ -28,6 +28,7 @@ import CreateComment from "../../../components/materials/CreateComment";
 
 interface ProjectCardProps {
   id: string;
+  link?: string;
   title:
     | string
     | {
@@ -66,7 +67,7 @@ export default function SingleProjectPage({
     likes,
     images,
     title,
-    supportLink,
+    link,
     user,
     comments,
   } = project;
@@ -87,6 +88,7 @@ export default function SingleProjectPage({
             likes,
             images,
             title,
+            link,
             id: _id,
           },
           ...storedValue,
@@ -130,7 +132,7 @@ export default function SingleProjectPage({
           }
         />
       </Head>
-      <section className="container mt-10 py-16 md:py-24 bg-white grid grid-cols-12 gap-10">
+      <section className="container py-12 md:py-16 bg-white grid grid-cols-12 gap-10">
         <div className="col-span-full md:col-span-8">
           {/* title */}
           <h1 className="hidden md:block mb-5 text-3xl font-black text-dark tracking-wide">
@@ -205,7 +207,8 @@ export default function SingleProjectPage({
               )}
               <a
                 target="_blank"
-                href={supportLink ? supportLink : "https://patreon.com/Moharik"}
+                href={link}
+                //  ? supportLink : "https://patreon.com/Moharik"}
                 rel="noreferrer"
                 className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
               >
@@ -265,7 +268,9 @@ export default function SingleProjectPage({
           <div className="md:w-11/12 w-full flex  gap-3 mt-5">
             <a
               target="_blank"
-              href={supportLink ? supportLink : "https://patreon.com/Moharik"}
+              href={link}
+
+              // href={supportLink ? supportLink : "https://patreon.com/Moharik"}
               rel="noreferrer"
               className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
             >
@@ -412,7 +417,9 @@ export default function SingleProjectPage({
               </div>
               <a
                 target="_blank"
-                href={supportLink ? supportLink : "https://patreon.com/Moharik"}
+                href={link}
+
+                // href={supportLink ? supportLink : "https://patreon.com/Moharik"}
                 rel="noreferrer"
                 className="w-full text-center py-2 bg-gradient-to-tr from-primary-700 to-primary-300 text-lg font-medium text-light rounded shadow-header-light hover:from-primary-600 duration-200"
               >

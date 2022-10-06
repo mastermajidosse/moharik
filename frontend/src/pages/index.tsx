@@ -58,11 +58,11 @@ export default function HomePage({
   return (
     <>
       <Head>
-        <title>Moharik</title>
+        <title>Moharik : محرك</title>
       </Head>
-      <div className="mt-16 py-16 md:py-24 bg-light">
+      <div className="py-16 md:py-24 bg-light">
         {/* hero */}
-        <section className="__hero_vh bg-light mb-8">
+        <section className="__hero_vh bg-light">
           <div className="container grid grid-cols-1 md:grid-cols-12 gap-4">
             <div className="md:col-span-4 h-auto md:h-full flex flex-col justify-center gap-4">
               <Motos />
@@ -94,8 +94,8 @@ export default function HomePage({
             <figure className="md:col-span-8 md:h-[400px]">
               <img
                 className="w-full h-full object-cover rounded-2xl"
-                src="https://images.gofundme.com/nXZQjDEdnDuHrY96dXs1D6v7jp8=/720x405/https://d2g8igdw686xgo.cloudfront.net/64550899_1649356998460419_r.jpeg"
-                alt=""
+                src="/assets/images/home.jpg"
+                alt="محرك"
               />
             </figure>
           </div>
@@ -117,7 +117,7 @@ export default function HomePage({
                   .slice(0, 3)
                   .map(
                     (
-                      { _id, category, title, createdAt, images, price, desc },
+                      { _id, category, title, createdAt, images, price, desc,link },
                       idx
                     ) => (
                       <ProjectCard
@@ -129,6 +129,7 @@ export default function HomePage({
                         id={_id}
                         price={price}
                         images={images}
+                        link={link}
                       />
                     )
                   )}
@@ -153,7 +154,7 @@ export default function HomePage({
                   (item) => item?.status?.toLocaleLowerCase() === "approved top"
                 )
                 .slice(0, 3)
-                .map(({ _id, category, title, images, desc }, idx) => (
+                .map(({ _id, category, title, images, desc,link }, idx) => (
                   <ProjectCard
                     key={idx}
                     category={category}
@@ -161,6 +162,8 @@ export default function HomePage({
                     title={title}
                     id={_id}
                     images={images}
+                    link={link}
+
                   />
                 ))}
             </div>
@@ -256,7 +259,7 @@ export default function HomePage({
                 )
                 .slice(0, 6)
                 .map(
-                  ({ _id, category, title, createdAt, images, desc }, idx) => (
+                  ({ _id, category, title, createdAt, images, desc,link }, idx) => (
                     <ProjectCard
                       key={idx}
                       category={category}
@@ -265,6 +268,8 @@ export default function HomePage({
                       createdAt={createdAt}
                       id={_id}
                       images={images}
+                      link={link}
+
                     />
                   )
                 )}

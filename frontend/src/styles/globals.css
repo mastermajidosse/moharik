@@ -285,6 +285,7 @@
 .__hero_vh {
   height: calc(100vh - 160px);
 }
+ 
 
 /* overwrite tag-input styles */
 .rti--container {

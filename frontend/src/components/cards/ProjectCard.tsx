@@ -32,6 +32,7 @@ interface ProjectCardProps {
   collected?: number;
   createdAt?: Date;
   likes?: string[] | [];
+  link?: string;
 }
 
 export default function ProjectCard({
@@ -41,6 +42,7 @@ export default function ProjectCard({
   images,
   title,
   desc,
+  link,
   isMine = false,
 }: ProjectCardProps) {
   const { t } = useTranslation("project");
@@ -57,7 +59,7 @@ export default function ProjectCard({
     try {
       if (!storedValue.find((item) => item.id === id)) {
         setValue([
-          { id, category, images, title, desc },
+          { id, category, images, title, desc,link },
           // { id, category, createdAt, images, price, title, collected },
 
           ...storedValue,
@@ -120,12 +122,14 @@ export default function ProjectCard({
           )}
         </div>
       </figure>
+      
       <div className="w-full bg-white group-hover:bg-primary-50/10 duration-200 p-5 flex flex-col gap-3">
         <Link
           href={`/projects?category=${
             category?.name?.en?.toLocaleLowerCase() || category
           }`}
         >
+
           <p
             style={{
               backgroundColor: category?.color || "red",

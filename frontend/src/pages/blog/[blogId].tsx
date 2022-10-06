@@ -13,7 +13,7 @@ export default function SingleBlogPage({
   return (
     <>
       <Head>
-        <title>Moharik| {blog?.title}</title>
+        <title>{blog?.title}</title>
         <meta name="description" content={blog?.content} />
       </Head>
       <section className="w-full bg-light min-h-screen mt-10">

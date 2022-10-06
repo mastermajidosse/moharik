@@ -1,13 +1,13 @@
 import { NextSeoProps } from "next-seo";
 export const defaultSEO: NextSeoProps = {
   description:
-    "Moharik is a way to raise money from an investor to provide the capital needed to get a company or project off the ground. Individuals, charities, or companies can create a campaign for specific causes and anyone can provide the money for the project they choose",
+  "Moharik is a way to help achive your goal by raising money from an investor to provide the capital needed to get a company or project off the ground or by teaming up with good like minded people.",
   openGraph: {
     //TODO: this must be generated at page level not top level
     url: "https://www.moharik.ma",
-    title: "Moharik",
+    title: "Moharik : محرك",
     description:
-      "Moharik is a way to raise money from an investor to provide the capital needed to get a company or project off the ground. Individuals, charities, or companies can create a campaign for specific causes and anyone can provide the money for the project they choose",
+      "Moharik is a way to help achive your goal by raising money from an investor to provide the capital needed to get a company or project off the ground or by teaming up with good like minded people.",
     images: [
       {
         url: "https://www.moharik.ma/logo.jpg",
@@ -26,6 +26,6 @@ export const defaultSEO: NextSeoProps = {
       { url: "https://www.moharik.ma/logo.jpg" },
       { url: "https://www.moharik.ma/logo.jpg" },
     ],
-    site_name: "Moharik",
+    site_name: "Moharik : محرك",
   },
 };

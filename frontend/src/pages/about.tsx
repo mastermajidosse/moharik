@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 export default function AboutPage() {
   const { t } = useTranslation("about");
   return (
-    <div className="container mt-10 py-16 md:py-24">
+    <div className="container bg-light py-12 md:py-16">
       <Head>
         <title>Moharik | About</title>
       </Head>
@@ -20,12 +20,17 @@ export default function AboutPage() {
       {/* pic section */}
       <section className="my-8 md:my-16 w-full md:w-2/3 mx-auto">
         <figure className="relative rounded-md overflow-hidden">
-          <img src="/assets/images/about.jpg" alt="about moharik" />
+          <img src="/assets/images/about.jpg" alt="محرك معا" />
         </figure>
       </section>
       <p className="w-full md:w-9/10 mx-auto text-lightDark font-medium text-sm md:text-base leading-relaxed tracking-wide text-center">
         {t("about_desc_2")}
       </p>
+      {/* <section className="my-8 md:my-16 w-full md:w-2/3 mx-auto">
+        <figure className="relative rounded-md overflow-hidden">
+          <img src="/assets/images/cover.jpg" alt="محرك كوفر" />
+        </figure>
+      </section> */}
     </div>
   );
 }

@@ -28,7 +28,7 @@ export interface IProject {
         ar: string;
       };
   status: string;
-  supportLink?: string;
+  link?: string;
   category?: ICategory;
   images: string[];
   price: number;

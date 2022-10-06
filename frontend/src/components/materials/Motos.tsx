@@ -18,13 +18,13 @@ export default function Motos() {
           "hero-text__list_ar": locale === "ar",
         })}
       >
-        <h2 className="text-4xl font-black text-dark capitalize h-full ">
+        <h2 className="text-4xl font-black text-dark  capitalize h-full ">
           {t("moto_1")}
         </h2>
         <h2 className="text-4xl font-black text-dark capitalize h-full">
           {t("moto_2")}
         </h2>
-        <h2 className="text-4xl font-black text-dark capitalize h-full pt-4">
+        <h2 className="text-4xl font-black text-dark  capitalize h-full pt-4">
           {t("moto_3")}
         </h2>
         <h2 className="text-4xl font-black text-dark capitalize h-full ">
