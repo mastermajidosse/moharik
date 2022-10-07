@@ -4,14 +4,6 @@
 const { i18n } = require("./next-i18next.config");
 
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://api.moharik.ma/:path*',
-      },
-    ]
-  },
   reactStrictMode: true,
   i18n,
   eslint: {
