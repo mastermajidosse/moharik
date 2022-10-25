@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   // }
 
   const [{ data: blogsData }, { data: blogData }] = await Promise.all([
-    client.get<IArticle[]>(`/blog`),
+    client.get<IArticle[]>(`/blog?status=approved`),
     client.get<IArticle>(`/blog/top`),
   ]);
 
