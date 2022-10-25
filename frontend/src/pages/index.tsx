@@ -372,7 +372,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let teams: ITeam[] = [];
   try {
     const [{ data: projectsData }, { data: teamsData }] = await Promise.all([
-      client.get("/posts"),
+      client.get("/posts?status=approved"),
       client.get("/teams?status=approved"),
     ]);
     projects = projectsData;

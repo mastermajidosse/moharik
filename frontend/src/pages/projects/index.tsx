@@ -132,7 +132,8 @@ export default function ProjectsPage({ projects }: ProjectsPageProps) {
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let projects: IProject[] = [];
   try {
-    const { data } = await client.get("/posts");
+    const { data } = await client.get("/posts?status=approved");
+    // const { data } = await client.get("/posts");
     projects = data;
     // console.log("projects: ", projects);
   } catch (error) {

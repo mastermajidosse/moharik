@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { SquaredSolidButton } from "../materials/Buttons";
-import { BurgerMenuIcon } from "../materials/icons";
+import { BurgerMenuIcon, UserIcon } from "../materials/icons";
 import MobileMenu from "../menu/MobileMenu";
 import { navs } from "../../data/navs";
 import { ICurrentUser } from "../../interfaces/currentUser";
@@ -28,13 +28,25 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState<null | ICurrentUser>(null);
+  const [name, setName] = useState<string | null>(null);
+
 
   useLayoutEffect(() => {
     const cookie = getCookie("currentUser");
     if (!cookie) return;
     const cr = JSON.parse(cookie?.toString() as string) as ICurrentUser;
     setCurrentUser(cr);
+    
   }, []);
+
+  useEffect(() => {
+    const currentUser = getCookie("currentUser");
+    if (currentUser) {
+      const parsed = JSON.parse(currentUser as string) as ICurrentUser;
+      setName(parsed?.name || null);
+    }
+  }, []);
+
 
   return (
     <header 
@@ -113,7 +125,25 @@ export default function Header() {
         </div>
         <div className="hidden md:flex">
           {currentUser ? (
-            <ProfileMenu />
+            // <ProfileMenu />
+            <Link href="/profile">
+            <figure 
+          className="w-10 h-10 flex justify-center items-center bg-primary-50 border-2 border-primary-200 rounded-full cursor-pointer"
+        >
+          <p className="text-lg font-medium text-primary-600">
+            {name!
+              .split(" ")
+              .map((str) => str.substring(0, 1))
+              .join("")
+              .toUpperCase()}
+          </p>
+        </figure>
+{/*            
+            <a className="flex gap-1 items-center">
+              <UserIcon width="16" height="16" />
+              {t("profile")}
+            </a> */}
+          </Link>
           ) : (
             <Link href="/login" passHref>
               <SquaredSolidButton className="hidden md:block mt-0 py-1 px-6 rounded-[0.25rem] bg-primary-500 text-white shadow-md shadow-lightDark/20 hover:bg-primary-800 duration-300">
